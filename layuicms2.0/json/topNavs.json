@@ -1,0 +1,30 @@
+[
+    {
+        "title": "内容管理",
+        "icon": "&#xe63c;",
+        "href": "",
+        "spread": false,
+        "menuName": "contentManagement"
+    },
+    {
+        "title": "用户中心",
+        "icon": "icon-icon10",
+        "href": "",
+        "spread": false,
+        "menuName": "memberCenter"
+    },
+    {
+        "title": "系统设置",
+        "icon": "&#xe620;",
+        "href": "",
+        "spread": false,
+        "menuName": "systemeSttings"
+    },
+    {
+        "title": "使用文档",
+        "icon": "&#xe705;",
+        "href": "",
+        "spread": false,
+        "menuName": "seraphApi"
+    }
+]

@@ -1,0 +1,333 @@
+﻿@charset "utf-8";
+
+/*顶部菜单*/
+.header-menu {
+    border-bottom: 5px solid #1AA094;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+
+    .header-menu .logo {
+        color: #fff;
+        float: left;
+        line-height: 60px;
+        font-size: 20px;
+        padding: 0 25px;
+        text-align: center;
+        width: 150px;
+    }
+
+
+    .header-menu .hideMenu {
+        width: 45px;
+        height: 100%;
+        text-align: center;
+        position: absolute;
+        top: 0px;
+        left: 155px;
+        color: #ffffff;
+    }
+
+
+    .header-menu .larry-top-menu {
+        float: left;
+    }
+
+/*左侧菜单*/
+.larry-left-navbar {
+    background-color: #393D49 !important;
+}
+
+    .larry-left-navbar .user-info {
+        width: 200px;
+        height: 120px;
+        padding: 15px 0 5px;
+    }
+
+.user-info a.photo {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+}
+
+    .user-info a.photo img {
+        display: block;
+        border: none;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border: 4px solid #44576b;
+        box-sizing: border-box;
+    }
+
+.user-info p {
+    display: block;
+    width: 100%;
+    height: 25px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    white-space: nowrap;
+    line-height: 25px;
+    overflow: hidden;
+}
+
+/*右侧主体内容*/
+.larry-body-box {
+    background: #F2F2F2;
+}
+
+    .larry-body-box .layui-tab {
+        margin: 0px;
+        margin-top: 3px;
+        position: relative;
+    }
+
+    .larry-body-box .larry-tab-title {
+        height: 40px;
+        position: absolute;
+        left: 41px;
+        background: #fafafa;
+        z-index: 1000;
+        overflow-y: hidden;
+        border-bottom-color: #1AA094;
+        top: 0;
+    }
+
+.larry-tab-title li {
+    border-right: 1px solid #e4dddd;
+}
+
+.larry-tab-title .layui-this {
+    background: #009688;
+    color: #fff;
+    height: 40px;
+}
+
+
+
+.larry-body-box .larry-operate-box {
+    width: 100%;
+    height: 40px;
+    background: #fafafa;     
+    border-bottom: 1px solid #1AA094;
+}
+
+.larry-operate-box .key-press {
+    width: 40px;
+    height: 40px;
+    background: #FFFFFF;
+    border-right: 1px solid #E2E2E2;
+    cursor: pointer;
+    color: #009688;
+    text-align: center;
+}
+
+    .larry-operate-box .key-press i {
+        font-weight: bold;
+        color: #009688;
+        font-size: 20px;
+        line-height: 40px;
+    }
+
+    .larry-operate-box .key-press:hover {
+        background: #f2f2f2;
+    }
+
+.larry-operate-box .go-left {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1005;
+}
+
+.larry-operate-box .title-right-box {
+    width: 230px;
+    height: 40px;
+    border-left: 1px solid #E5E5E5;
+    z-index: 1005;
+}
+
+.title-right-box .go-right {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.title-right-box .refresh {
+    width: 68px;
+    position: absolute;
+    top: 0px;
+    left: 41px;
+    background: #5EB95E;
+}
+
+    .title-right-box .refresh i {
+        font-size: 15px;
+        color: #fff;
+    }
+
+    .title-right-box .refresh cite {
+        font-size: 15px;
+        line-height: 40px;
+        padding-left: 3px;
+        color: #fff;
+    }
+
+    .title-right-box .refresh:hover {
+        background: #F7B824;
+    }
+
+.title-right-box .often-box {
+    width: 120px;
+    position: absolute;
+    top: 0px;
+    left: 109px;
+    background: #fafafa;
+    cursor: pointer;
+}
+
+    .title-right-box .often-box:hover {
+        background: #f2f2f2;
+        color: #333;
+    }
+
+.often-box ul.layui-nav {
+    display: block;
+    width: 120px;
+    height: 100%;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    background: none;
+}
+
+    .often-box ul.layui-nav .layui-nav-bar {
+        display: none;
+    }
+
+    .often-box ul.layui-nav li.layui-nav-item {
+        width: 120px;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        top: 0px;
+        left: 0px;
+    }
+
+.often-box a.often-btn {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 40px;
+    text-align: center;
+}
+
+    .often-box a.often-btn i {
+        display: inline-block;
+        width: 30px;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        top: 0px;
+        left: 5px;
+        color: #555;
+    }
+
+    .often-box a.often-btn:hover i {
+        color: #FF784E;
+    }
+
+    .often-box a.often-btn cite {
+        display: inline-block;
+        width: 65px;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        top: 0px;
+        left: 35px;
+        text-align: left;
+        color: #333;
+        padding: 0;
+    }
+
+    .often-box a.often-btn .layui-nav-more {
+        right: 10px;
+        border-color: #c2c2c2 transparent transparent;
+    }
+
+    .often-box a.often-btn .layui-nav-mored {
+        border-color: transparent transparent #c2c2c2;
+    }
+
+.often-box ul.layui-nav li.layui-nav-item dl.layui-nav-child {
+    width: 145px;
+    text-align: center;
+    position: absolute;
+    top: 42px;
+    left: -35px;
+    background: #fff;
+}
+
+
+
+.often-box ul.layui-nav li.layui-nav-item dl a {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+    text-align: center;
+    line-height: 40px;
+}
+
+    .often-box ul.layui-nav li.layui-nav-item dl a i {
+        display: inline-block;
+        vertical-align: top;
+        padding-right: 3px;
+        color: #333;
+    }
+
+    .often-box ul.layui-nav li.layui-nav-item dl a:hover {
+        background: #5EB95E;
+        color: #fff;
+    }
+
+        .often-box ul.layui-nav li.layui-nav-item dl a:hover i {
+            color: #fff;
+        }
+
+.often-box ul.layui-nav li.layui-nav-item dl dd.layui-this a {
+    color: #fff;
+}
+
+    .often-box ul.layui-nav li.layui-nav-item dl dd.layui-this a i {
+        color: #fff;
+    }
+
+
+.layui-tab .layui-tab-content {
+    margin: 0px;
+    padding: 0px;
+    background: #F1F2F7;
+}
+
+.layui-tab-content .layui-tab-item {
+    background: #F1F2F7;
+}
+
+    .layui-tab-content .layui-tab-item iframe {
+        width: 100%;
+        border: 0;
+        height: 100%;
+    }
