@@ -7,4 +7,4 @@ GitHub地址：https://github.com/BrotherMa/layuiCMS2.0
 
 # WeAdmin
 
-码云：http://lovetime.gitee.io/weadmin/
+码云：https://gitee.com/lovetime/WeAdmin
