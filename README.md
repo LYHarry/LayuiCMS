@@ -4,3 +4,7 @@
 GitHub地址：https://github.com/larryqin/larrycms
 # LayuiCMS2.0
 GitHub地址：https://github.com/BrotherMa/layuiCMS2.0
+
+# WeAdmin
+
+码云：http://lovetime.gitee.io/weadmin/
