@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>优惠券列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+
+<body>
+    <div class="weadmin-nav">
+        <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">管理员管理</a>
+            <a><cite>管理员列表</cite></a>
+        </span>
+        <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
+            href="javascript:location.replace(location.href);" title="刷新">
+            <i class="layui-icon" style="line-height:30px">&#xe669;</i></a>
+    </div>
+
+    <div class="weadmin-body">
+
+        <div class="we-search-box">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline">
+                        <input type="text" name="CouponTempName" placeholder="优惠券名称" autocomplete="off"
+                            class="layui-input">
+                    </div>
+                    <button class="layui-btn couponSerchBtn" lay-submit lay-filter="couponSerchBtn">
+                        <i class="layui-icon layui-icon-search"></i>搜索</button>
+                </div>
+                <div class="layui-form-item">
+                    <label>品类规则：</label>
+                    <div class="layui-inline search-list-box CategoryType">
+                        <span class="bw-search-list bw-cursor active" data-value="">不限</span>
+                        <span class="bw-search-list bw-cursor" data-value="1">拼车</span>
+                        <span class="bw-search-list bw-cursor" data-value="2">专车</span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label>金额规则：</label>
+                    <div class="layui-inline search-list-box RuleType">
+                        <span class="bw-search-list bw-cursor active" data-value="0">不限</span>
+                        <span class="bw-search-list bw-cursor" data-value="1">满减</span>
+                        <span class="bw-search-list bw-cursor" data-value="2">立减</span>
+                        <span class="bw-search-list bw-cursor" data-value="3">折扣</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="weadmin-block">
+            <button class="layui-btn addCouponBtn"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+        </div>
+
+        <table class="layui-table" id="couponListTable" lay-filter="couponListTable"></table>
+
+    </div>
+
+    <script type="text/html" id="couponListBar">
+        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+    </script>
+
+    <script type="text/javascript" src="/js/init.js"></script>
+
+</body>
+
+</html>

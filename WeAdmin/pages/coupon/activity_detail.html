@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>优惠券活动详情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+
+<body>
+
+    <div class="weadmin-body">
+        <form class="layui-form" lay-filter="actDetailForm">
+            <div class="bw-panel">
+                <blockquote class="layui-elem-quote marBot0">活动基本信息</blockquote>
+                <div class="bw-panel-content">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">活动名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="ActivityTitle" lay-verify="required" lay-reqText="活动名称不能为空"
+                                    placeholder="活动名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">活动地址</label>
+                            <div class="layui-input-inline">
+                                <select name="ActivityType" lay-filter="SeltActivityType">
+                                    <option value="1">线上活动</option>
+                                    <option value="2">线下活动</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <input type="text" name="ActivityUrlPath" placeholder="活动地址" autocomplete="off"
+                                class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">有效期</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="IndateDate" placeholder="点击选择时间" lay-verify="required"
+                                    lay-reqText="活动有效期时间不能为空" readonly='readonly' class="layui-input layui-date-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">活动状态</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="State" value="1" title="上线" checked>
+                                <input type="radio" name="State" value="2" title="下线">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bw-panel" id="couponMainBox">
+                <blockquote class="layui-elem-quote marBot0">优惠券</blockquote>
+                <div class="bw-panel-content">
+
+                    <table class="layui-hide" id="CouponActListTable" lay-filter="CouponActListTable"></table>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">总领取人数</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="TotalGetNum" placeholder="总领取人数" autocomplete="off"
+                                    class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="grayHint">不填代表不限人数</label>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">总优惠金额</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="TotalCouponAmount" placeholder="总优惠金额" autocomplete="off"
+                                    class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="grayHint">不填代表不限</label>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">发券设置</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="ActivitySendType" value="1" title="固定发券（全部）">
+                                <input type="radio" name="ActivitySendType" value="2" title="随机发券（一张）" checked>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">每人限领</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="ActivityRuleType" value="1" title="不限">
+                                <input type="radio" name="ActivityRuleType" value="2" title="限一次" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户标签</label>
+                            <div class="layui-input-block">
+                                <select name="ActivityUserTag">
+                                    <option value="1">新用户</option>
+                                    <option value="2">老用户</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bw-panel" id="shareMainBox">
+                <blockquote class="layui-elem-quote marBot0">分享设置</blockquote>
+                <div class="bw-panel-content">
+                    <div class="layui-form-item">
+                        <div class="layui-inline layui-col-lg3">
+                            <label class="layui-form-label">分享标题</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="Title" placeholder="分享标题" autocomplete="off"
+                                    class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-lg3">
+                            <label class="layui-form-label">关键词</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="KeyWord" placeholder="关键词" autocomplete="off"
+                                    class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">分享图标</label>
+                            <input type="hidden" name="IconPath" id="shareIconPath">
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn" id="shareIconhBtn">
+                                    <i class="layui-icon">&#xe67c;</i>上传图片
+                                </button>
+                                <label class="grayHint">支持jpg、png格式图片，100px*100px，10MB以内</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-hide" id="showShareIconBox">
+                        <div class="layui-input-block">
+                            <img src="/" style="height: 50px;">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline layui-col-lg5">
+                            <label class="layui-form-label">分享描述</label>
+                            <div class="layui-input-block">
+                                <textarea name="Describe" placeholder="请输入分享描述" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="subminBtnBox">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="addCouponActBtn">立即提交</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="weadmin-body" id="couponListBox" style="display: none;">
+        <table class="layui-hide" id="couponListTable" lay-filter="couponListTable"></table>
+        <input type="hidden" id="conpouIdList">
+    </div>
+
+    <script type="text/html" id="couponToolbar">
+        <a class="layui-btn" lay-event="addCoupon">添加优惠券</a>
+    </script>
+
+    <script type="text/html" id="couponListBar">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+
+    <script type="text/javascript" src="/js/init.js"></script>
+
+</body>
+
+</html>

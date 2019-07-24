@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>活动列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+
+<body>
+    <div class="weadmin-nav">
+        <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">管理员管理</a>
+            <a><cite>管理员列表</cite></a>
+        </span>
+        <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
+            href="javascript:location.replace(location.href);" title="刷新">
+            <i class="layui-icon" style="line-height:30px">&#xe669;</i></a>
+    </div>
+
+    <div class="weadmin-body">
+
+        <div class="we-search-box">
+            <form class="layui-form">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="ActivityTitle" placeholder="活动名称" autocomplete="off"
+                            class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label>状态</label>
+                    <div class="layui-input-inline">
+                        <select name="State">
+                            <option value="0">不限</option>
+                            <option value="1">上线</option>
+                            <option value="2">下线</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn" lay-submit lay-filter="activitySerchBtn">
+                        <i class="layui-icon layui-icon-search"></i>搜索</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="weadmin-block">
+            <button class="layui-btn addActivityBtn"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+        </div>
+
+        <table class="layui-table" id="activityListTable" lay-filter="activityListTable"></table>
+
+    </div>
+
+    <script type="text/javascript" src="/js/init.js"></script>
+
+</body>
+
+</html>

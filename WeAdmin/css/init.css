@@ -1,0 +1,45 @@
+.bw-cursor {
+    cursor: pointer;
+}
+
+.search-list-box .active {
+    color: #ff6c00;
+}
+
+.bw-search-list {
+    width: 60px;
+    text-align: center;
+    display: inline-block;
+    color: #3ba4b7;
+}
+
+.bw-search-list:hover {
+    color: #ff6c00;
+}
+
+.we-search-box {
+    display: block;
+    padding: 5px;
+    line-height: 22px;
+}
+
+.bw-panel {
+    clear: both;
+    margin-bottom: 15px;
+}
+
+.bw-panel-content {
+    border: 1px solid #e6e6e6;
+    padding: 10px;
+    border-top: none;
+}
+
+.marBot0 {
+    margin-bottom: 0;
+}
+
+.grayHint {
+    color: #777;
+    padding: 9px 0;
+    display: inline-block;
+}
