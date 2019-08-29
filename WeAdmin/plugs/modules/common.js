@@ -1,10 +1,11 @@
 //公共方法模块
-layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
+layui.define(['jquery', 'layer', 'table', 'upload', 'element'], function (exports) {
     'use strict';
 
     var $ = layui.jquery,
         layer = layui.layer,
         upload = layui.upload,
+        element = layui.element,
         table = layui.table;
 
     var util = {};
@@ -45,10 +46,11 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
         }
         var layerLoad = undefined;
         if (obj.showLoad !== false) {
-            layerLoad = layer.msg('数据请求中，请稍候', { icon: 16, time: false, shade: 0.8 });
+            // layerLoad = layer.msg('数据请求中，请稍候', { icon: 16, time: false, shade: 0.1 });
+            layerLoad = layer.load(1);
         }
         //处理请求参数
-        obj.data = dealParam(obj.data);
+        obj.data = util.dealParam(obj.data);
         //加密请求参数
         if (obj.escape === true) {
             obj.data = forEscape(obj.data);
@@ -61,7 +63,7 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
         var header = getUserAuthority();
         $.ajax({
             type: obj.type,
-            url: window.httpHeader + obj.url,
+            url: $Conf.httpHeader + obj.url,
             data: obj.data,
             dataType: "json",
             headers: header,
@@ -75,8 +77,9 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
                     layer.msg(res.Message, function () {
                         //没有登录
                         if (res.Status == -1) {
+                            util.addSession({ name: 'userSessionInfo', info: null });
                             util.addSession({ name: 'userAuthority', info: null });
-                            window.parent.location.href = '/pages/login/index.html';
+                            window.parent.location.href = '../../pages/main/login.html';
                         }
                     });
                     if (typeof (obj.errorBack) === 'function') { obj.errorBack(res); }
@@ -88,8 +91,9 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
                 //token过期
                 if (XMLHttpRequest.status == 401) {
                     layer.msg('授权已过期，请重新登录', { time: 4000 }, function () {
+                        util.addSession({ name: 'userSessionInfo', info: null });
                         util.addSession({ name: 'userAuthority', info: null });
-                        window.parent.location.href = '/pages/login/index.html';
+                        window.parent.location.href = '../../pages/main/login.html';
                     });
                 };
                 if (XMLHttpRequest.responseText != '') {
@@ -101,7 +105,9 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
                 }
             },
             complete: function (XHR, TS) {
-                layer.close(layerLoad);
+                setTimeout(function () {
+                    layer.close(layerLoad);
+                }, 500);
             }
         });
     };
@@ -214,44 +220,91 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
     //获取到列表数据并显示到页面
     util.showTableList = function (obj) {
         var option = obj.data;
-        if (!option.PageSize) option.PageSize = window.pages;
-        if (!option.PageIndex) option.PageIndex = 1;
+        if (!option.PageSize) option.PageSize = $Conf.pages;
         if (!option.ajaxType) option.ajaxType = 'post';
-        util.ajax({
-            url: option.url,
-            type: option.ajaxType,
-            data: option,
-            callback: function (res) {
-                var tableIns = table.render({
-                    id: obj.id,
-                    elem: obj.elem,
-                    toolbar: obj.toolbar,
-                    defaultToolbar: obj.defaultToolbar,
-                    page: obj.page === false ? false : true,
-                    data: res.Data.Items,
-                    cols: [obj.cols]
-                });
+        var ajaxType = option.ajaxType;
+        var ajaxUrl = option.url;
+        //处理请求参数
+        var ajaxData = util.dealParam(option);
+        //得到访问 Token
+        var header = getUserAuthority();
+        var tableIns = table.render({
+            id: obj.id,
+            elem: obj.elem,
+            toolbar: obj.toolbar,
+            defaultToolbar: obj.defaultToolbar,
+            loading: false,
+            url: $Conf.httpHeader + ajaxUrl,
+            method: ajaxType,
+            headers: header,
+            limit: option.PageSize,
+            contentType: 'application/json; charset=utf-8',
+            where: ajaxData,
+            request: {
+                pageName: 'PageIndex',
+                limitName: 'PageSize'
+            },
+            response: {
+                statusCode: 1
+            },
+            parseData: function (res) { //res 即为原始返回的数据
+                if (res.Status === 1) {
+                    return {
+                        "code": res.Status,
+                        "msg": res.Message,
+                        "count": res.Data.TotalItemCount,
+                        "data": res.Data.Items
+                    };
+                }
+                return {
+                    "code": res.Status,
+                    "msg": res.Message
+                };
+            },
+            page: {
+                layout: ['prev', 'page', 'next', 'skip', 'count']
+            },
+            cols: [obj.cols],
+            done: function (res, curr, count) { //数据渲染完的回调
                 if (typeof (obj.callback) === 'function') {
                     obj.callback(res, tableIns);
                 }
             }
         });
+
     };
 
     // 显示弹框
     util.showPopup = function (obj) {
         obj.type = parseInt(obj.type);
         obj.type = isNaN(obj.type) ? 1 : obj.type;
+        //拼接参数
+        if (obj.type === 2) {
+            if (typeof (obj.params) === 'undefined') obj.params = {};
+            if (getLength(obj.params) > 0) {
+                var paramStr = '';
+                for (var key in obj.params) {
+                    paramStr += key + '=' + obj.params[key] + '&';
+                }
+                if (obj.url.indexOf('?') == -1) {
+                    obj.url += '?' + paramStr;
+                } else {
+                    obj.url += '&' + paramStr;
+                }
+                obj.url = obj.url.substring(0, obj.url.length - 1);
+            }
+        }
         var index = layer.open({
             title: obj.title,
             type: obj.type,
+            area: ['85%', '85%'],
             content: obj.type === 2 ? obj.url : obj.dom,
             success: function (layero, index) {
-                setTimeout(function () {
-                    layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                }, 500);
+                // setTimeout(function () {
+                //     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                //         tips: 3
+                //     });
+                // }, 500);
                 //弹出回调
                 if (typeof (obj.popupBack) === 'function') obj.popupBack(layero, index);
             },
@@ -268,11 +321,11 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
                 if (typeof (obj.endBack) === 'function') obj.endBack(layero, index);
             }
         });
-        layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
+        // layer.full(index);
+        // //改变窗口大小时，重置弹窗的宽高，防止超出可视区域
+        // $(window).on("resize", function () {
+        //     layer.full(index);
+        // });
     };
 
     //上传文件
@@ -282,10 +335,12 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
         var header = getUserAuthority();
         upload.render({
             elem: obj.elem,
-            url: window.httpHeader + '/api/File/UploadAttachment',
+            url: $Conf.httpHeader + '/api/File/UploadAttachment',
             headers: header,
+            size: obj.size ? parseInt(obj.size) : 0,
             before: function (obj) {
-                layerLoad = layer.msg('上传中，请稍候', { icon: 16, time: false, shade: 0.8 });
+                // layerLoad = layer.msg('上传中，请稍候', { icon: 16, time: false, shade: 0.1 });
+                layerLoad = layer.load(1);
             },
             done: function (res, index, upload) {
                 layer.close(layerLoad);
@@ -309,8 +364,9 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
             message = "操作成功";
         }
         layer.msg(message, { time: 1500 }, function () {
-            layer.closeAll("iframe");
-            window.location.reload();
+            parent.layer.closeAll();
+            var w = parent.window == top.window ? window : parent.window;
+            w.location.reload();
         });
     };
 
@@ -345,10 +401,11 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
         }
         var layerLoad = undefined;
         if (obj.showLoad !== false) {
-            layerLoad = layer.msg('数据请求中，请稍候', { icon: 16, time: false, shade: 0.8 });
+            // layerLoad = layer.msg('数据请求中，请稍候', { icon: 16, time: false, shade: 0.1 });
+            layerLoad = layer.load(1);
         }
         //处理请求参数
-        obj.data = dealParam(obj.data);
+        obj.data = util.dealParam(obj.data);
         //导出数据不分页
         obj.data.IsPaged = false;
         //加密请求参数
@@ -363,7 +420,7 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
         var header = getUserAuthority();
         //请求数据
         var xhr = new XMLHttpRequest();
-        xhr.open(obj.type, window.httpHeader + obj.url, true);
+        xhr.open(obj.type, $Conf.httpHeader + obj.url, true);
         xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
         xhr.setRequestHeader("Accept", "application/json,text/javascript");
         xhr.setRequestHeader("Authorization", header.Authorization);
@@ -390,27 +447,8 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
         xhr.send(obj.data);
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //处理请求参数
-    function dealParam(obj) {
+    util.dealParam = function (obj) {
         if (typeof (obj) === 'undefined' || obj === null) return {};
         if (typeof (obj) === 'string') {
             try {
@@ -427,7 +465,7 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
             if (typeof (item) === 'string') {
                 item = item.replace(/undefined/g, '');
                 item = $.trim(item);
-                if (item == '') item = null;
+                // if (item == '') item = null;
             }
             if (typeof (item) === 'number' && isNaN(item)) item = 0;
             if (typeof (item) == 'object' && JSON.stringify(item) == "{}") item = null;
@@ -436,6 +474,44 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
         }
         return obj;
     };
+
+    //格式化结束时间
+    util.formatEndDate = function (time) {
+        time = (time || '').replace(new RegExp('-', 'g'), '/');
+        var dateTime = new Date(time);
+        var add0 = function (m) {
+            return m < 10 ? '0' + m : m;
+        };
+        var y = dateTime.getFullYear();
+        var m = dateTime.getMonth() + 1;
+        var d = dateTime.getDate();
+        var h = dateTime.getHours();
+        var mm = dateTime.getMinutes();
+        var s = dateTime.getSeconds();
+        if (h === 0 && mm === 0 && s === 0) {
+            return (y + '-' + add0(m) + '-' + add0(d) + ' 23:59:59');
+        }
+        return time;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //对提交的字符串进行转码
     function forEscape(obj) {
@@ -459,8 +535,8 @@ layui.define(['jquery', 'layer', 'table', 'upload'], function (exports) {
 
     //得到用户权限
     function getUserAuthority() {
-        var token = util.getUrlParam('token');
-        var CityIdentity = util.getUrlParam('CityIdentity');
+        var token = util.getSession('userAuthority');
+        var CityIdentity = util.getSession('CityIdentity');
         return {
             Authorization: 'Bearer ' + token,
             ClientType: 'Phone',

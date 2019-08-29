@@ -21,14 +21,14 @@ layui.define('jquery', function (exports) {
 		getMenu: function (curl) {
 			var that = this;
 			if (!$('#side-nav').length) {
-				return;
+				return false;
 			}
 			$.getJSON(curl, function (res) {
 				var menuList = res.data;
 				var items = [];
 				var _ul = $('<ul></ul>').addClass('nav').attr('id', 'nav');
 				$.each(menuList, function (index, val) {
-					var item = '<li id="menu' + val.id + '"><a _href="' + val.url + '"><i class="iconfont">' + val.icon +
+					var item = '<li id="menu' + val.id + '" data-id="' + val.id + '"><a _href="' + val.url + '"><i class="iconfont">' + val.icon +
 						'</i><cite>' + val.name +
 						'</cite><i class="iconfont nav_right">&#xe697;</i></a></li>';
 
@@ -43,6 +43,10 @@ layui.define('jquery', function (exports) {
 				$('#side-nav').empty();
 				_ul.append(items.join(''));
 				$('#side-nav').append(_ul);
+
+				setTimeout(function () {
+					$('#side-nav').find('li').first().click();			
+				}, 800);
 			});
 		},
 		/**
@@ -54,7 +58,7 @@ layui.define('jquery', function (exports) {
 			var subItems = [];
 			var subUl = $('<ul></ul>').addClass('sub-menu');
 			$.each(subList, function (idx, sub) {
-				var subItem = '<li id="menu' + sub.id + '"><a _href="' + sub.url + '"><i class="iconfont">&#xe6a7;</i><cite>' +
+				var subItem = '<li id="menu' + sub.id + '" data-id="' + sub.id + '" ><a _href="' + sub.url + '"><i class="iconfont">&#xe6a7;</i><cite>' +
 					sub.name + '</cite></a></li>';
 				subItems.push(subItem);
 				if (sub.children && sub.children.length) {

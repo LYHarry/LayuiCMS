@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+	<title>优惠券后台管理</title>
+
+	<link rel="stylesheet" href="../../css/weadmin.css">
+	<link rel="stylesheet" href="../../css/init.css">
+	<link rel="stylesheet" href="../../plugs/layui/css/layui.css">
+
+</head>
+
+<body>
+	<!-- 顶部开始 -->
+	<div class="container">
+		<div class="logo">
+			<a href="">Transfer</a>
+		</div>
+		<div class="left_open">
+			<i title="展开左侧栏" class="layui-icon layui-icon-shrink-right"></i>
+		</div>
+		<ul class="layui-nav right" lay-filter="TopRightNav">
+			<li class="layui-nav-item">
+				<a href="javascript:;" id="topUserName">Admin</a>
+				<dl class="layui-nav-child">
+					<!-- <dd><a class="loginout" href="#">切换帐号</a></dd> -->
+					<dd><a class="loginout" href="#">退出</a></dd>
+				</dl>
+			</li>
+		</ul>
+
+	</div>
+
+	<!-- 左侧菜单开始 -->
+	<div class="left-nav">
+		<div id="side-nav"></div>
+	</div>
+
+	<!-- 右侧主体开始 -->
+	<div class="page-content">
+		<div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
+			<ul class="layui-tab-title" id="tabName"></ul>
+			<div class="layui-tab-content"></div>
+		</div>
+	</div>
+	<div class="page-content-bg"></div>
+
+	<!-- 底部开始 -->
+	<div class="footer">
+		<div class="copyright">Copyright ©2018 WeAdmin v1.0 All Rights Reserved</div>
+	</div>
+
+	<!--Tab菜单右键弹出菜单-->
+	<ul class="rightMenu" id="rightMenu">
+		<li data-type="fresh">刷新</li>
+		<li data-type="current">关闭当前</li>
+		<li data-type="other">关闭其它</li>
+		<li data-type="all">关闭所有</li>
+	</ul>
+
+	<script type="text/javascript" src="../../js/init.js"></script>
+
+</body>
+
+</html>

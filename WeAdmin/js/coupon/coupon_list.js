@@ -8,9 +8,11 @@ layui.use(['form', 'layer', 'table', 'jquery', 'common'], function () {
     //显示 table 列表
     $bw.showTableList({
         id: "couponListTable",
+        // toolbar: '#couponToolBar',
+        // defaultToolbar: [],
         elem: '#couponListTable',
         cols: [
-            { type: 'numbers' },
+            { field: 'XH', title: '序号', type: 'numbers' },
             { field: 'CouponId', title: '优惠券id', hide: true },
             { field: 'CouponTempName', title: '优惠券名称', align: "center" },
             {
@@ -25,7 +27,7 @@ layui.use(['form', 'layer', 'table', 'jquery', 'common'], function () {
                 field: 'CreditAmount', title: '优惠金额', align: 'center', templet: function (d) {
                     if (d.RuleType == 1) return ('满 ' + d.SatisfyAmount + '元 减 ' + d.CreditAmount + '元');
                     if (d.RuleType == 2) return ('立减 ' + d.CreditAmount + '元');
-                    if (d.RuleType == 3) return (d.Discount + '折，最多 ' + d.DiscountUpperLimit + '元');
+                    if (d.RuleType == 3) return (d.Discount + '折' + (d.DiscountUpperLimit > 0 ? '，最多 ' + d.DiscountUpperLimit + '元' : ''));
                     return '';
                 }
             },
@@ -36,7 +38,7 @@ layui.use(['form', 'layer', 'table', 'jquery', 'common'], function () {
                         if (serviceType == 1) return '拼车';
                         if (serviceType == 2) return '专车';
                     }
-                    return '';
+                    return '不限';
                 }
             },
             {
@@ -51,12 +53,13 @@ layui.use(['form', 'layer', 'table', 'jquery', 'common'], function () {
             },
             {
                 field: 'IndateType', title: '有效期', align: 'center', templet: function (d) {
-                    if (d.IndateType == 1) return ($bw.formatUnixDate(d.IndateDateTime, 'year') + ' 到期');
+                    if (d.IndateType == 1) return ($bw.formatUnixDate(d.IndateDateTime, 'year') + '到期');
                     if (d.IndateType == 2) return (d.IndataDay + '天内');
+                    if (d.IndateType == 3) return ($bw.formatUnixDate(d.IndateStartDateTime, 'year') + '到' + $bw.formatUnixDate(d.IndateDateTime, 'year'));
                     return '不限期';
                 }
             },
-            { title: '操作', width: 170, templet: '#couponListBar', fixed: "right", align: "center" }
+            { title: '操作', templet: '#couponListBar', fixed: "right", align: "center" }
         ],
         data: {
             url: '/api/CouponTemplate/CouponList',
@@ -78,27 +81,32 @@ layui.use(['form', 'layer', 'table', 'jquery', 'common'], function () {
         ajaxData.RuleType = $(".RuleType").attr('data-value');
         ajaxData.CategoryType = parseInt(ajaxData.CategoryType);
         ajaxData.RuleType = parseInt(ajaxData.RuleType);
-        $bw.ajax({
-            url: '/api/CouponTemplate/CouponList',
-            data: ajaxData,
-            callback: function (res) {
-                table.reload("couponListTable", {
-                    page: { curr: 1 },
-                    data: res.Data.Items
-                });
-            }
+        ajaxData = $bw.dealParam(ajaxData);
+        table.reload("couponListTable", {
+            page: { curr: 1 },
+            where: ajaxData
         });
         return false;
     });
 
-    //添加优惠券
     $('.addCouponBtn').on('click', function () {
         $bw.showPopup({
             title: "添加优惠券",
             type: 2,
-            url: "/pages/coupon/coupon_detail.html"
+            url: "../../pages/coupon/coupon_detail.html"
         });
+        return false;
     });
+
+    // table.on('toolbar(couponListTable)', function (obj) {
+    //     if (obj.event === 'addCouponBtn') { //添加优惠券
+    //         $bw.showPopup({
+    //             title: "添加优惠券",
+    //             type: 2,
+    //             url: "../../pages/coupon/coupon_detail.html"
+    //         });
+    //     }
+    // });
 
     //列表操作
     table.on('tool(couponListTable)', function (obj) {
@@ -108,6 +116,28 @@ layui.use(['form', 'layer', 'table', 'jquery', 'common'], function () {
             delConpon(data);
             return false;
         }
+        if (layEvent === 'detail') { //详情页
+            $bw.showPopup({
+                title: "优惠券详情",
+                type: 2,
+                url: "../../pages/coupon/coupon_detail.html",
+                params: { id: obj.data.CouponId },
+                popupBack: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#subminBtnBox').remove();
+                }
+            });
+            return false;
+        }
+        // if (layEvent === 'edit') { //编辑
+        //     $bw.showPopup({
+        //         title: "编辑优惠券",
+        //         type: 2,
+        //         url: "../../pages/coupon/coupon_detail.html",
+        //         params: { id: obj.data.CouponId }
+        //     });
+        //     return false;
+        // }
     });
 
     //删除优惠券
@@ -123,19 +153,6 @@ layui.use(['form', 'layer', 'table', 'jquery', 'common'], function () {
             layer.close(index);
         });
     }
-
-    //监听行单击事件
-    table.on('row(couponListTable)', function (obj) {
-        $bw.showPopup({
-            title: "优惠券详情",
-            type: 2,
-            url: "/pages/coupon/coupon_detail.html?id=" + obj.data.CouponId,
-            popupBack: function (layero, index) {
-                var body = layer.getChildFrame('body', index);
-                body.find('#subminBtnBox').remove();
-            }
-        });
-    });
 
 });
 

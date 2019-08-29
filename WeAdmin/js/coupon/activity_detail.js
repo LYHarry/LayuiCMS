@@ -6,9 +6,12 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
         $bw = layui.common,
         $ = layui.jquery;
 
+    //上一次选中的优惠数据
+    var lastCheckCouponData = [];
+
     laydate.render({
         elem: '.layui-date-input',
-        type: 'date',
+        type: 'datetime',
         trigger: "click",
         range: true
     });
@@ -16,9 +19,10 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
     //上传分享图片
     $bw.uploadFile({
         elem: '#shareIconhBtn',
+        size: 200,
         callback: function (res, index, upload) {
             $('#shareIconPath').val(res.Data.RelativePath);
-            $('#showShareIconBox').removeClass('layui-hide').find('img').attr('src', window.httpHeader + res.Data.RelativePath);
+            $('#showShareIconBox').removeClass('layui-hide').find('img').attr('src', $Conf.httpHeader + res.Data.RelativePath);
         }
     });
 
@@ -30,6 +34,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
         if (date.length && date.length > 1) {
             ajaxData.IndateStartDate = date[0];
             ajaxData.IndateEndDate = date[1];
+            ajaxData.IndateEndDate = $bw.formatEndDate(ajaxData.IndateEndDate);
         }
         //优惠券
         var conponIds = $('#conpouIdList').val();
@@ -48,9 +53,18 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
         //数组格式处理
         ajaxData.TotalGetNum = parseInt(ajaxData.TotalGetNum);
         ajaxData.TotalCouponAmount = parseFloat(ajaxData.TotalCouponAmount);
-        //添加优惠券活动
+        var url = '/api/CouponActivity/AddActivity';
+        if (ajaxData.ActivityId) {
+            ajaxData.Id = ajaxData.ActivityId;
+        }
+        if ($('#ActivityIdHid').data('edit') == '1') {
+            url = '/api/CouponActivity/UpdateCouponActivity';
+        }
+        //活动地址处理
+        ajaxData.ActivityUrlPath = filterActUrl(ajaxData.ActivityUrlPath);
+        //设置优惠券活动
         $bw.ajax({
-            url: '/api/CouponActivity/AddActivity',
+            url: url,
             data: ajaxData,
             callback: function (res) {
                 $bw.reloadForm();
@@ -61,16 +75,19 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
 
     //得到优惠券列表 列模板
     var couponCols = getCouponListCols();
+    var isdetail = $bw.getUrlParam('detail');
+    if (isdetail === null) {
+        couponCols.push({ title: '操作', templet: '#couponListBar', fixed: "right", align: "center" });
+    }
     table.render({
         id: "CouponActListTable",
         elem: '#CouponActListTable',
-        toolbar: '#couponToolbar',
+        toolbar: isdetail === null ? '#couponToolbar' : '',
         defaultToolbar: [],
         data: [],
         cols: [[
-            { type: 'numbers' },
-            ...couponCols,
-            { title: '操作', width: 170, templet: '#couponListBar', fixed: "right", align: "center" }
+            { field: 'XH', title: '序号', type: 'numbers' },
+            ...couponCols
         ]]
     });
 
@@ -84,44 +101,49 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
 
     //添加优惠券
     function addCoupon() {
-        $bw.ajax({
-            url: '/api/CouponTemplate/CouponList',
-            callback: function (res) {
-                layer.open({
-                    title: "添加优惠券",
-                    type: 1,
-                    area: ['80%', '80%'],
-                    btn: ['确定', '取消'],
-                    content: $('#couponListBox'),
-                    success: function (layero, index) {
-                        table.render({
-                            id: "couponListTable",
-                            elem: '#couponListTable',
-                            page: true,
-                            data: res.Data.Items,
-                            cols: [[
-                                { type: 'checkbox' },
-                                ...couponCols
-                            ]]
-                        });
-                    },
-                    yes: function (index, layero) {
-                        var checkStatus = table.checkStatus('couponListTable');
-                        //保存选择的优惠券
-                        var conpouIds = checkStatus.data.map(element => {
-                            return element.CouponId;
-                        });
-                        $('#conpouIdList').val(conpouIds.join(','));
-                        table.reload("CouponActListTable", {
-                            data: checkStatus.data
-                        });
-                        layer.close(index);
+        layer.open({
+            title: "添加优惠券",
+            type: 1,
+            area: ['80%', '80%'],
+            btn: ['确定', '取消'],
+            content: $('#couponListBox'),
+            success: function (layero, index) {
+                var couponCols = getCouponListCols();
+                $bw.showTableList({
+                    id: "couponListTable",
+                    elem: '#couponListTable',
+                    cols: [
+                        { type: 'checkbox' },
+                        ...couponCols
+                    ],
+                    data: {
+                        url: '/api/CouponTemplate/CouponList',
+                        DateStatus: 2
                     }
                 });
+            },
+            yes: function (index, layero) {
+                var checkStatus = table.checkStatus('couponListTable');
+                //得到这次选择的优惠券ID
+                var conpouIds = checkStatus.data.map(element => {
+                    return element.CouponId;
+                });
+                //过滤已选择的重复优惠券
+                lastCheckCouponData = lastCheckCouponData.filter(item => conpouIds.indexOf(item.CouponId) === -1);
+                lastCheckCouponData.push(...checkStatus.data);
+                //保存选择的优惠券
+                conpouIds = lastCheckCouponData.map(element => {
+                    return element.CouponId;
+                });
+                $('#conpouIdList').val(conpouIds.join(','));
+                table.reload("CouponActListTable", {
+                    data: lastCheckCouponData
+                });
+                layer.close(index);
             }
         });
-    }
 
+    }
 
     //得到优惠券列表 列模板
     function getCouponListCols() {
@@ -140,7 +162,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
                 field: 'CreditAmount', title: '优惠金额', align: 'center', templet: function (d) {
                     if (d.RuleType == 1) return ('满 ' + d.SatisfyAmount + '元 减 ' + d.CreditAmount + '元');
                     if (d.RuleType == 2) return ('立减 ' + d.CreditAmount + '元');
-                    if (d.RuleType == 3) return (d.Discount + '折，最多 ' + d.DiscountUpperLimit + '元');
+                    if (d.RuleType == 3) return (d.Discount + '折' + (d.DiscountUpperLimit > 0 ? '，最多 ' + d.DiscountUpperLimit + '元' : ''));
                     return '';
                 }
             },
@@ -156,7 +178,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
                     serviceType = isNaN(serviceType) ? 0 : serviceType;
                     if (serviceType == 1) return '拼车';
                     if (serviceType == 2) return '专车';
-                    return '';
+                    return '不限';
                 }
             },
             {
@@ -173,13 +195,13 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
                 field: 'IndateType', title: '有效期', align: 'center', templet: function (d) {
                     if (d.IndateType == 1) return ($bw.formatUnixDate(d.IndateDateTime, 'year') + ' 到期');
                     if (d.IndateType == 2) return (d.IndataDay + '天内');
-                    return '';
+                    if (d.IndateType == 3) return ($bw.formatUnixDate(d.IndateStartDateTime, 'year') + '到' + $bw.formatUnixDate(d.IndateDateTime, 'year'));
+                    return '不限期';
                 }
             }
 
         ];
     }
-
 
     table.on('tool(CouponActListTable)', function (obj) {
         var data = obj.data;
@@ -193,6 +215,7 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
             });
             $('#conpouIdList').val(conpouIds.join(','));
             obj.del();
+            lastCheckCouponData = lastCheckCouponData.filter(item => item.CouponId !== data.CouponId);
         }
     });
 
@@ -202,27 +225,27 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
         val = isNaN(val) ? 0 : val;
         if (val === 1) { //线上活动
             $('#couponMainBox').find('div.layui-form-item').show();
-            $('#shareMainBox').show();
+            $('#shareMainBox,#ActivityUrlBox').show();
         } else if (val === 2) { //线下活动
             $('#couponMainBox').find('div.layui-form-item').hide();
-            $('#shareMainBox').hide();
+            $('#shareMainBox,#ActivityUrlBox').hide();
         }
     });
 
     $(function () {
-
         var actId = $bw.getUrlParam('id');
-        if (actId) {
+        if (actId) { //编辑
             $bw.ajax({
                 type: 'get',
                 url: '/api/CouponActivity/CouponActivityById',
                 data: { id: actId },
                 callback: function (res) {
+                    $('#ActivityIdHid').val(res.Data.ActivityId).attr("data-edit", '1');
                     form.val("actDetailForm", {
                         "ActivityTitle": res.Data.ActivityTitle,
                         "ActivityType": res.Data.ActivityType,
                         "ActivityUrlPath": res.Data.ActivityUrlPath,
-                        "IndateDate": ($bw.formatUnixDate(res.Data.IndateStartDate, 'year') + ' - ' + $bw.formatUnixDate(res.Data.IndateEndDate, 'year')),
+                        "IndateDate": ($bw.formatUnixDate(res.Data.IndateStartDate, 'second') + ' - ' + $bw.formatUnixDate(res.Data.IndateEndDate, 'second')),
                         "State": res.Data.State,
                         "TotalGetNum": res.Data.TotalGetNum,
                         "TotalCouponAmount": res.Data.TotalCouponAmount,
@@ -234,15 +257,86 @@ layui.use(['form', 'layer', 'laydate', 'table', 'common', 'jquery'], function ()
                         "IconPath": res.Data.IconPath,
                         "Describe": res.Data.Describe,
                     });
-                    $('#showShareIconBox').removeClass('layui-hide').find('img').attr('src', window.httpHeader + res.Data.IconPath);
+                    $('#showShareIconBox').removeClass('layui-hide').find('img').attr('src', $Conf.httpHeader + res.Data.IconPath);
+                    //保存选择的优惠券
+                    var conpouIds = res.Data.Coupons.map(element => {
+                        return element.CouponId;
+                    });
+                    lastCheckCouponData.push(...res.Data.Coupons);
+                    $('#conpouIdList').val(conpouIds.join(','));
                     table.reload("CouponActListTable", {
                         data: res.Data.Coupons
                     });
+                    if (res.Data.ActivityType === 2) { //线下活动
+                        $('#couponMainBox').find('div.layui-form-item').hide();
+                        $('#shareMainBox,#ActivityUrlBox').hide();
+                    }
                 }
             });
+
+        } else { //新增
+            $bw.ajax({
+                type: 'get',
+                url: '/api/CouponActivity/CreateActivityId',
+                callback: function (res) {
+                    $('#ActivityIdHid').val(res.Data).attr("data-add", '1');
+                    $('#ActivityIdHiht').html('活动ID: ' + res.Data);
+                }
+            });
+
         }
     });
 
+    //添加优惠券列表搜索监听
+    form.on('submit(couponSerchBtn)', function (data) {
+        var ajaxData = data.field;
+        ajaxData.CategoryType = $(".CategoryType").attr('data-value');
+        ajaxData.RuleType = $(".RuleType").attr('data-value');
+        ajaxData.CategoryType = parseInt(ajaxData.CategoryType);
+        ajaxData.RuleType = parseInt(ajaxData.RuleType);
+        ajaxData = $bw.dealParam(ajaxData);
+        table.reload("couponListTable", {
+            page: { curr: 1 },
+            where: ajaxData
+        });
+        return false;
+    });
 
+    //平辅 标签 搜索
+    $('.bw-search-list').on('click', function (e) {
+        e.stopPropagation();
+        $(this).parent().attr('data-value', this.dataset.value).find('.bw-search-list').removeClass('active');
+        $(this).addClass('active');
+        $('.couponSerchBtn').click();
+    });
+
+    //转换活动短链接地址
+    $('#transActUrlBtn').on('click', function () {
+        var url = $('#ActivityUrlPath').val();
+        if (url == '') return false;
+        if (url.indexOf('thzx.ltd') != -1) return false;
+        //处理活动地址
+        url = filterActUrl(url);
+        $bw.ajax({
+            url: '/api/CouponActivity/CreateShortLinks',
+            data: { LongLink: url },
+            callback: function (res) {
+                $('#ActivityUrlPath').val(res.Data);
+            }
+        });
+    });
+
+
+    //过滤活动地址
+    function filterActUrl(url) {
+        url = url || '';
+        if (url == '') return url;
+        if (url.toLowerCase().indexOf('thzx.ltd') != -1) return url; //短链接
+        if (url.toLowerCase().indexOf('activityid=') != -1) return url;
+
+        url += url.indexOf('?') == -1 ? '?' : '&';
+        url = url + 'activityId=' + $('#ActivityIdHid').val();
+        return url;
+    }
 
 });

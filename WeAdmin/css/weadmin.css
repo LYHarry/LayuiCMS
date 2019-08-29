@@ -1,6 +1,5 @@
 @charset "utf-8";
-@import "/plugs/layui/css/layui.css";
-@import "/css/font.css";
+@import "../css/font.css";
 
 * {
     margin: 0px;
@@ -46,8 +45,9 @@ body {
 .rightMenu li {
     display: block;
     padding: 4px 10px;
-    color: #CCC;
+    color: #323535;
     border-bottom: 1px solid #F2F2F2;
+    cursor: pointer;
 }
 
 .rightMenu li:hover {
@@ -373,10 +373,6 @@ body {
     border-bottom: 1px solid #e5e5e5;
 }
 
-.left-nav #nav li:hover>a {
-    /*color: blue;*/
-}
-
 .left-nav #nav li a {
     font-size: 14px;
     padding: 10px 15px 10px 20px;
@@ -392,18 +388,12 @@ body {
     display: block;
 }
 
-.left-nav #nav li .opened:hover {
-    /*background: #fff 0 0 no-repeat;*/
-}
 
 .left-nav #nav li .sub-menu {
     display: none;
 }
 
-.left-nav #nav li .sub-menu li:hover {
-    /*color: blue;*/
-    /*background: #fff 0 0 no-repeat;*/
-}
+
 
 .left-nav #nav li .sub-menu li a {
     padding: 12px 15px 12px 30px;
@@ -475,7 +465,6 @@ body {
 }
 
 .page-content .layui-tab-title {
-    /*padding-top: 5px;*/
     height: 35px;
     background: #EFEEF0 0 0 no-repeat;
     position: relative;
@@ -555,7 +544,6 @@ table td {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     line-height: 41px;
     color: #fff;
-    /*padding-left: 10px;*/
 }
 
 .footer .copyright {
@@ -573,10 +561,6 @@ table td {
 
     .container .logo a {
         width: 140px;
-    }
-
-    .container .left_open {
-        /*float: right;*/
     }
 
     .left-nav {
@@ -734,5 +718,3 @@ table td {
 .weadmin-notice .layui-carousel-ind ul li.layui-this {
     background-color: #999;
 }
-
-/*# sourceMappingURL=weadmin.css.map */

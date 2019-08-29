@@ -8,6 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="stylesheet" href="../../css/weadmin.css">
+    <link rel="stylesheet" href="../../css/init.css">
+    <link rel="stylesheet" href="../../plugs/layui/css/layui.css">
+
 </head>
 
 <body>
@@ -23,6 +28,7 @@
                             <div class="layui-input-block">
                                 <input type="text" name="ActivityTitle" lay-verify="required" lay-reqText="活动名称不能为空"
                                     placeholder="活动名称" autocomplete="off" class="layui-input">
+                                <label id="ActivityIdHiht"></label>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -34,13 +40,19 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="layui-inline">
-                            <input type="text" name="ActivityUrlPath" placeholder="活动地址" autocomplete="off"
-                                class="layui-input">
+
+                        <div class="layui-inline" style="width: 50%;" id="ActivityUrlBox">
+                            <div class="layui-inline" style="width: 75%;">
+                                <input type="text" name="ActivityUrlPath" placeholder="活动地址" autocomplete="off"
+                                    id="ActivityUrlPath" class="layui-input" />
+                            </div>
+                            <div class="layui-inline">
+                                <a class="layui-btn" id="transActUrlBtn">转换短链接</a>
+                            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <div class="layui-inline">
+                        <div class="layui-inline" style="width: 30%;">
                             <label class="layui-form-label">有效期</label>
                             <div class="layui-input-block">
                                 <input type="text" name="IndateDate" placeholder="点击选择时间" lay-verify="required"
@@ -108,6 +120,7 @@
                             <label class="layui-form-label">用户标签</label>
                             <div class="layui-input-block">
                                 <select name="ActivityUserTag">
+                                    <option value="0">不限</option>
                                     <option value="1">新用户</option>
                                     <option value="2">老用户</option>
                                 </select>
@@ -144,7 +157,7 @@
                                 <button type="button" class="layui-btn" id="shareIconhBtn">
                                     <i class="layui-icon">&#xe67c;</i>上传图片
                                 </button>
-                                <label class="grayHint">支持jpg、png格式图片，100px*100px，10MB以内</label>
+                                <label class="grayHint">支持jpg、png格式图片，100px*100px，200KB 以内</label>
                             </div>
                         </div>
                     </div>
@@ -165,7 +178,8 @@
             </div>
 
             <div class="layui-form-item" id="subminBtnBox">
-                <div class="layui-input-block">
+                <input type="hidden" id="ActivityIdHid" name="ActivityId" />
+                <div class="layui-input-inline">
                     <button class="layui-btn" lay-submit lay-filter="addCouponActBtn">立即提交</button>
                 </div>
             </div>
@@ -174,8 +188,37 @@
     </div>
 
     <div class="weadmin-body" id="couponListBox" style="display: none;">
+        <div class="we-search-box">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline">
+                        <input type="text" name="CouponTempName" placeholder="优惠券名称" autocomplete="off"
+                            class="layui-input">
+                    </div>
+                    <button class="layui-btn couponSerchBtn" lay-submit lay-filter="couponSerchBtn">
+                        <i class="layui-icon layui-icon-search"></i>搜索</button>
+                </div>
+                <div class="layui-form-item">
+                    <label>品类规则：</label>
+                    <div class="layui-inline search-list-box CategoryType">
+                        <span class="bw-search-list bw-cursor active" data-value="">不限</span>
+                        <span class="bw-search-list bw-cursor" data-value="1">拼车</span>
+                        <span class="bw-search-list bw-cursor" data-value="2">专车</span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label>金额规则：</label>
+                    <div class="layui-inline search-list-box RuleType">
+                        <span class="bw-search-list bw-cursor active" data-value="0">不限</span>
+                        <span class="bw-search-list bw-cursor" data-value="1">满减</span>
+                        <span class="bw-search-list bw-cursor" data-value="2">立减</span>
+                        <span class="bw-search-list bw-cursor" data-value="3">折扣</span>
+                    </div>
+                </div>
+            </form>
+        </div>
         <table class="layui-hide" id="couponListTable" lay-filter="couponListTable"></table>
-        <input type="hidden" id="conpouIdList">
+        <input type="hidden" id="conpouIdList" />
     </div>
 
     <script type="text/html" id="couponToolbar">
@@ -187,7 +230,7 @@
     </script>
 
 
-    <script type="text/javascript" src="/js/init.js"></script>
+    <script type="text/javascript" src="../../js/init.js"></script>
 
 </body>
 

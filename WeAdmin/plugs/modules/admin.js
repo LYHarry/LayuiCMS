@@ -31,7 +31,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 		/*
 		 * @todo table事件
 		 */
-		tableCheck = {
+		var tableCheck = {
 			init: function () {
 				$(".layui-form-checkbox").click(function (event) {
 					if ($(this).hasClass('layui-form-checked')) {
@@ -71,7 +71,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 			if (sessionStorage.getItem("curMenu")) {
 				$('.layui-tab-title').find('layui-this').removeClass('layui-class');
 				curMenu = JSON.parse(sessionStorage.getItem("curMenu"));
-				id = curMenu.id;
+				var id = curMenu.id;
 				if (id) { //因为默认桌面首页不存在lay-id,所以要对此判断
 					$('.layui-tab-title li[lay-id="' + id + '"]').addClass('layui-this');
 					tab.tabChange(id);
@@ -84,10 +84,10 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 				$('.layui-tab-content iframe').eq(0).parent().addClass('layui-show');
 			}
 		}, 100);
-		//点击tab标题时，触发reloadTab函数
-		$('#tabName').on('click', 'li', function () {
-			reloadTab(this);
-		});
+		// //点击tab标题时，触发reloadTab函数
+		// $('#tabName').on('click', 'li', function () {
+		// 	reloadTab(this);
+		// });
 
 		//初始化加载结束
 	});
@@ -95,7 +95,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 	/*
 	 * @todo 左侧导航菜单的显示和隐藏
 	 */
-	// $('.container .left_open i').click(function(event) {
 	$('.container').on('click', '.left_open i', function (event) {
 		if ($('.left-nav').css('left') == '0px') {
 			//此处左侧菜单是显示状态，点击隐藏
@@ -137,6 +136,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 	 */
 	$('body').on('click', '.left-nav #nav li', function (event) {
 		if ($(this).children('.sub-menu').length) {
+
 			if ($(this).hasClass('open')) {
 				$(this).removeClass('open');
 				$(this).find('.nav_right').html('&#xe697;');
@@ -149,22 +149,27 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 				$(this).siblings().children('.sub-menu').stop().slideUp();
 				$(this).siblings().find('.nav_right').html('&#xe697;');
 				$(this).siblings().removeClass('open');
+
+				var id = $('.layui-tab-title').find('.layui-this').attr('lay-id');
+				$(".menu-active").removeClass("menu-active");
+				$("#menu" + id + " a").eq(0).addClass('menu-active');
 			}
 		} else {
 			var url = $(this).children('a').attr('_href');
 			var title = $(this).find('cite').html();
-			var index = $('.left-nav #nav li').index($(this));
+			// var index = $('.left-nav #nav li').index($(this));
+			var id = $(this).attr("data-id");
 
 			for (var i = 0; i < $('.weIframe').length; i++) {
-				if ($('.weIframe').eq(i).attr('tab-id') == index + 1) {
-					tab.tabChange(index + 1);
+				if ($('.weIframe').eq(i).attr('tab-id') == id) {
+					tab.tabChange(id);
 					event.stopPropagation();
-					return;
+					return false;
 				}
 			};
 
-			tab.tabAdd(title, url, index + 1);
-			tab.tabChange(index + 1);
+			tab.tabAdd(title, url, id);
+			tab.tabChange(id);
 		}
 		event.stopPropagation(); //不触发任何前辈元素上的事件处理函数
 	});
@@ -207,6 +212,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 			element.tabChange('wenav_tab', id);
 		},
 		tabDeleteAll: function (ids) { //删除所有
+			$(".menu-active").removeClass("menu-active");
 			$.each(ids, function (i, item) {
 				element.tabDelete("wenav_tab", item);
 			})
@@ -232,8 +238,8 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 			var popupmenu = $(".rightMenu");
 			popupmenu.find("li").attr("data-id", aid);
 			//console.log("popopmenuId:" + popupmenu.find("li").attr("data-id"));
-			l = ($(document).width() - e.clientX) < popupmenu.width() ? (e.clientX - popupmenu.width()) : e.clientX;
-			t = ($(document).height() - e.clientY) < popupmenu.height() ? (e.clientY - popupmenu.height()) : e.clientY;
+			var l = ($(document).width() - e.clientX) < popupmenu.width() ? (e.clientX - popupmenu.width()) : e.clientX;
+			var t = ($(document).height() - e.clientY) < popupmenu.height() ? (e.clientY - popupmenu.height()) : e.clientY;
 			popupmenu.css({
 				left: l,
 				top: t
@@ -422,16 +428,18 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 		text = text.split('ဆ')[0];
 		var url = $('.layui-tab-content').find('.layui-show').find('.weIframe').attr('src');
 		var id = $('.layui-tab-title').find('.layui-this').attr('lay-id');
-		//console.log(text);
 		curMenu = {
 			title: text,
 			url: url,
 			id: id
 		}
+		$(".menu-active").removeClass("menu-active");
+		$("#menu" + id + " a").eq(0).addClass('menu-active');
 		sessionStorage.setItem('curMenu', JSON.stringify(curMenu));
 	}
 	//本地存储中移除删除的元素
 	function removeStorageMenu(id) {
+		$("#menu" + id + " a").eq(0).removeClass('menu-active');
 		var menu = JSON.parse(sessionStorage.getItem('menu'));
 		//var curMenu = JSON.parse(localStorage.getItem('curMenu'));
 		if (menu) {
@@ -462,23 +470,23 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
 		localStorage.setItem('login', login);
 	});
 
-	/*
-	 *Tab加载后刷新
-	 * 判断是刷新后第一次点击时，刷新frame子页面
-	 * */
-	window.reloadTab = function (which) {
-		var len = $('.layui-tab-title').children('li').length;
-		var layId = $(which).attr('lay-id');
-		var i = 1;
-		if ($(which).attr('data-bit')) {
-			return false; //判断页面打开后第一次点击，执行刷新
-		} else {
-			$(which).attr('data-bit', i);
-			var frame = $('.weIframe[tab-id=' + layId + ']');
-			frame.attr('src', frame.attr('src'));
-			console.log("reload:" + $(which).attr('data-bit'));
-		}
-	}
+	// /*
+	//  *Tab加载后刷新
+	//  * 判断是刷新后第一次点击时，刷新frame子页面
+	//  * */
+	// window.reloadTab = function (which) {
+	// 	var len = $('.layui-tab-title').children('li').length;
+	// 	var layId = $(which).attr('lay-id');
+	// 	var i = 1;
+	// 	if ($(which).attr('data-bit')) {
+	// 		return false; //判断页面打开后第一次点击，执行刷新
+	// 	} else {
+	// 		$(which).attr('data-bit', i);
+	// 		var frame = $('.weIframe[tab-id=' + layId + ']');
+	// 		frame.attr('src', frame.attr('src'));
+	// 		console.log("reload:" + $(which).attr('data-bit'));
+	// 	}
+	// }
 	/**
 	 *@todo Frame内部的按钮点击打开其他frame的tab
 	 */

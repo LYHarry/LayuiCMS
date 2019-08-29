@@ -4,16 +4,17 @@
 var body = document.getElementsByTagName('body')[0];
 var loading = document.createElement('div');
 loading.id = 'init-loading';
-loading.innerHTML = '<div style="z-index:19891028;background-color:#333;opacity:0.3;width:100%;height:100%;position:fixed;top:0;left:0;pointer-events:auto;"></div>';
-loading.innerHTML += '<img style="z-index:19891029;width:34px;position:absolute;left:49%;top:48%" src="/images/load.gif" />';
+loading.innerHTML = '<div style="z-index:19891028;background-color:#333;opacity:0.1;width:100%;height:100%;position:fixed;top:0;left:0;pointer-events:auto;"></div>';
+loading.innerHTML += '<img style="z-index:19891029;width:34px;position:absolute;left:49%;top:48%" src="../../images/load.gif" />';
 body.insertBefore(loading, body.children[0]);
 
-//加载页面所需 css
-loadCss('/css/weadmin.css');
-loadCss('/css/init.css');
+//加载页面所需 css(后加载样式会造成页面闪烁)
+// loadCss('../../css/weadmin.css');
+// loadCss('../../css/init.css');
+// loadCss('../../plugs/layui/css/layui.css');
 
 //加载 layui 基础插件
-const loadJsArr = ['/plugs/layui/layui.js', '/js/config.js'];
+const loadJsArr = ['../../plugs/layui/layui.js', '../../js/config.js'];
 loadJsArr.map(function (url) {
     loadJS(url, init);
 });
@@ -21,15 +22,14 @@ loadJsArr.map(function (url) {
 //加载页面所需 js
 window.onload = function () {
     //延时加载 layui 配置文件
-    loadJS('/js/layui.conf.js', init);
+    loadJS('../../js/layui.conf.js', init);
     var thisHtml = GetPagePath().replace('.html', '');
-    loadJS('/js/' + thisHtml + '.js', init);
+    loadJS('../../js/' + thisHtml + '.js', init);
 };
 
 
-
 //引入 css
-function loadCss(url) {
+function loadCss(url, callback) {
     var head = document.getElementsByTagName('head');
     if (head && head.length) {
         head = head[0];
@@ -39,9 +39,9 @@ function loadCss(url) {
     var link = document.createElement('link');
     link.rel = "stylesheet";
     link.onload = link.onreadystatechange = function () {
-        // if ((!this.readyState) || this.readyState == "complete" || this.readyState == "loaded") {
-        //     if (callback) callback();
-        // }
+        if ((!this.readyState) || this.readyState == "complete" || this.readyState == "loaded") {
+            if (callback) callback();
+        }
     };
     link.href = url;
     head.appendChild(link);
@@ -57,7 +57,7 @@ function loadJS(url, callback) {
             if (typeof (callback) === 'function') callback();
         }
     };
-    script.src = url.replace('//', '/');;
+    script.src = url.replace('//', '/') + '?r=' + (new Date()).getTime();
     body.appendChild(script);
 }
 
@@ -70,27 +70,19 @@ function init() {
         //判断用户是否登录
         if (verifyLogin() !== true) return false;
         //移除初始化加载动画
-        document.getElementById('init-loading').remove();
+        setTimeout(function () {
+            document.getElementById('init-loading').remove();
+        }, 500);
     }
 }
 
 //验证用户登陆
 function verifyLogin() {
-    // //得到 url 中访问 token
-    // var token = getUrlParam('token');
-    // var CityIdentity = getUrlParam('CityIdentity');
-    // //得到 session 中访问 token
-    // var Sestoken = getSession('userAuthority');
-    // if (token == null && Sestoken == null) {
-    //     alert('暂无访问权限');
-    //     top.location.href = '/pages/login/index.html';
-    //     return false;
-    // }
-    // //添加缓存
-    // if (token && CityIdentity) {
-    //     addSession({ info: token, name: 'userAuthority' });
-    //     addSession({ info: CityIdentity, name: 'CityIdentity' });
-    // }
+    var userInfo = getSession('userSessionInfo');
+    if ((typeof (IS_LOGIN) == 'undefined' || IS_LOGIN === false) && (userInfo === null)) {
+        top.location.href = '../../pages/main/login.html'
+        return false;
+    }
     return true;
 }
 

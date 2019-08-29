@@ -8,14 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="stylesheet" href="../../css/weadmin.css">
+    <link rel="stylesheet" href="../../css/init.css">
+    <link rel="stylesheet" href="../../plugs/layui/css/layui.css">
+
 </head>
 
 <body>
     <div class="weadmin-nav">
         <span class="layui-breadcrumb">
-            <a href="">首页</a>
-            <a href="">管理员管理</a>
-            <a><cite>管理员列表</cite></a>
+            <a href="">优惠券管理</a>
+            <a><cite>活动设置</cite></a>
         </span>
         <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
             href="javascript:location.replace(location.href);" title="刷新">
@@ -45,19 +49,42 @@
                 <div class="layui-inline">
                     <button class="layui-btn" lay-submit lay-filter="activitySerchBtn">
                         <i class="layui-icon layui-icon-search"></i>搜索</button>
+                    <button class="layui-btn addActivityBtn">
+                        <i class="layui-icon layui-icon-add-circle"></i>添加
+                    </button>
                 </div>
             </form>
         </div>
-
-        <div class="weadmin-block">
-            <button class="layui-btn addActivityBtn"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
-        </div>
-
         <table class="layui-table" id="activityListTable" lay-filter="activityListTable"></table>
-
     </div>
 
-    <script type="text/javascript" src="/js/init.js"></script>
+    <!-- <script type="text/html" id="actToolBar">
+        <div class="layui-btn-container">
+                <button class="layui-btn" lay-event="addActivityBtn">
+                    <i class="layui-icon layui-icon-add-circle"></i>添加
+                </button>
+          </div>        
+    </script> -->
+
+    <script type="text/html" id="actListBar">
+        {{# if (d.ActivityType == 1) {  }}
+            <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="lookCollRecord">领取记录</a>
+        {{# } else if (d.ActivityType == 2){  }}
+            <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="redeemCode">兑换码</a>
+        {{# } }}
+
+        <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+        {{# if(d.State == 1){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="updateState">下线</a>
+        {{# }else if(d.State == 2){ }}
+            <a class="layui-btn layui-btn-xs" lay-event="updateState">上线</a>
+        {{#  } }}
+
+    </script>
+
+    <script type="text/javascript" src="../../js/init.js"></script>
 
 </body>
 

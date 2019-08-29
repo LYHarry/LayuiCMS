@@ -7,16 +7,18 @@ layui.use(['form', 'table', 'laydate', 'common'], function () {
 
     laydate.render({
         elem: '.layui-date-input',
-        type: 'date',
+        type: 'datetime',
         trigger: "click",
         range: true
     });
 
+    var aid = $bw.getUrlParam('id');
+    aid = aid || 0;
     $bw.showTableList({
         id: "couponRecordTable",
         elem: '#couponRecordTable',
         cols: [
-            { type: 'numbers' },
+            { field: 'XH', title: '序号', type: 'numbers' },
             { field: 'ActivityId', title: '活动ID', align: "center" },
             { field: 'ActivityTitle', title: '活动名称', align: "center" },
             { field: 'CouponName', title: '优惠券名称', align: 'center' },
@@ -38,6 +40,7 @@ layui.use(['form', 'table', 'laydate', 'common'], function () {
         ],
         data: {
             url: '/api/CouponSendRecord/CouponSendRecordList',
+            ActivityId: aid
         }
     });
 
@@ -54,16 +57,12 @@ layui.use(['form', 'table', 'laydate', 'common'], function () {
         if (date && date.length && date.length > 1) {
             ajaxData.ReceiverStartDate = date[0];
             ajaxData.ReceiverEndDate = date[1];
+            ajaxData.ReceiverEndDate = $bw.formatEndDate(ajaxData.ReceiverEndDate);
         }
-        $bw.ajax({
-            url: '/api/CouponSendRecord/CouponSendRecordList',
-            data: ajaxData,
-            callback: function (res) {
-                table.reload("couponRecordTable", {
-                    page: { curr: 1 },
-                    data: res.Data.Items
-                });
-            }
+        if (aid > 0) ajaxData.ActivityId = aid;
+        table.reload("couponRecordTable", {
+            page: { curr: 1 },
+            where: ajaxData
         });
         return false;
     });
