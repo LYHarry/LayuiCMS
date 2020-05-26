@@ -30,7 +30,7 @@ import { SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from "@/store/mutation-types";
 
 import RightContent from "@/components/GlobalHeader/RightContent";
 import GlobalFooter from "@/components/GlobalFooter";
-import LogoSvg from "@/assets/logo.svg?inline";
+import LogoSvg from "@/assets/svg/logo.svg?inline";
 
 export default {
   name: "BasicLayout",

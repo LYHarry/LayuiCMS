@@ -4,12 +4,9 @@ import router from './router'
 import store from './store'
 import i18n from './locales'
 
-// import Antd from 'ant-design-vue'
-// import 'ant-design-vue/dist/antd.css'
+import '@/config/lazy_use'
 
 Vue.config.productionTip = false
-
-// Vue.use(Antd)
 
 new Vue({
   router,
