@@ -19,14 +19,14 @@
           <a href="_self">隐私</a>
           <a href="_self">条款</a>
         </div>
-        <div class="copyright">Copyright &copy; 2018 vueComponent</div>
+        <div class="copyright">Copyright &copy; 2020 vueComponent</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { deviceMixin } from "@/store/device-mixin";
+import { deviceMixin } from "@/store/mixin/device-mixin";
 
 export default {
   name: "UserLayout",

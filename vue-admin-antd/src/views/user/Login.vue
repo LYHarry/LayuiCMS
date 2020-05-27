@@ -55,7 +55,7 @@
               size="large"
               type="text"
               placeholder="手机号"
-              v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]"
+              v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]"
             >
               <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
@@ -90,7 +90,7 @@
       <a-form-item>
         <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">自动登录</a-checkbox>
         <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
+          :to="{ name: 'RecoverPassword' }"
           class="forge-password"
           style="float: right;"
         >忘记密码</router-link>
@@ -186,7 +186,7 @@ export default {
     },
     handleTabClick(key) {
       this.customActiveKey = key;
-      // this.form.resetFields()
+      this.form.resetFields();
     },
     handleSubmit(e) {
       e.preventDefault();
@@ -206,7 +206,7 @@ export default {
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
-          console.log("login form", values);
+          // console.log("login form", values);
           const loginParams = { ...values };
           delete loginParams.username;
           loginParams[!state.loginType ? "email" : "username"] =
@@ -275,18 +275,7 @@ export default {
       });
     },
     loginSuccess(res) {
-      console.log(res);
-      // check res.homePage define, set $router.push name res.homePage
-      // Why not enter onComplete
-      /*
-      this.$router.push({ name: 'analysis' }, () => {
-        console.log('onComplete')
-        this.$notification.success({
-          message: '欢迎',
-          description: `${timeFix()}，欢迎回来`
-        })
-      })
-      */
+      // console.log(res);
       this.$router.push({ path: "/" });
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {

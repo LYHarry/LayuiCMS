@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
-import i18n from './locales'
+
+import router from '@/router'
+import store from '@/store'
+import i18n from '@/locales'
 
 import '@/config/lazy_use'
+import '@/assets/style/global.less'
 
 Vue.config.productionTip = false
 

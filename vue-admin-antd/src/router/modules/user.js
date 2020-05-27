@@ -22,8 +22,8 @@ export default {
     },
     {
         path: 'recover',
-        name: 'recover',
-        component: undefined
+        name: 'RecoverPassword',
+        component: () => import('@/views/user/RecoverPassword')
     }
     ]
 }

@@ -1,5 +1,7 @@
-import user from './user'
+import User from './user'
+import Exception from './exception'
 
 export default [
-    user
+    User,
+    Exception
 ];

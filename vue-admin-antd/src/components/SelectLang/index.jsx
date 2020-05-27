@@ -2,7 +2,7 @@ import './index.less'
 
 import { Icon, Menu, Dropdown } from 'ant-design-vue'
 import { i18nRender } from '@/locales'
-import i18nMixin from '@/store/i18n-mixin'
+import i18nMixin from '@/store/mixin/i18n-mixin'
 
 const locales = ['zh-CN', 'zh-TW', 'en-US', 'pt-BR']
 const languageLabels = {
