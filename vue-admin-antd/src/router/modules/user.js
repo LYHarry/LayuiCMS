@@ -22,7 +22,7 @@ export default {
     },
     {
         path: 'recover',
-        name: 'RecoverPassword',
+        name: 'recoverPassword',
         component: () => import('@/views/user/RecoverPassword')
     }
     ]

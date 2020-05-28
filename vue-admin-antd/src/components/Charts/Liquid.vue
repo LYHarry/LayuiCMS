@@ -6,12 +6,13 @@
       :width="width"
       :data="data"
       :scale="scale"
-      :padding="0">
+      :padding="0"
+    >
       <v-tooltip />
       <v-interval
         :shape="['liquid-fill-gauge']"
         position="transfer*value"
-        color=""
+        color
         :v-style="{
           lineWidth: 10,
           opacity: 0.75
@@ -48,7 +49,7 @@
 
 <script>
 export default {
-  name: 'Liquid',
+  name: "Liquid",
   props: {
     height: {
       type: Number,
@@ -59,9 +60,8 @@ export default {
       default: 0
     }
   }
-}
+};
 </script>
 
 <style scoped>
-
 </style>

@@ -29,7 +29,7 @@ export default {
 
 <style lang="less" scoped>
 @import "~@/components/index.less";
-@import "~@/utils/utils.less";
+@import "~@/assets/style/utils.less";
 
 .cardInfo {
   .clearfix();
