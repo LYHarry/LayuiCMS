@@ -7,9 +7,7 @@
     <template v-slot:content>
       <div class="ant-pro-page-header-search">
         <a-input-search size="large" style="width: 80%; max-width: 522px;">
-          <template v-slot:enterButton>
-            搜索
-          </template>
+          <template v-slot:enterButton>搜索</template>
         </a-input-search>
       </div>
     </template>
@@ -18,57 +16,57 @@
 </template>
 
 <script>
-const getActiveKey = (path) => {
+const getActiveKey = path => {
   switch (path) {
-    case '/list/search/article':
-      return '1'
-    case '/list/search/project':
-      return '2'
-    case '/list/search/application':
-      return '3'
+    case "/list/search/article":
+      return "1";
+    case "/list/search/project":
+      return "2";
+    case "/list/search/application":
+      return "3";
     default:
-      return '1'
+      return "1";
   }
-}
+};
 export default {
-  name: 'SearchLayout',
-  data () {
+  name: "SearchLayout",
+  data() {
     return {
       tabList: [
-        { key: '1', tab: '文章' },
-        { key: '2', tab: '项目' },
-        { key: '3', tab: '应用' }
+        { key: "1", tab: "文章" },
+        { key: "2", tab: "项目" },
+        { key: "3", tab: "应用" }
       ],
-      tabActiveKey: '1',
+      tabActiveKey: "1",
       search: true
-    }
+    };
   },
-  created () {
-    this.tabActiveKey = getActiveKey(this.$route.path)
+  created() {
+    this.tabActiveKey = getActiveKey(this.$route.path);
 
-    this.$watch('$route', (val) => {
-      this.tabActiveKey = getActiveKey(val.path)
-    })
+    this.$watch("$route", val => {
+      this.tabActiveKey = getActiveKey(val.path);
+    });
   },
   methods: {
-    handleTabChange (key) {
-      this.tabActiveKey = key
+    handleTabChange(key) {
+      this.tabActiveKey = key;
       switch (key) {
-        case '1':
-          this.$router.push('/list/search/article')
-          break
-        case '2':
-          this.$router.push('/list/search/project')
-          break
-        case '3':
-          this.$router.push('/list/search/application')
-          break
+        case "1":
+          this.$router.push("/list/search/article");
+          break;
+        case "2":
+          this.$router.push("/list/search/project");
+          break;
+        case "3":
+          this.$router.push("/list/search/application");
+          break;
         default:
-          this.$router.push('/workplace')
+          this.$router.push("/workplace");
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

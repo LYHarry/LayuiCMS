@@ -6,7 +6,6 @@ import RouteRules from './modules/route.rules'
 import NProgress from 'nprogress'
 import storage from 'store'
 
-// import store from './store'
 
 // progress bar custom style
 import '@/components/NProgress/nprogress.less'
@@ -15,6 +14,7 @@ import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle, domTitle } from '@/utils/domUtil'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { i18nRender } from '@/locales'
+import store from '@/store'
 
 
 Vue.use(VueRouter)
