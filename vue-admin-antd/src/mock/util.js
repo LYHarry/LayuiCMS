@@ -1,38 +1,26 @@
-const responseBody = {
-  message: '',
-  timestamp: 0,
-  result: null,
-  code: 0
-}
+'use strict'
 
-export const builder = (data, message, code = 0, headers = {}) => {
-  responseBody.result = data
-  if (message !== undefined && message !== null) {
-    responseBody.message = message
-  }
-  if (code !== undefined && code !== 0) {
-    responseBody.code = code
-    responseBody._status = code
-  }
-  if (headers !== null && typeof headers === 'object' && Object.keys(headers).length > 0) {
-    responseBody._headers = headers
-  }
-  responseBody.timestamp = new Date().getTime()
-  return responseBody
-}
+import Mock from 'mockjs';
 
-export const getQueryParameters = (options) => {
-  const url = options.url
-  const search = url.split('?')[1]
-  if (!search) {
-    return {}
-  }
-  return JSON.parse('{"' + decodeURIComponent(search)
-    .replace(/"/g, '\\"')
-    .replace(/&/g, '","')
-    .replace(/=/g, '":"') + '"}')
-}
+//构造 mock 请求的返回结果模型
+export const builder = (respond, message = '', code = 200) => {
+  console.log('builder respond ', respond)
+  return function (req) {
 
-export const getBody = (options) => {
-  return options.body && JSON.parse(options.body)
+    console.log('builder req ', req);
+
+    let result = respond;
+    if (respond instanceof Function) {
+      result = respond(req)
+    }
+    if (result.code && result.message && result.data) {
+      return Mock.mock(result)
+    }
+    const responseBody = {
+      message: message,
+      data: result,
+      code: code
+    };
+    return Mock.mock(responseBody);
+  }
 }
