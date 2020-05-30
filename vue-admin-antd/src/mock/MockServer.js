@@ -1,11 +1,29 @@
 'use strict'
 
-import Mock from 'mockjs';
-import { builder } from './util';
-import MenuRouter from './modules/MenuRouter';
-import Auth from './modules/auth';
+import Mock from 'mockjs'
+import { builder } from './util'
+
+import MenuRouter from './modules/MenuRouter'
+import Auth from './modules/auth'
 
 // TODO 判断是否 IE 浏览器，IE 不支持 mock
+
+Mock.setup({
+    timeout: 800 // setter delay time
+})
+
+// mock patch
+// https://github.com/nuysoft/Mock/issues/300
+Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send;
+Mock.XHR.prototype.send = function () {
+    if (this.custom.xhr) {
+        this.custom.xhr.withCredentials = this.withCredentials || false
+        if (this.responseType) {
+            this.custom.xhr.responseType = this.responseType
+        }
+    }
+    this.proxy_send(...arguments)
+}
 
 const MockData = [
     MenuRouter,
@@ -13,27 +31,6 @@ const MockData = [
 ];
 
 for (const i of MockData) {
-    i.type = i.type || 'POST';
-    console.log('i.url ', i.url, ' i.type ', i.type)
-    Mock.mock(new RegExp(`'${i.url}'`), i.type, builder(i.response))
+    i.type = (i.type || 'post').toLowerCase();
+    Mock.mock(new RegExp(i.url), i.type, builder(i.response))
 }
-
-// Mock.mock(new RegExp('http://localhost:8080/auth/2stepcode'), 'POST', (req) => {
-
-//     console.log('Mock req ', req)
-
-//     return { setpcode: 1 };
-
-// })
-
-const twofactor = (req) => {
-    console.log('Mock req ', req)
-    return { stepCode: Mock.mock('@integer(0, 1)') }
-}
-
-// /\/auth\/2stepcode/
-// Mock.mock(new RegExp('/auth/2stepcode'), 'post', builder({ setpcode: 1 }))
-
-Mock.setup({
-    timeout: 800 // setter delay time
-})

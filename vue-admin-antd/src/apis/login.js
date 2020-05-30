@@ -74,7 +74,7 @@ export function logout() {
 export function get2step(parameter) {
   return axios.request({
     url: userApi.twoStepCode,
-    method: 'post',
+    method: 'POST',
     data: parameter
   })
 }

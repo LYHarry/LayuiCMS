@@ -47,7 +47,7 @@ export default [
         response: { captcha: Mock.mock('@integer(10000, 99999)') }
     },
 
-    //得到登陆验证码
+    //得到用户第二步验证
     {
         url: '/auth/2stepcode',
         response: { stepCode: Mock.mock('@integer(0, 1)') }
