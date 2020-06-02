@@ -43,6 +43,8 @@ import {
     Result,
     Statistic,
     Descriptions,
+    message,
+    notification,
 } from 'ant-design-vue'
 
 
@@ -97,8 +99,8 @@ const install = function (Vue) {
         Vue.use(component)
     });
 
-    // Vue.prototype.$message = message;
-    // Vue.prototype.$notification = notification;
+    Vue.prototype.$message = message;
+    Vue.prototype.$notification = notification;
     // Vue.prototype.$info = Modal.info;
     // Vue.prototype.$success = Modal.success;
     // Vue.prototype.$error = Modal.error;

@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { timeFix } from "@/utils/util";
+import { timeFix } from "@/utils";
 import { mapState } from "vuex";
 import { PageHeaderWrapper } from "@ant-design-vue/pro-layout";
 import { Radar } from "@/components";

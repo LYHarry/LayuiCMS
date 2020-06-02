@@ -10,7 +10,9 @@
           type="text"
           placeholder="邮箱"
           v-decorator="['email', {rules: [{ required: true, type: 'email', message: '请输入邮箱地址' }], validateTrigger: ['change', 'blur']}]"
-        ></a-input>
+        >
+          <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }" />
+        </a-input>
       </a-form-item>
 
       <a-popover
@@ -43,7 +45,9 @@
             autocomplete="false"
             placeholder="至少6位密码，区分大小写"
             v-decorator="['password', {rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
-          ></a-input>
+          >
+            <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
+          </a-input>
         </a-form-item>
       </a-popover>
 
@@ -54,7 +58,9 @@
           autocomplete="false"
           placeholder="确认密码"
           v-decorator="['password2', {rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}]"
-        ></a-input>
+        >
+          <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
+        </a-input>
       </a-form-item>
 
       <a-form-item>
@@ -67,6 +73,7 @@
             <a-select-option value="+86">+86</a-select-option>
             <a-select-option value="+87">+87</a-select-option>
           </a-select>
+          <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }" />
         </a-input>
       </a-form-item>
 
@@ -111,7 +118,7 @@
 </template>
 
 <script>
-import { getSmsCaptcha } from "@/apis/login";
+import { baseApi } from "@/apis";
 
 const levelNames = {
   0: "低",
@@ -210,11 +217,7 @@ export default {
     },
 
     handlePasswordInputClick() {
-      if (!this.isMobile()) {
-        this.state.passwordLevelChecked = true;
-        return;
-      }
-      this.state.passwordLevelChecked = false;
+      this.state.passwordLevelChecked = !this.isMobile;
     },
 
     handleSubmit() {
@@ -226,7 +229,12 @@ export default {
       validateFields({ force: true }, (err, values) => {
         if (!err) {
           state.passwordLevelChecked = false;
-          $router.push({ name: "registerResult", params: { ...values } });
+          baseApi
+            .Register(values)
+            .then(res =>
+              $router.push({ name: "registerResult", params: { ...values } })
+            )
+            .catch(err => this.requestFailed(err));
         }
       });
     },
@@ -254,13 +262,14 @@ export default {
 
           const hide = $message.loading("验证码发送中..", 0);
 
-          getSmsCaptcha({ mobile: values.mobile })
+          baseApi
+            .getSmsCaptcha({ mobile: values.mobile })
             .then(res => {
               setTimeout(hide, 2500);
               $notification["success"]({
                 message: "提示",
                 description:
-                  "验证码获取成功，您的验证码为：" + res.result.captcha,
+                  "验证码获取成功，您的验证码为：" + res.data.captcha,
                 duration: 8
               });
             })

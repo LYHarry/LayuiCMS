@@ -1,14 +1,10 @@
 import storage from 'store'
 import { baseApi } from '@/apis'
-
-
-
-
-console.log('api login ', baseApi)
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 const user = {
   state: {
-    // token: '',
+    token: '',
     // name: '',
     // welcome: '',
     // avatar: '',
@@ -17,27 +13,27 @@ const user = {
   },
 
   mutations: {
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    },
 
   },
 
   actions: {
     // 登录
-    Login(context, userInfo) {
+    Login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-
-        console.log('context ', context)
-        console.log('userInfo ', userInfo)
-
-        // login(userInfo).then(response => {
-        //   const result = response.result
-        //   storage.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
-        //   commit('SET_TOKEN', result.token)
-        //   resolve()
-        // }).catch(error => {
-        //   reject(error)
-        // })
-
-
+        baseApi.login(userInfo).then(response => {
+          const result = response.data
+          if (response.code !== 200) {
+            return reject(result);
+          }
+          storage.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
+          commit('SET_TOKEN', result.token)
+          resolve(result)
+        }).catch(error => {
+          reject(error)
+        })
       })
     },
 
@@ -58,7 +54,7 @@ export default user
 // import storage from 'store'
 // import { login, getInfo, logout } from '@/apis/login'
 // import { ACCESS_TOKEN } from '@/store/mutation-types'
-// import { welcome } from '@/utils/util'
+// import { welcome } from '@/utils'
 
 // const user = {
 //   state: {

@@ -35,3 +35,11 @@ export function get2step(request) {
         data: request
     })
 }
+
+export function Register(request) {
+    return axios.request({
+        url: baseApi.Register,
+        method: 'POST',
+        data: request
+    })
+}

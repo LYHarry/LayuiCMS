@@ -135,8 +135,8 @@
 import md5 from "md5";
 import TwoStepCaptcha from "@/components/tools/TwoStepCaptcha";
 import { mapActions } from "vuex";
-import { timeFix } from "@/utils/util";
-import apis from "@/apis";
+import { timeFix } from "@/utils";
+import { baseApi } from "@/apis";
 
 export default {
   name: "Login",
@@ -163,10 +163,10 @@ export default {
     };
   },
   created() {
-    apis.login
-      .get2step({})
+    baseApi
+      .get2step()
       .then(res => {
-        this.requiredTwoStepCaptcha = res.result.stepCode;
+        this.requiredTwoStepCaptcha = res.data.stepCode;
       })
       .catch(() => {
         this.requiredTwoStepCaptcha = false;
@@ -187,6 +187,9 @@ export default {
       callback();
     },
     handleTabClick(key) {
+      if (key === "tab2") {
+        this.state.loginType = 2;
+      }
       this.customActiveKey = key;
       this.form.resetFields();
     },
@@ -209,21 +212,19 @@ export default {
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
           // console.log("login form", values);
-          const loginParams = { ...values };
-          delete loginParams.username;
-          loginParams[!state.loginType ? "email" : "username"] =
-            values.username;
-          loginParams.password = md5(values.password);
-          Login(loginParams)
+          const loginParams = { ...values, loginType: state.loginType };
+          if (state.loginType !== 2) {
+            delete loginParams.username;
+            loginParams[state.loginType ? "username" : "email"] =
+              values.username;
+            loginParams.password = md5(values.password);
+          }
+          this.Login(loginParams)
             .then(res => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
-            .finally(() => {
-              state.loginBtn = false;
-            });
+            .finally(() => (state.loginBtn = false));
         } else {
-          setTimeout(() => {
-            state.loginBtn = false;
-          }, 600);
+          setTimeout(() => (state.loginBtn = false), 600);
         }
       });
     },
@@ -247,14 +248,14 @@ export default {
           }, 1000);
 
           const hide = this.$message.loading("验证码发送中..", 0);
-          apis.login
+          baseApi
             .getSmsCaptcha({ mobile: values.mobile })
             .then(res => {
               setTimeout(hide, 2500);
               this.$notification["success"]({
                 message: "提示",
                 description:
-                  "验证码获取成功，您的验证码为：" + res.result.captcha,
+                  "验证码获取成功，您的验证码为：" + res.data.captcha,
                 duration: 8
               });
             })
@@ -278,7 +279,7 @@ export default {
       });
     },
     loginSuccess(res) {
-      // console.log(res);
+      // console.log('loginSuccess', res);
       this.$router.push({ path: "/" });
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
