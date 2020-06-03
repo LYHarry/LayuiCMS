@@ -11,11 +11,13 @@
 // ------------------------
 .clearfix() {
   zoom: 1;
+
   &::before,
   &::after {
     display: table;
     content: ' ';
   }
+
   &::after {
     clear: both;
     height: 0;
@@ -31,7 +33,7 @@
   .avatar {
     flex: 0 1 72px;
 
-    & > span {
+    &>span {
       display: block;
       width: 72px;
       height: 72px;
@@ -67,20 +69,20 @@
     display: inline-block;
     padding: 0 32px;
 
-    > p:first-child {
+    >p:first-child {
       margin-bottom: 4px;
       color: @text-color-secondary;
       font-size: @font-size-base;
       line-height: 22px;
     }
 
-    > p {
+    >p {
       margin: 0;
       color: @heading-color;
       font-size: 30px;
       line-height: 38px;
 
-      > span {
+      >span {
         color: @text-color-secondary;
         font-size: 20px;
       }

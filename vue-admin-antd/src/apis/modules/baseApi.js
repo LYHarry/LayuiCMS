@@ -43,3 +43,13 @@ export function Register(request) {
         data: request
     })
 }
+
+export function getInfo() {
+    return axios.request({
+        url: baseApi.UserInfo,
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    })
+}

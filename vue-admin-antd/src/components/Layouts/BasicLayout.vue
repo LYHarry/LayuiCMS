@@ -1,5 +1,5 @@
 <template>
-  <pro-layout
+  <ProLayout
     title="Ant Design Pro"
     :menus="menus"
     :collapsed="collapsed"
@@ -19,25 +19,26 @@
       <global-footer />
     </template>
     <router-view />
-  </pro-layout>
+  </ProLayout>
 </template>
 
 <script>
-// import { SettingDrawer } from "@ant-design-vue/pro-layout";
+import ProLayout, { SettingDrawer } from "@ant-design-vue/pro-layout";
 import { i18nRender } from "@/locales";
 import { mapState } from "vuex";
 import { SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from "@/store/mutation-types";
 
-// import RightContent from "@/components/GlobalHeader/RightContent";
-// import GlobalFooter from "@/components/GlobalFooter";
-import LogoSvg from "@/assets/svg/logo.svg?inline";
+import RightContent from "@/components/GlobalHeader/RightContent";
+import GlobalFooter from "@/components/GlobalFooter";
+import { ReactComponent as LogoSvg } from "@/assets/svg/logo.svg?inline";
 
 export default {
   name: "BasicLayout",
   components: {
-    // SettingDrawer,
-    // RightContent,
-    // GlobalFooter
+    SettingDrawer,
+    RightContent,
+    GlobalFooter,
+    ProLayout
   },
   data() {
     return {

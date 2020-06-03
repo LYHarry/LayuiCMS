@@ -3,6 +3,7 @@
 import Mock from 'mockjs'
 import MenuRouter from './modules/MenuRouter'
 import Auth from './modules/auth'
+import Manage from './modules/manage'
 
 // TODO 判断是否 IE 浏览器，IE 不支持 mock
 
@@ -47,8 +48,11 @@ const builder = (respond, message = '', code = 200) => {
 
 const MockData = [
     MenuRouter,
-    ...Auth
+    ...Auth,
+    ...Manage
 ];
+
+console.log('MockData ', MockData)
 
 for (const i of MockData) {
     i.type = (i.type || 'post').toLowerCase();

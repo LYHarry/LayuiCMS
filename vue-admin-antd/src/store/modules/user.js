@@ -9,14 +9,16 @@ const user = {
     // welcome: '',
     // avatar: '',
     // roles: [],
-    // info: {}
+    info: {}
   },
 
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-
+    SET_INFO: (state, info) => {
+      state.info = info
+    }
   },
 
   actions: {
@@ -30,12 +32,17 @@ const user = {
           }
           storage.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
           commit('SET_TOKEN', result.token)
+          commit('SET_INFO', result)
           resolve(result)
         }).catch(error => {
           reject(error)
         })
       })
     },
+
+
+
+
 
   }
 

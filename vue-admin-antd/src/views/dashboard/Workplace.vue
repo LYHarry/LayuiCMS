@@ -265,7 +265,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "./Workplace.less";
+@import "~@/assets/style/Workplace.less";
 
 .project-list {
   .card-title {
