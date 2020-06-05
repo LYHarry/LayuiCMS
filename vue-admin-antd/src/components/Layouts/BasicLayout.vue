@@ -31,6 +31,7 @@ import { SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from "@/store/mutation-types";
 import RightContent from "@/components/GlobalHeader/RightContent";
 import GlobalFooter from "@/components/GlobalFooter";
 import { ReactComponent as LogoSvg } from "@/assets/svg/logo.svg?inline";
+import { baseApi } from "@/apis";
 
 export default {
   name: "BasicLayout",
@@ -70,14 +71,19 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      // 动态主路由
-      mainMenu: state => state.permission.addRouters
-    })
+    // ...mapState({
+    //   // 动态主路由
+    //   mainMenu: state => state.permission.addRouters
+    // })
   },
   created() {
-    const routes = this.mainMenu.find(item => item.path === "/");
-    this.menus = (routes && routes.children) || [];
+    // const routes = this.mainMenu.find(item => item.path === "/");
+    // this.menus = (routes && routes.children) || [];
+
+    baseApi.getSystemMenu().then(res => {
+      this.menus = res.data;
+    });
+
     // 处理侧栏收起状态
     this.$watch("collapsed", () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed);

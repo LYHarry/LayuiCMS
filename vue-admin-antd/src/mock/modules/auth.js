@@ -1,10 +1,11 @@
 import Mock from 'mockjs'
+import baseApi from '@/apis/urls/baseApi'
 
 //登陆
 const login = {
-    url: '/auth/login',
+    url: baseApi.Login,
     response: function (req) {
-        console.log('req ', req)
+        // console.log('req ', req)
         const username = ['admin', 'super']
         // 强硬要求 ant.design 相同密码
         // admin, ant.design
@@ -40,25 +41,25 @@ const login = {
 
 //退出登陆
 const logout = {
-    url: '/auth/logout',
+    url: baseApi.Logout,
     response: true,
 }
 
 //得到登陆验证码
 const getsms = {
-    url: '/account/sms',
+    url: baseApi.SendSms,
     response: { captcha: Mock.mock('@integer(10000, 99999)') }
 }
 
 //得到用户第二步验证
 const stepcode2 = {
-    url: '/auth/2stepcode',
+    url: baseApi.twoStepCode,
     response: { stepCode: Mock.mock('@integer(0, 1)') }
 }
 
 //注册
 const register = {
-    url: '/auth/register',
+    url: baseApi.Register,
     response: true
 }
 

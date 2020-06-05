@@ -47,9 +47,17 @@ export function Register(request) {
 export function getInfo() {
     return axios.request({
         url: baseApi.UserInfo,
-        method: 'get',
+        method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         }
+    })
+}
+
+
+export function getSystemMenu() {
+    return axios.request({
+        url: baseApi.systemMenu,
+        method: 'post'
     })
 }

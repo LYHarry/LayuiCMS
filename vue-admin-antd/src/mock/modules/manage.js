@@ -1,8 +1,9 @@
 import Mock from 'mockjs'
+import Dashboard from '@/apis/urls/dashboard'
 
 
 const projects = {
-  url: '/list/search/projects',
+  url: Dashboard.projects,
   response: {
     data: [{
       id: 1,
@@ -61,7 +62,7 @@ const projects = {
 }
 
 const activity = {
-  url: '/workplace/activity',
+  url: Dashboard.activity,
   response: [{
     id: 1,
     user: {
@@ -144,7 +145,7 @@ const activity = {
 }
 
 const serverList = {
-  url: '/service',
+  url: Dashboard.service,
   response: function (req) {
     // const parameters = getQueryParameters(options)
     const result = []
@@ -179,7 +180,7 @@ const serverList = {
 }
 
 const teams = {
-  url: '/workplace/teams',
+  url: Dashboard.teams,
   response: [{
     id: 1,
     name: '科学搬砖组',
@@ -209,7 +210,7 @@ const teams = {
 }
 
 const radar = {
-  url: '/workplace/radar',
+  url: Dashboard.radar,
   response: [{
     item: '引用',
     '个人': 70,
