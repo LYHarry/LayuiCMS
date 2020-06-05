@@ -48,6 +48,10 @@ import {
 } from 'ant-design-vue'
 
 
+// ext library
+import Viser from 'viser-vue'
+
+
 const components = [
     ConfigProvider,
     Layout,
@@ -90,6 +94,7 @@ const components = [
     Result,
     Statistic,
     Descriptions,
+    Viser
 ];
 
 

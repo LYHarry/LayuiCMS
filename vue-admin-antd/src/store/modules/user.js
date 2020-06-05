@@ -2,12 +2,11 @@ import storage from 'store'
 import { baseApi } from '@/apis'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
+
 const user = {
   state: {
     token: '',
-    // name: '',
     // welcome: '',
-    // avatar: '',
     // roles: [],
     info: {}
   },
@@ -18,7 +17,7 @@ const user = {
     },
     SET_INFO: (state, info) => {
       state.info = info
-    }
+    },
   },
 
   actions: {
@@ -61,7 +60,7 @@ export default user
 // import storage from 'store'
 // import { login, getInfo, logout } from '@/apis/login'
 // import { ACCESS_TOKEN } from '@/store/mutation-types'
-// import { welcome } from '@/utils'
+
 
 // const user = {
 //   state: {
@@ -76,10 +75,6 @@ export default user
 //   mutations: {
 //     SET_TOKEN: (state, token) => {
 //       state.token = token
-//     },
-//     SET_NAME: (state, { name, welcome }) => {
-//       state.name = name
-//       state.welcome = welcome
 //     },
 //     SET_AVATAR: (state, avatar) => {
 //       state.avatar = avatar
@@ -128,10 +123,6 @@ export default user
 //           } else {
 //             reject(new Error('getInfo: roles must be a non-null array !'))
 //           }
-
-//           commit('SET_NAME', { name: result.name, welcome: welcome() })
-//           commit('SET_AVATAR', result.avatar)
-
 //           resolve(response)
 //         }).catch(error => {
 //           reject(error)

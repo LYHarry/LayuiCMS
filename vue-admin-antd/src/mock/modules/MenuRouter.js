@@ -11,7 +11,7 @@ export default {
             component: '',
             title: 'menu.dashboard',
             keepAlive: true,
-            // icon: bxAnaalyse,
+            icon: 'dashboard',
             children: [
                 {
                     path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',

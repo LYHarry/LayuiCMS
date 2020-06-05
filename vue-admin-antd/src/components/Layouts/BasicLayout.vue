@@ -30,8 +30,8 @@ import { SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from "@/store/mutation-types";
 
 import RightContent from "@/components/GlobalHeader/RightContent";
 import GlobalFooter from "@/components/GlobalFooter";
-import { ReactComponent as LogoSvg } from "@/assets/svg/logo.svg?inline";
 import { baseApi } from "@/apis";
+import { bxAnaalyse, LogoSvg } from "@/utils/icons";
 
 export default {
   name: "BasicLayout",
@@ -81,7 +81,31 @@ export default {
     // this.menus = (routes && routes.children) || [];
 
     baseApi.getSystemMenu().then(res => {
-      this.menus = res.data;
+      let menuData = res.data.reduce((prev, cur, index, arr) => {
+        let menuItem = {
+          path: cur.path,
+          redirect: cur.redirect,
+          component: cur.component,
+          name: cur.name,
+          meta: { title: cur.title, icon: cur.icon },
+          children: []
+        };
+        if (menuItem.name === "dashboard") {
+          menuItem.meta.icon = bxAnaalyse;
+        }
+        menuItem.children = cur.children.reduce((prev, cur, index, arr) => {
+          prev.push({
+            path: cur.path,
+            name: cur.name,
+            component: () => import("@" + cur.component),
+            meta: { title: cur.title, keepAlive: cur.keepAlive }
+          });
+          return prev;
+        }, []);
+        prev.push(menuItem);
+        return prev;
+      }, []);
+      this.menus = menuData;
     });
 
     // 处理侧栏收起状态

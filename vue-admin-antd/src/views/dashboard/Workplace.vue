@@ -3,11 +3,11 @@
     <template v-slot:content>
       <div class="page-header-content">
         <div class="avatar">
-          <a-avatar size="large" :src="currentUser.avatar" />
+          <a-avatar size="large" :src="userInfo.avatar" />
         </div>
         <div class="content">
           <div class="content-title">
-            {{ timeFix }}，{{ user.name }}
+            {{ timeFix }}，{{ userInfo.name }}
             <span class="welcome-text">，{{ welcome }}</span>
           </div>
           <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { timeFix } from "@/utils";
+import { timeFix, welcome } from "@/utils";
 import { mapState } from "vuex";
 import { PageHeaderWrapper } from "@ant-design-vue/pro-layout";
 import { Radar } from "@/components";
@@ -143,8 +143,8 @@ export default {
   data() {
     return {
       timeFix: timeFix(),
-      avatar: "",
-      user: {},
+      // avatar: "",
+      // user: {},
 
       projects: [],
       loading: true,
@@ -194,29 +194,33 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      nickname: state => state.user.nickname,
-      welcome: state => state.user.welcome
-    }),
-    currentUser() {
-      return {
-        name: "Serati Ma",
-        avatar:
-          "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
-      };
-    },
+    // ...mapState({
+    //    nickname: state => state.user.nickname,
+    //   welcome: state => state.user.welcome
+    // }),
+    // currentUser() {
+    //   return {
+    //     name: "Serati Ma",
+    //     avatar:
+    //       "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+    //   };
+    // },
+    welcome: () => welcome(),
     userInfo() {
-      return this.$store.getters.userInfo;
+      let currentUser = this.$store.getters.userInfo;
+      currentUser.name = currentUser.name || "Serati Ma";
+      currentUser.avatar =
+        currentUser.avatar ||
+        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png";
+      return currentUser;
     }
   },
   created() {
-    this.user = this.userInfo;
-    this.avatar = this.userInfo.avatar;
-
+    // this.user = this.userInfo;
+    // this.avatar = this.userInfo.avatar;
     // getRoleList().then(res => {
     //   // console.log('workplace -> call getRoleList()', res)
     // });
-
     // getServiceList().then(res => {
     //   // console.log('workplace -> call getServiceList()', res)
     // });
@@ -230,7 +234,7 @@ export default {
   methods: {
     getProjects() {
       dashboard.searchProjects().then(res => {
-        this.projects = res.data;
+        this.projects = res.data.data;
         this.loading = false;
       });
     },
