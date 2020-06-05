@@ -127,9 +127,7 @@
 <script>
 import { timeFix, welcome } from "@/utils";
 import { mapState } from "vuex";
-import { PageHeaderWrapper } from "@ant-design-vue/pro-layout";
 import { Radar } from "@/components";
-
 import { dashboard } from "@/apis";
 
 const DataSet = require("@antv/data-set");
@@ -137,7 +135,6 @@ const DataSet = require("@antv/data-set");
 export default {
   name: "Workplace",
   components: {
-    PageHeaderWrapper,
     Radar
   },
   data() {

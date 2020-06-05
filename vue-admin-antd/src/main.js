@@ -4,13 +4,11 @@ import App from './App.vue'
 import router from '@/router'
 import store from '@/store'
 import i18n from '@/locales'
-// import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 
 import '@/utils/lazy_use'
-import '@/assets/style/global.less'
+import '@/assets/style/global.less' // global style
+import '@/utils/filter' // global filter
 
-// Vue.component('pro-layout', ProLayout)
-// Vue.component('page-header-wrapper', PageHeaderWrapper)
 
 console.log('process.env ', process.env)
 

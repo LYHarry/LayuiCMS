@@ -98,13 +98,18 @@ export default {
             path: cur.path,
             name: cur.name,
             component: () => import("@" + cur.component),
-            meta: { title: cur.title, keepAlive: cur.keepAlive }
+            meta: {
+              title: cur.title,
+              keepAlive: cur.keepAlive,
+              target: cur.target || ""
+            }
           });
           return prev;
         }, []);
         prev.push(menuItem);
         return prev;
       }, []);
+      console.log("menuData ", menuData);
       this.menus = menuData;
     });
 

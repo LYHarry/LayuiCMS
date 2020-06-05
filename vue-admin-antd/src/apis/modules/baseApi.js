@@ -1,9 +1,9 @@
 import axios from '@/axios'
-import baseApi from '../urls/baseApi'
+import apiUrl from '../urls/baseApi'
 
 export function login(request) {
     return axios.request({
-        url: baseApi.Login,
+        url: apiUrl.Login,
         method: 'POST',
         data: request
     })
@@ -11,7 +11,7 @@ export function login(request) {
 
 export function getSmsCaptcha(request) {
     return axios.request({
-        url: baseApi.SendSms,
+        url: apiUrl.SendSms,
         method: 'POST',
         data: request
     })
@@ -19,7 +19,7 @@ export function getSmsCaptcha(request) {
 
 export function logout() {
     return axios.request({
-        url: baseApi.Logout,
+        url: apiUrl.Logout,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
@@ -30,7 +30,7 @@ export function logout() {
 
 export function get2step(request) {
     return axios.request({
-        url: baseApi.twoStepCode,
+        url: apiUrl.twoStepCode,
         method: 'POST',
         data: request
     })
@@ -38,7 +38,7 @@ export function get2step(request) {
 
 export function Register(request) {
     return axios.request({
-        url: baseApi.Register,
+        url: apiUrl.Register,
         method: 'POST',
         data: request
     })
@@ -46,7 +46,7 @@ export function Register(request) {
 
 export function getInfo() {
     return axios.request({
-        url: baseApi.UserInfo,
+        url: apiUrl.UserInfo,
         method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
@@ -57,7 +57,7 @@ export function getInfo() {
 
 export function getSystemMenu() {
     return axios.request({
-        url: baseApi.systemMenu,
+        url: apiUrl.systemMenu,
         method: 'post'
     })
 }

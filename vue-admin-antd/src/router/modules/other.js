@@ -22,18 +22,18 @@ export default [
         component: RouteView,
         meta: { title: 'menu.dashboard', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
         children: [
-          // {
-          //     path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
-          //     name: 'Analysis',
-          //     component: () => import('@/views/dashboard/Analysis'),
-          //     meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
-          // },
-          // // 外部链接
-          // {
-          //     path: 'https://www.baidu.com/',
-          //     name: 'Monitor',
-          //     meta: { title: 'menu.dashboard.monitor', target: '_blank' }
-          // },
+          {
+            path: '/dashboard/analysis',
+            name: 'Analysis',
+            component: () => import('@/views/dashboard/Analysis'),
+            meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
+          },
+          // 外部链接
+          {
+            path: 'https://www.baidu.com/',
+            name: 'Monitor',
+            meta: { title: 'menu.dashboard.monitor', target: '_blank' }
+          },
           {
             path: '/dashboard/workplace',
             name: 'Workplace',
@@ -43,90 +43,90 @@ export default [
         ]
       },
 
-      // // forms
-      // {
-      //     path: '/form',
-      //     redirect: '/form/base-form',
-      //     component: RouteView,
-      //     meta: { title: '表单页', icon: 'form', permission: ['form'] },
-      //     children: [
-      //         {
-      //             path: '/form/base-form',
-      //             name: 'BaseForm',
-      //             component: () => import('@/views/form/basicForm'),
-      //             meta: { title: '基础表单', keepAlive: true, permission: ['form'] }
-      //         },
-      //         {
-      //             path: '/form/step-form',
-      //             name: 'StepForm',
-      //             component: () => import('@/views/form/stepForm/StepForm'),
-      //             meta: { title: '分步表单', keepAlive: true, permission: ['form'] }
-      //         },
-      //         {
-      //             path: '/form/advanced-form',
-      //             name: 'AdvanceForm',
-      //             component: () => import('@/views/form/advancedForm/AdvancedForm'),
-      //             meta: { title: '高级表单', keepAlive: true, permission: ['form'] }
-      //         }
-      //     ]
-      // },
+      // forms
+      {
+        path: '/form',
+        redirect: '/form/base-form',
+        component: RouteView,
+        meta: { title: '表单页', icon: 'form', permission: ['form'] },
+        children: [
+          {
+            path: '/form/base-form',
+            name: 'BaseForm',
+            component: () => import('@/views/form/basicForm'),
+            meta: { title: '基础表单', keepAlive: true, permission: ['form'] }
+          },
+          {
+            path: '/form/step-form',
+            name: 'StepForm',
+            component: () => import('@/views/form/stepForm/StepForm'),
+            meta: { title: '分步表单', keepAlive: true, permission: ['form'] }
+          },
+          {
+            path: '/form/advanced-form',
+            name: 'AdvanceForm',
+            component: () => import('@/views/form/advancedForm/AdvancedForm'),
+            meta: { title: '高级表单', keepAlive: true, permission: ['form'] }
+          }
+        ]
+      },
 
-      // // list
-      // {
-      //     path: '/list',
-      //     name: 'list',
-      //     component: RouteView,
-      //     redirect: '/list/table-list',
-      //     meta: { title: '列表页', icon: 'table', permission: ['table'] },
-      //     children: [
-      //         {
-      //             path: '/list/table-list/:pageNo([1-9]\\d*)?',
-      //             name: 'TableListWrapper',
-      //             hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-      //             component: () => import('@/views/list/TableList'),
-      //             meta: { title: '查询表格', keepAlive: true, permission: ['table'] }
-      //         },
-      //         {
-      //             path: '/list/basic-list',
-      //             name: 'BasicList',
-      //             component: () => import('@/views/list/BasicList'),
-      //             meta: { title: '标准列表', keepAlive: true, permission: ['table'] }
-      //         },
-      //         {
-      //             path: '/list/card',
-      //             name: 'CardList',
-      //             component: () => import('@/views/list/CardList'),
-      //             meta: { title: '卡片列表', keepAlive: true, permission: ['table'] }
-      //         },
-      //         {
-      //             path: '/list/search',
-      //             name: 'SearchList',
-      //             component: () => import('@/views/list/search/SearchLayout'),
-      //             redirect: '/list/search/article',
-      //             meta: { title: '搜索列表', keepAlive: true, permission: ['table'] },
-      //             children: [
-      //                 {
-      //                     path: '/list/search/article',
-      //                     name: 'SearchArticles',
-      //                     component: () => import('../views/list/search/Article'),
-      //                     meta: { title: '搜索列表（文章）', permission: ['table'] }
-      //                 },
-      //                 {
-      //                     path: '/list/search/project',
-      //                     name: 'SearchProjects',
-      //                     component: () => import('../views/list/search/Projects'),
-      //                     meta: { title: '搜索列表（项目）', permission: ['table'] }
-      //                 },
-      //                 {
-      //                     path: '/list/search/application',
-      //                     name: 'SearchApplications',
-      //                     component: () => import('../views/list/search/Applications'),
-      //                     meta: { title: '搜索列表（应用）', permission: ['table'] }
-      //                 }
-      //             ]
-      //         }
-      //     ]
-      // },
+      // list
+      {
+        path: '/list',
+        name: 'list',
+        component: RouteView,
+        redirect: '/list/table-list',
+        meta: { title: '列表页', icon: 'table', permission: ['table'] },
+        children: [
+          {
+            path: '/list/table-list/:pageNo([1-9]\\d*)?',
+            name: 'TableListWrapper',
+            hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            component: () => import('@/views/list/TableList'),
+            meta: { title: '查询表格', keepAlive: true, permission: ['table'] }
+          },
+          {
+            path: '/list/basic-list',
+            name: 'BasicList',
+            component: () => import('@/views/list/BasicList'),
+            meta: { title: '标准列表', keepAlive: true, permission: ['table'] }
+          },
+          {
+            path: '/list/card',
+            name: 'CardList',
+            component: () => import('@/views/list/CardList'),
+            meta: { title: '卡片列表', keepAlive: true, permission: ['table'] }
+          },
+          {
+            path: '/list/search',
+            name: 'SearchList',
+            component: () => import('@/views/list/search/SearchLayout'),
+            redirect: '/list/search/article',
+            meta: { title: '搜索列表', keepAlive: true, permission: ['table'] },
+            children: [
+              {
+                path: '/list/search/article',
+                name: 'SearchArticles',
+                component: () => import('@/views/list/search/Article'),
+                meta: { title: '搜索列表（文章）', permission: ['table'] }
+              },
+              {
+                path: '/list/search/project',
+                name: 'SearchProjects',
+                component: () => import('@/views/list/search/Projects'),
+                meta: { title: '搜索列表（项目）', permission: ['table'] }
+              },
+              {
+                path: '/list/search/application',
+                name: 'SearchApplications',
+                component: () => import('@/views/list/search/Applications'),
+                meta: { title: '搜索列表（应用）', permission: ['table'] }
+              }
+            ]
+          }
+        ]
+      },
 
       // // profile
       // {

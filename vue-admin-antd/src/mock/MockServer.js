@@ -2,8 +2,9 @@
 
 import Mock from 'mockjs'
 import MenuRouter from './modules/MenuRouter'
-import Auth from './modules/auth'
+import baseApi from './modules/baseApi'
 import Manage from './modules/manage'
+import Dashboard from './modules/dashboard'
 
 // TODO 判断是否 IE 浏览器，IE 不支持 mock
 
@@ -48,8 +49,9 @@ const builder = (respond, message = '', code = 200) => {
 
 const MockData = [
     MenuRouter,
-    ...Auth,
-    ...Manage
+    ...baseApi,
+    ...Manage,
+    ...Dashboard
 ];
 
 console.log('MockData ', MockData)

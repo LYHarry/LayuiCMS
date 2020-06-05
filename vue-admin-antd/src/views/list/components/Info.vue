@@ -8,22 +8,22 @@
 
 <script>
 export default {
-  name: 'Info',
+  name: "Info",
   props: {
     title: {
       type: String,
-      default: ''
+      default: ""
     },
     value: {
       type: String,
-      default: ''
+      default: ""
     },
     bordered: {
       type: Boolean,
       default: false
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

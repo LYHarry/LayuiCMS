@@ -14,7 +14,7 @@ export default {
             icon: 'dashboard',
             children: [
                 {
-                    path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
+                    path: '/dashboard/analysis',
                     name: 'Analysis',
                     component: '/views/dashboard/Analysis',
                     title: 'menu.dashboard.analysis',
