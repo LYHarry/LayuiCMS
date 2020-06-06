@@ -3,6 +3,6 @@
 export default {
     role: '/manage/role',
     service: '/manage/service',
-    orgTree: '/org/tree'
+    orgTree: '/manage/org/tree'
 
 }

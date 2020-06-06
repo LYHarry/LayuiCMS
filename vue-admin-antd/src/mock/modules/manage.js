@@ -1,7 +1,6 @@
 import Mock from 'mockjs'
 import apiUrl from '@/apis/urls/manage'
 
-
 const orgTree = {
   url: apiUrl.orgTree,
   response: [{
@@ -670,8 +669,44 @@ const role = {
   }
 }
 
+const serverList = {
+  url: apiUrl.service,
+  response: function (req) {
+    const totalCount = 5701
+    const result = []
+    const pageNo = parseInt(req.pageNo)
+    const pageSize = parseInt(req.pageSize)
+    const totalPage = Math.ceil(totalCount / pageSize)
+    const key = (pageNo - 1) * pageSize
+    const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
+
+    for (let i = 1; i < next; i++) {
+      const tmpKey = key + i
+      result.push({
+        key: tmpKey,
+        id: tmpKey,
+        no: 'No ' + tmpKey,
+        description: '这是一段描述',
+        callNo: Mock.mock('@integer(1, 999)'),
+        status: Mock.mock('@integer(0, 3)'),
+        updatedAt: Mock.mock('@datetime'),
+        editable: false
+      })
+    }
+
+    return {
+      pageSize: pageSize,
+      pageNo: pageNo,
+      totalCount: totalCount,
+      totalPage: totalPage,
+      data: result
+    }
+  }
+}
+
 
 export default [
   orgTree,
-  role
+  role,
+  serverList
 ]

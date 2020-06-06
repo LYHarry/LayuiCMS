@@ -3,17 +3,25 @@ import apiUrl from '../urls/manage'
 
 
 export function getRoleList(parameter) {
-    return request({
+    return axios.request({
         url: apiUrl.role,
-        method: 'get',
-        params: parameter
+        method: 'POST',
+        data: parameter
     })
 }
 
 export function getServiceList(parameter) {
-    return request({
+    return axios.request({
         url: apiUrl.service,
-        method: 'get',
-        params: parameter
+        method: 'post',
+        data: parameter
+    })
+}
+
+export function getOrgTree(parameter) {
+    return request({
+        url: apiUrl.orgTree,
+        method: 'post',
+        data: parameter
     })
 }

@@ -131,7 +131,7 @@
 <script>
 import moment from "moment";
 import { STable, Ellipsis } from "@/components";
-import { getRoleList, getServiceList } from "@/apis/manage";
+import { manage } from "@/apis";
 
 import StepByStepModal from "./modules/StepByStepModal";
 import CreateForm from "./modules/CreateForm";
@@ -216,9 +216,8 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam);
-        console.log("loadData request parameters:", requestParameters);
-        return getServiceList(requestParameters).then(res => {
-          return res.result;
+        return manage.getServiceList(requestParameters).then(res => {
+          return res.data;
         });
       },
       selectedRowKeys: [],
@@ -234,7 +233,7 @@ export default {
     }
   },
   created() {
-    getRoleList({ t: new Date() });
+    // manage.getRoleList({ t: new Date() });
   },
   computed: {
     rowSelection() {

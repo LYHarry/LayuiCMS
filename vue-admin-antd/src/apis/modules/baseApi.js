@@ -21,9 +21,6 @@ export function logout() {
     return axios.request({
         url: apiUrl.Logout,
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
     })
 }
 
@@ -48,9 +45,6 @@ export function getInfo() {
     return axios.request({
         url: apiUrl.UserInfo,
         method: 'post',
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
     })
 }
 

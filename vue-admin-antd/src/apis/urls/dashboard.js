@@ -5,5 +5,4 @@ export default {
     radar: '/workplace/radar',
     activity: '/workplace/activity',
     projects: '/workplace/search/projects',
-    service: '/workplace/service'
 }

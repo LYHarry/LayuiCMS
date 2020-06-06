@@ -1,7 +1,7 @@
-import baseApi from '@/apis/urls/baseApi'
+import apiUrl from '@/apis/urls/baseApi'
 
 export default {
-    url: baseApi.systemMenu,
+    url: apiUrl.systemMenu,
     response: [
         //dashboard
         {

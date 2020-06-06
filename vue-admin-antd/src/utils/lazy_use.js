@@ -47,11 +47,11 @@ import {
     notification,
 } from 'ant-design-vue'
 
-
 // ext library
 import Viser from 'viser-vue'
 import { PageHeaderWrapper } from "@ant-design-vue/pro-layout";
-
+import { Dialog } from '@/components'
+import '@/directives/action'
 
 const components = [
     ConfigProvider,
@@ -95,7 +95,8 @@ const components = [
     Result,
     Statistic,
     Descriptions,
-    Viser
+    Viser,
+    Dialog
 ];
 
 Vue.component('page-header-wrapper', PageHeaderWrapper)
