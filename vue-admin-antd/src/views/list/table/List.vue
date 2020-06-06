@@ -124,7 +124,7 @@
 <script>
 import moment from "moment";
 import { STable } from "@/components";
-import { getRoleList, getServiceList } from "@/apis/manage";
+import { manage } from "@/apis";
 
 export default {
   name: "TableList",
@@ -178,12 +178,12 @@ export default {
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        console.log("loadData.parameter", parameter);
-        return getServiceList(Object.assign(parameter, this.queryParam)).then(
-          res => {
-            return res.result;
-          }
-        );
+        // console.log("loadData.parameter", parameter);
+        return manage
+          .getServiceList(Object.assign(parameter, this.queryParam))
+          .then(res => {
+            return res.data;
+          });
       },
       selectedRowKeys: [],
       selectedRows: [],
@@ -206,7 +206,7 @@ export default {
   },
   created() {
     this.tableOption();
-    getRoleList({ t: new Date() });
+    // getRoleList({ t: new Date() });
   },
   methods: {
     tableOption() {

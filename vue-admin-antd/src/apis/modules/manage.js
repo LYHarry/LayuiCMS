@@ -25,3 +25,13 @@ export function getOrgTree(parameter) {
         data: parameter
     })
 }
+
+
+export function uploadFile(formData) {
+    return axios.request({
+        url: apiUrl.uploadFile,
+        method: 'post',
+        data: formData,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    })
+}

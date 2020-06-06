@@ -5,6 +5,7 @@ import MenuRouter from './modules/MenuRouter'
 import baseApi from './modules/baseApi'
 import Manage from './modules/manage'
 import Dashboard from './modules/dashboard'
+import Article from './modules/article'
 
 // TODO 判断是否 IE 浏览器，IE 不支持 mock
 
@@ -51,7 +52,8 @@ const MockData = [
     MenuRouter,
     ...baseApi,
     ...Manage,
-    ...Dashboard
+    ...Dashboard,
+    ...Article
 ];
 
 console.log('MockData ', MockData)

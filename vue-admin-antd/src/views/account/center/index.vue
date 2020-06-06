@@ -5,9 +5,9 @@
         <a-card :bordered="false">
           <div class="account-center-avatarHolder">
             <div class="avatar">
-              <img :src="avatar" />
+              <img :src="userInfo.avatar" />
             </div>
-            <div class="username">{{ nickname }}</div>
+            <div class="username">{{ userInfo.name }}</div>
             <div class="bio">海纳百川，有容乃大</div>
           </div>
           <div class="account-center-detail">
@@ -98,7 +98,7 @@
 <script>
 import { PageView, RouteView } from "@/components/Layouts";
 import { AppPage, ArticlePage, ProjectPage } from "./page";
-
+import { dashboard } from "@/apis";
 import { mapGetters } from "vuex";
 
 export default {
@@ -137,15 +137,23 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["nickname", "avatar"])
+    // ...mapGetters(["userInfo"]),
+    userInfo() {
+      let currentUser = this.$store.getters.userInfo;
+      currentUser.name = currentUser.name || "Serati Ma";
+      currentUser.avatar =
+        currentUser.avatar ||
+        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png";
+      return currentUser;
+    }
   },
   mounted() {
     this.getTeams();
   },
   methods: {
     getTeams() {
-      this.$http.get("/workplace/teams").then(res => {
-        this.teams = res.result;
+      dashboard.workplaceTeams().then(res => {
+        this.teams = res.data;
         this.teamSpinning = false;
       });
     },

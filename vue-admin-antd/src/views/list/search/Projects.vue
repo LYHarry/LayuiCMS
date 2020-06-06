@@ -52,7 +52,11 @@
     </a-card>
 
     <div class="ant-pro-pages-list-projects-cardList">
-      <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
+      <a-list
+        :loading="loading"
+        :data-source="data"
+        :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }"
+      >
         <a-list-item slot="renderItem" slot-scope="item">
           <a-card class="ant-pro-pages-list-projects-card" hoverable>
             <img slot="cover" :src="item.cover" :alt="item.title" />
@@ -82,10 +86,11 @@
 </template>
 
 <script>
-import moment from 'moment'
-import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
-const TagSelectOption = TagSelect.Option
-const AvatarListItem = AvatarList.AvatarItem
+import moment from "moment";
+import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from "@/components";
+import { article } from "@/apis";
+const TagSelectOption = TagSelect.Option;
+const AvatarListItem = AvatarList.AvatarItem;
 
 export default {
   components: {
@@ -96,34 +101,33 @@ export default {
     TagSelectOption,
     StandardFormRow
   },
-  data () {
+  data() {
     return {
       data: [],
       form: this.$form.createForm(this),
       loading: true
-    }
+    };
   },
   filters: {
-    fromNow (date) {
-      return moment(date).fromNow()
+    fromNow(date) {
+      return moment(date).fromNow();
     }
   },
-  mounted () {
-    this.getList()
+  mounted() {
+    this.getList();
   },
   methods: {
-    handleChange (value) {
-      console.log(`selected ${value}`)
+    handleChange(value) {
+      console.log(`selected ${value}`);
     },
-    getList () {
-      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
-        console.log('res', res)
-        this.data = res.result
-        this.loading = false
-      })
+    getList() {
+      article.getArticleList().then(res => {
+        this.data = res.data;
+        this.loading = false;
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -156,7 +160,7 @@ export default {
 
     > span {
       flex: 1 1;
-      color: rgba(0,0,0,.45);
+      color: rgba(0, 0, 0, 0.45);
       font-size: 12px;
     }
 

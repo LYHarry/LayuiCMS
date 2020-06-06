@@ -1,6 +1,10 @@
 <template>
   <div class="ant-pro-pages-account-projects-cardList">
-    <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }">
+    <a-list
+      :loading="loading"
+      :data-source="data"
+      :grid="{ gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }"
+    >
       <a-list-item slot="renderItem" slot-scope="item">
         <a-card class="ant-pro-pages-account-projects-card" hoverable>
           <img slot="cover" :src="item.cover" :alt="item.title" />
@@ -29,13 +33,14 @@
 </template>
 
 <script>
-import moment from 'moment'
-import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
-const TagSelectOption = TagSelect.Option
-const AvatarListItem = AvatarList.AvatarItem
+import moment from "moment";
+import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from "@/components";
+import { article } from "@/apis";
+const TagSelectOption = TagSelect.Option;
+const AvatarListItem = AvatarList.AvatarItem;
 
 export default {
-  name: 'Project',
+  name: "Project",
   components: {
     AvatarList,
     AvatarListItem,
@@ -44,66 +49,65 @@ export default {
     TagSelectOption,
     StandardFormRow
   },
-  data () {
+  data() {
     return {
       data: [],
       form: this.$form.createForm(this),
       loading: true
-    }
+    };
   },
   filters: {
-    fromNow (date) {
-      return moment(date).fromNow()
+    fromNow(date) {
+      return moment(date).fromNow();
     }
   },
-  mounted () {
-    this.getList()
+  mounted() {
+    this.getList();
   },
   methods: {
-    handleChange (value) {
-      console.log(`selected ${value}`)
+    handleChange(value) {
+      console.log(`selected ${value}`);
     },
-    getList () {
-      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
-        console.log('res', res)
-        this.data = res.result
-        this.loading = false
-      })
+    getList() {
+      article.getArticleList().then(res => {
+        this.data = res.data;
+        this.loading = false;
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-  .ant-pro-pages-account-projects-cardList {
-    margin-top: 24px;
+.ant-pro-pages-account-projects-cardList {
+  margin-top: 24px;
 
-    /deep/ .ant-card-meta-title {
-      margin-bottom: 4px;
+  /deep/ .ant-card-meta-title {
+    margin-bottom: 4px;
+  }
+
+  /deep/ .ant-card-meta-description {
+    height: 44px;
+    overflow: hidden;
+    line-height: 22px;
+  }
+
+  .cardItemContent {
+    display: flex;
+    height: 20px;
+    margin-top: 16px;
+    margin-bottom: -4px;
+    line-height: 20px;
+
+    > span {
+      flex: 1 1;
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 12px;
     }
 
-    /deep/ .ant-card-meta-description {
-      height: 44px;
-      overflow: hidden;
-      line-height: 22px;
-    }
-
-    .cardItemContent {
-      display: flex;
-      height: 20px;
-      margin-top: 16px;
-      margin-bottom: -4px;
-      line-height: 20px;
-
-      > span {
-        flex: 1 1;
-        color: rgba(0,0,0,.45);
-        font-size: 12px;
-      }
-
-      /deep/ .ant-pro-avatar-list {
-        flex: 0 1 auto;
-      }
+    /deep/ .ant-pro-avatar-list {
+      flex: 0 1 auto;
     }
   }
+}
 </style>
