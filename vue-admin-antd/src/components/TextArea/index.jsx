@@ -1,5 +1,5 @@
 import './style.less'
-import { getStrFullLength, cutStrByFullLength } from '../_util/util'
+import { getStrFullLength, cutStrByFullLength } from '@/utils'
 import Input from 'ant-design-vue/es/input'
 const TextArea = Input.TextArea
 

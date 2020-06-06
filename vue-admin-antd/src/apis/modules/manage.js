@@ -35,3 +35,20 @@ export function uploadFile(formData) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" }
     })
 }
+
+
+export function permissionNoPager(request) {
+    return axios.request({
+        url: apiUrl.permissionNoPager,
+        method: 'post',
+        data: request,
+    })
+}
+
+export function permissions(request) {
+    return axios.request({
+        url: apiUrl.permissions,
+        method: 'post',
+        data: request,
+    })
+}

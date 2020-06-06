@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import { getPermissions } from "@/apis/manage";
-import { actionToObject } from "@/utils/permissions";
+import { manage } from "@/apis";
+import { actionToObject } from "@/utils";
 import pick from "lodash.pick";
 
 export default {
@@ -130,7 +130,7 @@ export default {
     },
     loadPermissions() {
       const that = this;
-      getPermissions().then(res => {
+      manage.getPermissions().then(res => {
         const result = res.result;
         that.permissions = result.map(permission => {
           const options = actionToObject(permission.actionData);

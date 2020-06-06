@@ -81,8 +81,8 @@
 
 <script>
 import pick from "lodash.pick";
-import { getRoleList, getPermissions } from "@/apis/manage";
-import { actionToObject } from "@/utils/permissions";
+import { manage } from "@/apis";
+import { actionToObject } from "@/utils";
 import { baseMixin } from "@/store/mixin/app-mixin";
 
 export default {
@@ -99,8 +99,8 @@ export default {
     };
   },
   created() {
-    getRoleList().then(res => {
-      this.roles = res.result.data;
+    manage.getRoleList().then(res => {
+      this.roles = res.data.data;
       this.roles.push({
         id: "-1",
         name: "新增角色",
@@ -169,8 +169,8 @@ export default {
       });
     },
     loadPermissions() {
-      getPermissions().then(res => {
-        const result = res.result;
+      manage.getPermissions().then(res => {
+        const result = res.data;
         this.permissions = result.map(permission => {
           const options = actionToObject(permission.actionData);
           permission.checkedAll = false;

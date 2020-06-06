@@ -174,7 +174,7 @@ export default [
         ]
       },
 
-      // // Exception
+      // Exception
       // {
       //   path: '/exception',
       //   name: 'exception',
@@ -258,27 +258,26 @@ export default [
             ]
           }
         ]
-      }
+      },
 
-      // other
-      /*
+      // other     
       {
         path: '/other',
         name: 'otherPage',
-        component: PageView,
-        meta: { title: '其他组件', icon: 'slack', permission: [ 'dashboard' ] },
+        component: RouteView,
+        meta: { title: '其他组件', icon: 'slack', permission: ['dashboard'] },
         redirect: '/other/icon-selector',
         children: [
           {
             path: '/other/icon-selector',
             name: 'TestIconSelect',
             component: () => import('@/views/other/IconSelectorView'),
-            meta: { title: 'IconSelector', icon: 'tool', keepAlive: true, permission: [ 'dashboard' ] }
+            meta: { title: 'IconSelector', icon: 'tool', keepAlive: true, permission: ['dashboard'] }
           },
           {
             path: '/other/list',
             component: RouteView,
-            meta: { title: '业务布局', icon: 'layout', permission: [ 'support' ] },
+            meta: { title: '业务布局', icon: 'layout', permission: ['support'] },
             redirect: '/other/list/tree-list',
             children: [
               {
@@ -321,7 +320,7 @@ export default [
           }
         ]
       }
-      */
+
     ]
   },
   {

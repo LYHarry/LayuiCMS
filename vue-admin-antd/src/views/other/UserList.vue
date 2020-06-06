@@ -146,8 +146,8 @@
 <script>
 import pick from "lodash.pick";
 import { STable } from "@/components";
-import { getRoleList, getServiceList } from "@/apis/manage";
-import { PERMISSION_ENUM } from "@/utils/helper/permission";
+import { manage } from "@/apis";
+import { PERMISSION_ENUM } from "@/utils/permission";
 
 const STATUS = {
   1: "启用",
@@ -212,11 +212,10 @@ export default {
       columns,
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return getRoleList(parameter).then(res => {
-          console.log("getRoleList", res);
+        return manage.getRoleList(parameter).then(res => {
           // 展开全部行
-          this.expandedRowKeys = res.result.data.map(item => item.id);
-          return res.result;
+          this.expandedRowKeys = res.data.data.map(item => item.id);
+          return res.data;
         });
       },
 
@@ -235,11 +234,11 @@ export default {
     }
   },
   created() {
-    getServiceList().then(res => {
+    manage.getServiceList().then(res => {
       console.log("getServiceList.call()", res);
     });
 
-    getRoleList().then(res => {
+    manage.getRoleList().then(res => {
       console.log("getRoleList.call()", res);
     });
   },

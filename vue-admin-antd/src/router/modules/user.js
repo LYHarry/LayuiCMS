@@ -1,4 +1,4 @@
-import { UserLayout, BasicLayout, BlankLayout } from '@/components/Layouts'
+import { UserLayout } from '@/components/Layouts'
 
 export default {
     path: '/user',
