@@ -30,8 +30,8 @@ import { SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from "@/store/mutation-types";
 
 import RightContent from "@/components/GlobalHeader/RightContent";
 import GlobalFooter from "@/components/GlobalFooter";
-import { baseApi } from "@/apis";
 import { bxAnaalyse, LogoSvg } from "@/utils/icons";
+// import { asyncRouterMap } from "@/router/modules/other";
 
 export default {
   name: "BasicLayout",
@@ -77,41 +77,10 @@ export default {
     // })
   },
   created() {
-    // const routes = this.mainMenu.find(item => item.path === "/");
-    // this.menus = (routes && routes.children) || [];
+    console.log("asyncRouterMap ", asyncRouterMap);
 
-    baseApi.getSystemMenu().then(res => {
-      let menuData = res.data.reduce((prev, cur, index, arr) => {
-        let menuItem = {
-          path: cur.path,
-          redirect: cur.redirect,
-          component: cur.component,
-          name: cur.name,
-          meta: { title: cur.title, icon: cur.icon },
-          children: []
-        };
-        if (menuItem.name === "dashboard") {
-          menuItem.meta.icon = bxAnaalyse;
-        }
-        menuItem.children = cur.children.reduce((prev, cur, index, arr) => {
-          prev.push({
-            path: cur.path,
-            name: cur.name,
-            component: () => import("@" + cur.component),
-            meta: {
-              title: cur.title,
-              keepAlive: cur.keepAlive,
-              target: cur.target || ""
-            }
-          });
-          return prev;
-        }, []);
-        prev.push(menuItem);
-        return prev;
-      }, []);
-      console.log("menuData ", menuData);
-      this.menus = menuData;
-    });
+    const routes = asyncRouterMap.find(item => item.path === "/"); //this.mainMenu
+    this.menus = (routes && routes.children) || [];
 
     // 处理侧栏收起状态
     this.$watch("collapsed", () => {
