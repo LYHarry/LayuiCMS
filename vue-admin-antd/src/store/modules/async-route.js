@@ -1,5 +1,5 @@
 import { baseApi } from "@/apis";
-import { bxAnaalyse } from "@/utils/icons";
+import { generatorDynamicRouter } from '@/utils/generate-routers'
 
 const asyncRouterMap = {
     state: {
@@ -8,7 +8,7 @@ const asyncRouterMap = {
     },
     mutations: {
         SET_ROUTERS: (state, routers) => {
-            state.asyncRoutes = routers
+            state.asyncRoutes = routers;
             state.routers = [].concat(routers)
         }
     },
@@ -17,37 +17,11 @@ const asyncRouterMap = {
         GenerateRoutes({ commit }) {
             return new Promise(resolve => {
                 baseApi.getSystemMenu().then(res => {
-                    let menuData = res.data.reduce((prev, cur, index, arr) => {
-                        let menuItem = {
-                            path: cur.path,
-                            redirect: cur.redirect,
-                            component: cur.component,
-                            name: cur.name,
-                            meta: { title: cur.title, icon: cur.icon },
-                            children: []
-                        };
-                        if (menuItem.name === "dashboard") {
-                            menuItem.meta.icon = bxAnaalyse;
-                        }
-                        menuItem.children = cur.children.reduce((prev, cur, index, arr) => {
-                            prev.push({
-                                path: cur.path,
-                                name: cur.name,
-                                component: () => import("@" + cur.component),
-                                meta: {
-                                    title: cur.title,
-                                    keepAlive: cur.keepAlive,
-                                    target: cur.target || ""
-                                }
-                            });
-                            return prev;
-                        }, []);
-                        prev.push(menuItem);
-                        return prev;
-                    }, []);
-                    console.log("getSystemMenu menuData ", menuData)
-                    commit('SET_ROUTERS', menuData)
-                    resolve()
+                    generatorDynamicRouter(res.data).then(routers => {
+                        console.log("getSystemMenu menuData ", routers)
+                        commit('SET_ROUTERS', routers)
+                        resolve()
+                    });
                 });
 
             })

@@ -30,8 +30,7 @@ import { SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from "@/store/mutation-types";
 
 import RightContent from "@/components/GlobalHeader/RightContent";
 import GlobalFooter from "@/components/GlobalFooter";
-import { bxAnaalyse, LogoSvg } from "@/utils/icons";
-// import { asyncRouterMap } from "@/router/modules/other";
+import { LogoSvg } from "@/utils/icons";
 
 export default {
   name: "BasicLayout",
@@ -71,17 +70,14 @@ export default {
     };
   },
   computed: {
-    // ...mapState({
-    //   // 动态主路由
-    //   mainMenu: state => state.permission.addRouters
-    // })
+    ...mapState({
+      // 动态主路由
+      mainMenu: state => state.asyncRoute.asyncRoutes
+    })
   },
   created() {
-    console.log("asyncRouterMap ", asyncRouterMap);
-
-    const routes = asyncRouterMap.find(item => item.path === "/"); //this.mainMenu
+    const routes = this.mainMenu.find(item => item.path === "/");
     this.menus = (routes && routes.children) || [];
-
     // 处理侧栏收起状态
     this.$watch("collapsed", () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed);

@@ -50,6 +50,7 @@ router.beforeEach((to, from, next) => {
   store.dispatch('GenerateRoutes').then(() => {
     //调用后台接口得到可访问菜单列表
     //动态添加可访问路由表
+    console.log('store.getters.asyncRoutes ', store.getters.asyncRoutes)
     router.addRoutes(store.getters.asyncRoutes)
 
   })

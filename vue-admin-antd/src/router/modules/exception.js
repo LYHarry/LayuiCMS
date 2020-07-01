@@ -1,12 +1,12 @@
-// const RouteView = {
-//     name: 'RouteView',
-//     render: (h) => h('router-view')
-// }
+const RouteView = {
+    name: 'RouteView',
+    render: (h) => h('router-view')
+}
 
 export default {
     path: '/exception',
     name: 'exception',
-    // component: RouteView,
+    component: RouteView,
     redirect: '/exception/403',
     meta: { title: '异常页', icon: 'warning', permission: ['exception'] },
     children: [
