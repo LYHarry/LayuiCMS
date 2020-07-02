@@ -52,7 +52,7 @@ import Viser from 'viser-vue'
 import VueCropper from 'vue-cropper'
 import { PageHeaderWrapper } from "@ant-design-vue/pro-layout"
 import { Dialog } from '@/components'
-import PermissionHelper from '@/utils/permission'
+import ActionPermission from '@/utils/action-permission'
 import '@/directives/action'
 
 const components = [
@@ -99,7 +99,7 @@ const components = [
     Descriptions,
     Viser,
     Dialog,
-    PermissionHelper,
+    ActionPermission,
     VueCropper
 ];
 

@@ -19,7 +19,7 @@ export function getServiceList(parameter) {
 }
 
 export function getOrgTree(parameter) {
-    return request({
+    return axios.request({
         url: apiUrl.orgTree,
         method: 'post',
         data: parameter

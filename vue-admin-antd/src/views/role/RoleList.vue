@@ -20,11 +20,11 @@
       </a-col>
       <a-col :md="20">
         <div style="max-width: 800px">
-          <a-divider v-if="isMobile()" />
+          <a-divider v-if="isMobile" />
           <div v-if="mdl.id">
             <h3>角色：{{ mdl.name }}</h3>
           </div>
-          <a-form :form="form" :layout="isMobile() ? 'vertical' : 'horizontal'">
+          <a-form :form="form" :layout="isMobile ? 'vertical' : 'horizontal'">
             <a-form-item label="唯一键">
               <a-input
                 v-decorator="[ 'id', {rules: [{ required: true, message: 'Please input unique key!' }]} ]"
@@ -106,7 +106,6 @@ export default {
         name: "新增角色",
         describe: "新增一个角色"
       });
-      console.log("this.roles", this.roles);
     });
     this.loadPermissions();
   },
@@ -169,8 +168,8 @@ export default {
       });
     },
     loadPermissions() {
-      manage.getPermissions().then(res => {
-        const result = res.data;
+      manage.permissions().then(res => {
+        const result = res.data.data;
         this.permissions = result.map(permission => {
           const options = actionToObject(permission.actionData);
           permission.checkedAll = false;

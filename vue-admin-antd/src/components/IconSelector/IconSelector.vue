@@ -27,7 +27,6 @@ export default {
       type: String,
       default: "ant-pro-icon-selector"
     },
-    // eslint-disable-next-line
     value: {
       type: String
     }
@@ -86,7 +85,6 @@ ul {
 
     &:hover,
     &.active {
-      // box-shadow: 0px 0px 5px 2px @primary-color;
       cursor: pointer;
       color: @white;
       background-color: @primary-color;

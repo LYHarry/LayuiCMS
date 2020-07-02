@@ -139,13 +139,13 @@ export default {
                 {
                     path: '/profile/basic',
                     name: 'ProfileBasic',
-                    component: 'profile/basic',
+                    component: 'profile/Basic',
                     title: '基础详情页',
                 },
                 {
                     path: '/profile/advanced',
                     name: 'ProfileAdvanced',
-                    component: 'profile/advanced/Advanced',
+                    component: 'profile/Advanced',
                     title: '高级详情页',
                 }
             ]
@@ -178,34 +178,34 @@ export default {
             ]
         },
 
-        // // Exception
-        // {
-        //     path: '/exception',
-        //     name: 'exception',
-        //     redirect: '/exception/403',
-        //     title: '异常页',
-        //     icon: 'warning',
-        //     children: [
-        //         {
-        //             path: '/exception/403',
-        //             name: 'Exception403',
-        //             component: 'exception/403',
-        //             title: '403',
-        //         },
-        //         {
-        //             path: '/exception/404',
-        //             name: 'Exception404',
-        //             component: 'exception/404',
-        //             title: '404',
-        //         },
-        //         {
-        //             path: '/exception/500',
-        //             name: 'Exception500',
-        //             component: 'exception/500',
-        //             title: '500',
-        //         }
-        //     ]
-        // },
+        // Exception
+        {
+            path: '/exception',
+            name: 'exception',
+            redirect: '/exception/403',
+            title: '异常页',
+            icon: 'warning',
+            children: [
+                {
+                    path: '/exception/403',
+                    name: 'Exception403',
+                    component: 'exception/403',
+                    title: '403',
+                },
+                {
+                    path: '/exception/404',
+                    name: 'Exception404',
+                    component: 'exception/404',
+                    title: '404',
+                },
+                {
+                    path: '/exception/500',
+                    name: 'Exception500',
+                    component: 'exception/500',
+                    title: '500',
+                }
+            ]
+        },
 
         // account
         {

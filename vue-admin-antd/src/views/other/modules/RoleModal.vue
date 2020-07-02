@@ -9,7 +9,6 @@
   >
     <a-steps :current="1">
       <a-step>
-        <!-- <span slot="title">Finished</span> -->
         <template slot="title">Finished</template>
         <span slot="description">This is a description.</span>
       </a-step>
@@ -130,8 +129,8 @@ export default {
     },
     loadPermissions() {
       const that = this;
-      manage.getPermissions().then(res => {
-        const result = res.result;
+      manage.permissions().then(res => {
+        const result = res.data.data;
         that.permissions = result.map(permission => {
           const options = actionToObject(permission.actionData);
           permission.checkedAll = false;

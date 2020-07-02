@@ -29,6 +29,7 @@
 
     <s-table
       row-key="id"
+      rowKey="id"
       size="default"
       :columns="columns"
       :data="loadData"
@@ -43,7 +44,7 @@
             :key="index"
             :style="{ marginBottom: '12px', height: '23px' }"
           >
-            <a-col :lg="4" :md="24">
+            <a-col :lg="4" :md="24" :style="{padding:'0'}">
               <span>{{ role.permissionName }}：</span>
             </a-col>
             <a-col :lg="20" :md="24" v-if="role.actionList && role.actionList.length > 0">
@@ -147,7 +148,7 @@
 import pick from "lodash.pick";
 import { STable } from "@/components";
 import { manage } from "@/apis";
-import { PERMISSION_ENUM } from "@/utils/permission";
+import { PERMISSION_ENUM } from "@/utils/action-permission";
 
 const STATUS = {
   1: "启用",
@@ -191,7 +192,6 @@ export default {
     return {
       description:
         "列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。",
-
       visible: false,
       labelCol: {
         xs: { span: 24 },
@@ -234,13 +234,12 @@ export default {
     }
   },
   created() {
-    manage.getServiceList().then(res => {
-      console.log("getServiceList.call()", res);
-    });
-
-    manage.getRoleList().then(res => {
-      console.log("getRoleList.call()", res);
-    });
+    // manage.getServiceList().then(res => {
+    //   console.log("getServiceList.call()", res);
+    // });
+    // manage.getRoleList().then(res => {
+    //   console.log("getRoleList.call()", res);
+    // });
   },
   methods: {
     handleEdit(record) {

@@ -86,18 +86,14 @@
     <s-table
       ref="table"
       size="default"
+      rowKey="key"
       :columns="columns"
       :data="loadData"
       :alert="{ show: true, clear: true }"
       :rowSelection="{ selectedRowKeys: this.selectedRowKeys, onChange: this.onSelectChange }"
     >
-      <template
-        v-for="(col, index) in columns"
-        v-if="col.scopedSlots"
-        :slot="col.dataIndex"
-        slot-scope="text, record"
-      >
-        <div :key="index">
+      <template v-for="(col, index) in columns" :slot="col.dataIndex" slot-scope="text, record">
+        <div :key="index" v-if="col.scopedSlots">
           <a-input
             v-if="record.editable"
             style="margin: -5px 0"
@@ -129,6 +125,7 @@
 
 <script>
 import { STable } from "@/components";
+import { manage } from "@/apis";
 
 export default {
   name: "TableList",
@@ -185,13 +182,9 @@ export default {
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return this.$http
-          .get("/service", {
-            params: Object.assign(parameter, this.queryParam)
-          })
-          .then(res => {
-            return res.result;
-          });
+        return manage.getServiceList(parameter).then(res => {
+          return res.data;
+        });
       },
 
       selectedRowKeys: [],

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import RouteRules from './modules/route.rules'
+import RouteRules from './modules/route-rules'
 // progress bar
 import NProgress from 'nprogress'
 // progress bar custom style
@@ -45,14 +45,16 @@ const defaultRoutePath = '/dashboard/workplace'
 
 //路由拦截器
 router.beforeEach((to, from, next) => {
-  NProgress.start();
+  NProgress.start(); // start progress bar
+
+  // console.log('to path ', to)
+  // console.log('from path ', from)
 
   store.dispatch('GenerateRoutes').then(() => {
     //调用后台接口得到可访问菜单列表
     //动态添加可访问路由表
     console.log('store.getters.asyncRoutes ', store.getters.asyncRoutes)
     router.addRoutes(store.getters.asyncRoutes)
-
   })
 
 
@@ -61,7 +63,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-  NProgress.done()
+  NProgress.done() // finish progress bar
 });
 
 
