@@ -1,8 +1,24 @@
-'use strict'
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
+    // webpack配置
+    configureWebpack: {
+        // webpack plugins
+        plugins: [
+            // Ignore all locale files of moment.js
+            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+            new webpack.DefinePlugin({
+
+            })
+        ],
+
+    },
+    //默认false 可以加快打包
+    productionSourceMap: false,
 
     chainWebpack: (config) => {
+        //别名
         // config.resolve.alias
         //     .set('@$', resolve('src'))
 
@@ -42,9 +58,16 @@ module.exports = {
 
     // webpack-dev-server 相关配置
     devServer: {
-        // before 钩子函数，可用于配置 mock 数据
-        // 在所有其他中间件之前执行
-        // before: require('./src/mock/MockServer'),
-
+        //代理配置表
+        proxyTable: {
+            '/api': {
+                target: 'http://193.112.58.251:8080/adminPet',
+                changeOrigin: true, // 是否允许跨越
+                secure: false,  // 是否https协议
+                pathRewrite: {
+                    '^/api': '/api',//重写,
+                }
+            }
+        }
     }
 }

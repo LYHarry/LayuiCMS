@@ -5,7 +5,6 @@ module.exports = {
     NODE_ENV: 'development',
 
     BASE_URL: 'http://localhost:9000', //接口域名
-    Api_Prefix: '/api', //接口地址前缀 如 api
 
     maxContentLength: 5000, //允许的响应内容的最大长度
 
