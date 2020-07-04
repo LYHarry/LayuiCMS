@@ -112,7 +112,6 @@
 
 <script>
 import { STable } from "@/components";
-import { manage } from "@/apis";
 
 export default {
   name: "TableList",
@@ -171,7 +170,7 @@ export default {
       permissionList: null,
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return manage
+        return this.$apis.manage
           .permissions({ params: Object.assign(parameter, this.queryParam) })
           .then(res => {
             const result = res.data;
@@ -219,7 +218,6 @@ export default {
     },
     handleEdit(record) {
       this.mdl = Object.assign({}, record);
-      console.log(this.mdl);
       this.visible = true;
     },
     handleOk() {},

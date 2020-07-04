@@ -24,8 +24,9 @@ import IconSelector from '@/components/IconSelector'
 import TagSelect from '@/components/TagSelect'
 import StandardFormRow from '@/components/StandardFormRow'
 import ArticleListContent from '@/components/ArticleListContent'
-
+import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import Dialog from '@/components/Dialog'
+import STree from '@/components//Tree/Tree'
 
 export {
   AvatarList,
@@ -51,6 +52,7 @@ export {
   TagSelect,
   StandardFormRow,
   ArticleListContent,
-
-  Dialog
+  Dialog,
+  TwoStepCaptcha,
+  STree
 }

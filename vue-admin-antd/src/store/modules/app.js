@@ -1,4 +1,4 @@
-import storage from 'store'
+import cache from 'store'
 import {
   SIDEBAR_TYPE,
   TOGGLE_MOBILE_TYPE,
@@ -35,50 +35,50 @@ const app = {
   mutations: {
     [SIDEBAR_TYPE]: (state, type) => {
       state.sideCollapsed = type
-      storage.set(SIDEBAR_TYPE, type)
+      cache.set(SIDEBAR_TYPE, type)
     },
     [TOGGLE_MOBILE_TYPE]: (state, isMobile) => {
       state.isMobile = isMobile
     },
     [TOGGLE_NAV_THEME]: (state, theme) => {
       state.theme = theme
-      storage.set(TOGGLE_NAV_THEME, theme)
+      cache.set(TOGGLE_NAV_THEME, theme)
     },
     [TOGGLE_LAYOUT]: (state, mode) => {
       state.layout = mode
-      storage.set(TOGGLE_LAYOUT, mode)
+      cache.set(TOGGLE_LAYOUT, mode)
     },
     [TOGGLE_FIXED_HEADER]: (state, mode) => {
       state.fixedHeader = mode
-      storage.set(TOGGLE_FIXED_HEADER, mode)
+      cache.set(TOGGLE_FIXED_HEADER, mode)
     },
     [TOGGLE_FIXED_SIDEBAR]: (state, mode) => {
       state.fixedSidebar = mode
-      storage.set(TOGGLE_FIXED_SIDEBAR, mode)
+      cache.set(TOGGLE_FIXED_SIDEBAR, mode)
     },
     [TOGGLE_CONTENT_WIDTH]: (state, type) => {
       state.contentWidth = type
-      storage.set(TOGGLE_CONTENT_WIDTH, type)
+      cache.set(TOGGLE_CONTENT_WIDTH, type)
     },
     [TOGGLE_HIDE_HEADER]: (state, type) => {
       state.autoHideHeader = type
-      storage.set(TOGGLE_HIDE_HEADER, type)
+      cache.set(TOGGLE_HIDE_HEADER, type)
     },
     [TOGGLE_COLOR]: (state, color) => {
       state.color = color
-      storage.set(TOGGLE_COLOR, color)
+      cache.set(TOGGLE_COLOR, color)
     },
     [TOGGLE_WEAK]: (state, mode) => {
       state.weak = mode
-      storage.set(TOGGLE_WEAK, mode)
+      cache.set(TOGGLE_WEAK, mode)
     },
     [APP_LANGUAGE]: (state, lang, antd = {}) => {
       state.lang = lang
       state._antLocale = antd
-      storage.set(APP_LANGUAGE, lang)
+      cache.set(APP_LANGUAGE, lang)
     },
     [TOGGLE_MULTI_TAB]: (state, bool) => {
-      storage.set(TOGGLE_MULTI_TAB, bool)
+      cache.set(TOGGLE_MULTI_TAB, bool)
       state.multiTab = bool
     }
   },

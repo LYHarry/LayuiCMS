@@ -147,7 +147,6 @@
 <script>
 import pick from "lodash.pick";
 import { STable } from "@/components";
-import { manage } from "@/apis";
 import { PERMISSION_ENUM } from "@/utils/action-permission";
 
 const STATUS = {
@@ -212,7 +211,7 @@ export default {
       columns,
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return manage.getRoleList(parameter).then(res => {
+        return this.$apis.manage.getRoleList(parameter).then(res => {
           // 展开全部行
           this.expandedRowKeys = res.data.data.map(item => item.id);
           return res.data;
@@ -233,19 +232,10 @@ export default {
       return permission && permission.label;
     }
   },
-  created() {
-    // manage.getServiceList().then(res => {
-    //   console.log("getServiceList.call()", res);
-    // });
-    // manage.getRoleList().then(res => {
-    //   console.log("getRoleList.call()", res);
-    // });
-  },
+  created() {},
   methods: {
     handleEdit(record) {
       this.visible = true;
-      console.log("record", record);
-
       const checkboxGroup = {};
       this.permissions = record.permissions.map(permission => {
         const groupKey = `permissions.${permission.permissionId}`;
@@ -264,9 +254,6 @@ export default {
       });
 
       this.$nextTick(() => {
-        console.log("permissions", this.permissions);
-        console.log("checkboxGroup", checkboxGroup);
-
         this.form.setFieldsValue(
           pick(record, ["id", "status", "describe", "name"])
         );
@@ -284,7 +271,6 @@ export default {
       this.selectedRows = selectedRows;
     },
     handleExpand(expanded, record) {
-      console.log("expanded", expanded, record);
       if (expanded) {
         this.expandedRowKeys.push(record.id);
       } else {
@@ -297,20 +283,7 @@ export default {
       this.advanced = !this.advanced;
     }
   },
-  watch: {
-    /*
-      'selectedRows': function (selectedRows) {
-        this.needTotalList = this.needTotalList.map(item => {
-          return {
-            ...item,
-            total: selectedRows.reduce( (sum, val) => {
-              return sum + val[item.dataIndex]
-            }, 0)
-          }
-        })
-      }
-      */
-  }
+  watch: {}
 };
 </script>
 

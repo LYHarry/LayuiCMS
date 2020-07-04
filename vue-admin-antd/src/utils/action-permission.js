@@ -24,9 +24,6 @@ function plugin(Vue) {
           return 1;
           // const [permission, action] = permissions.split('.')
           // const permissionList = _this.$store.getters.roles.permissions
-
-          // console.log('permissionList ', permissionList)
-
           // return permissionList.find((val) => {
           //   return val.permissionId === permission
           // }).actionList.findIndex((val) => {

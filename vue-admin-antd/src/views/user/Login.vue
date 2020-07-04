@@ -133,10 +133,9 @@
 
 <script>
 import md5 from "md5";
-import TwoStepCaptcha from "@/components/tools/TwoStepCaptcha";
+import { TwoStepCaptcha } from "@/components";
 import { mapActions } from "vuex";
 import { timeFix } from "@/utils";
-import { baseApi } from "@/apis";
 
 export default {
   name: "Login",
@@ -163,7 +162,7 @@ export default {
     };
   },
   created() {
-    baseApi
+    this.$apis.baseApi
       .get2step()
       .then(res => {
         this.requiredTwoStepCaptcha = res.data.stepCode;
@@ -171,7 +170,6 @@ export default {
       .catch(() => {
         this.requiredTwoStepCaptcha = false;
       });
-    // this.requiredTwoStepCaptcha = true
   },
   methods: {
     ...mapActions(["Login", "Logout"]),
@@ -211,7 +209,6 @@ export default {
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
-          // console.log("login form", values);
           const loginParams = { ...values, loginType: state.loginType };
           if (state.loginType !== 2) {
             delete loginParams.username;
@@ -248,7 +245,7 @@ export default {
           }, 1000);
 
           const hide = this.$message.loading("验证码发送中..", 0);
-          baseApi
+          this.$apis.baseApi
             .getSmsCaptcha({ mobile: values.mobile })
             .then(res => {
               setTimeout(hide, 2500);
@@ -279,7 +276,6 @@ export default {
       });
     },
     loginSuccess(res) {
-      // console.log('loginSuccess', res);
       this.$router.push({ path: "/" });
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {

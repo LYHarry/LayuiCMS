@@ -106,8 +106,6 @@
 </template>
 
 <script>
-import { baseApi } from "@/apis";
-
 const levelNames = {
   0: "低",
   1: "低",
@@ -187,7 +185,6 @@ export default {
 
     handlePasswordCheck(rule, value, callback) {
       const password = this.form.getFieldValue("password");
-      // console.log("value", value);
       if (value === undefined) {
         callback(new Error("请输入密码"));
       }
@@ -198,9 +195,6 @@ export default {
     },
 
     handlePhoneCheck(rule, value, callback) {
-      // console.log("handlePhoneCheck, rule:", rule);
-      // console.log("handlePhoneCheck, value", value);
-      // console.log("handlePhoneCheck, callback", callback);
       callback();
     },
 
@@ -214,9 +208,8 @@ export default {
       } = this;
       validateFields({ force: true }, (err, values) => {
         if (!err) {
-          // console.log("values ", values);
           this.state.passwordLevelChecked = false;
-          baseApi
+          this.$apis.baseApi
             .Register(values)
             .then(res => {
               this.$notification["success"]({

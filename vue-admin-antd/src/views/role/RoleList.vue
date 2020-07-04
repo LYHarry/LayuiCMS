@@ -81,7 +81,6 @@
 
 <script>
 import pick from "lodash.pick";
-import { manage } from "@/apis";
 import { actionToObject } from "@/utils";
 import { baseMixin } from "@/store/mixin/app-mixin";
 
@@ -99,7 +98,7 @@ export default {
     };
   },
   created() {
-    manage.getRoleList().then(res => {
+    this.$apis.manage.getRoleList().then(res => {
       this.roles = res.data.data;
       this.roles.push({
         id: "-1",
@@ -113,11 +112,9 @@ export default {
     callback(val) {
       console.log(val);
     },
-
     add() {
       this.edit({ id: 0 });
     },
-
     edit(record) {
       this.mdl = Object.assign({}, record);
       // 有权限表，处理勾选
@@ -130,15 +127,12 @@ export default {
           ] = permission.actionEntitySet.map(entity => entity.action);
         });
 
-        console.log("permissionsAction", permissionsAction);
         // 把权限表遍历一遍，设定要勾选的权限 action
         this.permissions.forEach(permission => {
           const selected = permissionsAction[permission.id];
           permission.selected = selected || [];
           this.onChangeCheck(permission);
         });
-
-        console.log("this.permissions", this.permissions);
       }
 
       this.$nextTick(() => {
@@ -146,7 +140,6 @@ export default {
           pick(this.mdl, "id", "name", "status", "describe")
         );
       });
-      console.log("this.mdl", this.mdl);
     },
 
     onChangeCheck(permission) {
@@ -157,8 +150,6 @@ export default {
         permission.selected.length === permission.actionsOptions.length;
     },
     onChangeCheckAll(e, permission) {
-      console.log("permission:", permission);
-
       Object.assign(permission, {
         selected: e.target.checked
           ? permission.actionsOptions.map(obj => obj.value)

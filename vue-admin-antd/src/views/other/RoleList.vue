@@ -80,7 +80,6 @@
 <script>
 import { STable } from "@/components";
 import RoleModal from "./modules/RoleModal";
-import { manage } from "@/apis";
 
 export default {
   name: "TableList",
@@ -128,7 +127,7 @@ export default {
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return manage
+        return this.$apis.manage
           .getRoleList({ params: Object.assign(parameter, this.queryParam) })
           .then(res => {
             return res.data;
@@ -152,8 +151,6 @@ export default {
           };
         });
       });
-
-      console.log(this.mdl);
       this.visible = true;
     },
     handleOk() {

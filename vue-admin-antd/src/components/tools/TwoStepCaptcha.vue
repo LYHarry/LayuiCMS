@@ -62,7 +62,6 @@ export default {
       this.stepLoading = true;
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("values", values);
           setTimeout(() => {
             vm.stepLoading = false;
             vm.$emit("success", { values });

@@ -5,7 +5,6 @@ import apiUrl from '@/apis/urls/baseApi'
 const login = {
     url: apiUrl.Login,
     response: function (req) {
-        // console.log('login req ', req)
         const username = ['admin', 'super']
         // 强硬要求 ant.design 相同密码
         // admin, ant.design

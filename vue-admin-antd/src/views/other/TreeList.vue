@@ -53,10 +53,8 @@
 </template>
 
 <script>
-import STree from "@/components/Tree/Tree";
-import { STable } from "@/components";
+import { STable, STree } from "@/components";
 import OrgModal from "./modules/OrgModal";
-import { manage } from "@/apis";
 
 export default {
   name: "TreeList",
@@ -107,7 +105,7 @@ export default {
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return manage
+        return this.$apis.manage
           .getServiceList(Object.assign(parameter, this.queryParam))
           .then(res => {
             return res.data;
@@ -119,20 +117,18 @@ export default {
     };
   },
   created() {
-    manage.getOrgTree().then(res => {
+    this.$apis.manage.getOrgTree().then(res => {
       this.orgTree = res.data;
     });
   },
   methods: {
     handleClick(e) {
-      console.log("handleClick", e);
       this.queryParam = {
         key: e.key
       };
       this.$refs.table.refresh(true);
     },
     handleAdd(item) {
-      console.log("add button, item", item);
       this.$message.info(`提示：你点了 ${item.key} - ${item.title} `);
       this.$refs.modal.add(item.key);
     },

@@ -131,8 +131,6 @@
 <script>
 import moment from "moment";
 import { STable, Ellipsis } from "@/components";
-import { manage } from "@/apis";
-
 import StepByStepModal from "./modules/StepByStepModal";
 import CreateForm from "./modules/CreateForm";
 
@@ -215,8 +213,7 @@ export default {
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        const requestParameters = Object.assign({}, parameter, this.queryParam);
-        return manage.getServiceList(requestParameters).then(res => {
+        return this.$apis.manage.getServiceList(parameter).then(res => {
           return res.data;
         });
       },
@@ -257,7 +254,6 @@ export default {
       this.confirmLoading = true;
       form.validateFields((errors, values) => {
         if (!errors) {
-          console.log("values", values);
           if (values.id > 0) {
             // 修改 e.g.
             new Promise((resolve, reject) => {

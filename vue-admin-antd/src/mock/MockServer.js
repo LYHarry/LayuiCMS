@@ -1,5 +1,4 @@
-'use strict'
-
+import { isIE } from '@/utils'
 import Mock from 'mockjs'
 import MenuRouter from './modules/MenuRouter'
 import baseApi from './modules/baseApi'
@@ -7,7 +6,9 @@ import Manage from './modules/manage'
 import Dashboard from './modules/dashboard'
 import Article from './modules/article'
 
-// TODO 判断是否 IE 浏览器，IE 不支持 mock
+if (isIE()) {
+    console.error('[antd-pro] ERROR: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.')
+}
 
 // mock patch
 // https://github.com/nuysoft/Mock/issues/300

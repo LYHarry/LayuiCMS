@@ -98,7 +98,6 @@
 <script>
 import { PageView, RouteView } from "@/components/Layouts";
 import { AppPage, ArticlePage, ProjectPage } from "./page";
-import { dashboard } from "@/apis";
 import { mapGetters } from "vuex";
 
 export default {
@@ -152,7 +151,7 @@ export default {
   },
   methods: {
     getTeams() {
-      dashboard.workplaceTeams().then(res => {
+      this.$apis.dashboard.workplaceTeams().then(res => {
         this.teams = res.data;
         this.teamSpinning = false;
       });

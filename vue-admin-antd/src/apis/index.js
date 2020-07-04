@@ -4,7 +4,7 @@ import * as manage from './modules/manage'
 import * as article from './modules/article'
 
 
-export {
+export default {
     baseApi,
     dashboard,
     manage,

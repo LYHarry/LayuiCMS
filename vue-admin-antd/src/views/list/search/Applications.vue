@@ -106,7 +106,6 @@
 import moment from "moment";
 import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from "@/components";
 import CardInfo from "./components/CardInfo";
-import { article } from "@/apis";
 const TagSelectOption = TagSelect.Option;
 const AvatarListItem = AvatarList.AvatarItem;
 
@@ -140,8 +139,7 @@ export default {
       console.log(`selected ${value}`);
     },
     getList() {
-      article.getArticleList().then(res => {
-        console.log("res", res);
+      this.$apis.article.getArticleList().then(res => {
         this.data = res.data;
         this.loading = false;
       });

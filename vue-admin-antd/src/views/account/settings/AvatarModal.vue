@@ -52,9 +52,8 @@
     </a-row>
   </a-modal>
 </template>
-<script>
-import { manage } from "@/apis";
 
+<script>
 export default {
   data() {
     return {
@@ -66,7 +65,6 @@ export default {
       options: {
         img:
           "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-        // img: "",
         autoCrop: true,
         autoCropWidth: 200,
         autoCropHeight: 200,
@@ -123,7 +121,7 @@ export default {
           this.model = true;
           this.modelSrc = img;
           formData.append("file", data, this.fileName);
-          manage.uploadFile().then(response => {
+          this.$apis.manage.uploadFile().then(response => {
             _this.$message.success("上传成功");
             _this.$emit("ok", response.url);
             _this.visible = false;

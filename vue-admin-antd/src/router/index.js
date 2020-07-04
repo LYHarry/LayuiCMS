@@ -5,7 +5,7 @@ import RouteRules from './modules/route-rules'
 import NProgress from 'nprogress'
 // progress bar custom style
 import '@/components/NProgress/nprogress.less'
-import storage from 'store'
+import cache from 'store'
 
 
 // hack router push callback
@@ -47,13 +47,9 @@ const defaultRoutePath = '/dashboard/workplace'
 router.beforeEach((to, from, next) => {
   NProgress.start(); // start progress bar
 
-  // console.log('to path ', to)
-  // console.log('from path ', from)
-
   store.dispatch('GenerateRoutes').then(() => {
     //调用后台接口得到可访问菜单列表
     //动态添加可访问路由表
-    console.log('store.getters.asyncRoutes ', store.getters.asyncRoutes)
     router.addRoutes(store.getters.asyncRoutes)
   })
 

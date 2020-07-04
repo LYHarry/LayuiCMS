@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { manage } from "@/apis";
 import { actionToObject } from "@/utils";
 import pick from "lodash.pick";
 
@@ -74,7 +73,6 @@ export default {
           pick(this.mdl, "id", "name", "status", "describe")
         );
       });
-      console.log("this.mdl", this.mdl);
     },
     close() {
       this.$emit("close");
@@ -86,8 +84,6 @@ export default {
       this.form.validateFields((err, values) => {
         // 验证表单没错误
         if (!err) {
-          console.log("form values", values);
-
           _this.confirmLoading = true;
           // 模拟后端请求 2000 毫秒延迟
           new Promise(resolve => {
@@ -129,7 +125,7 @@ export default {
     },
     loadPermissions() {
       const that = this;
-      manage.permissions().then(res => {
+      this.$apis.manage.permissions().then(res => {
         const result = res.data.data;
         that.permissions = result.map(permission => {
           const options = actionToObject(permission.actionData);

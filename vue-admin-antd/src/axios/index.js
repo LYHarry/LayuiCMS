@@ -1,14 +1,7 @@
-// import config from '@/config'
 import AxiosHttpRequest from './api.request'
 
-// let baseUrl = config.baseUrl.dev;
-// if (process.env.NODE_ENV === 'testing')
-//     baseUrl = config.baseUrl.test;
-// if (process.env.NODE_ENV === 'production')
-//     baseUrl = config.baseUrl.pro;
-
 var httpRequest = new AxiosHttpRequest({
-    baseURL: '' //baseUrl
+    baseURL: envConfig.BASE_URL
 });
 
 //得到分页列表数据

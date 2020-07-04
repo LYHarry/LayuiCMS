@@ -88,7 +88,6 @@
 <script>
 import moment from "moment";
 import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from "@/components";
-import { article } from "@/apis";
 const TagSelectOption = TagSelect.Option;
 const AvatarListItem = AvatarList.AvatarItem;
 
@@ -121,7 +120,7 @@ export default {
       console.log(`selected ${value}`);
     },
     getList() {
-      article.getArticleList().then(res => {
+      this.$apis.article.getArticleList().then(res => {
         this.data = res.data;
         this.loading = false;
       });

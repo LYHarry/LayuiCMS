@@ -125,7 +125,6 @@
 
 <script>
 import { STable } from "@/components";
-import { manage } from "@/apis";
 
 export default {
   name: "TableList",
@@ -182,7 +181,7 @@ export default {
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        return manage.getServiceList(parameter).then(res => {
+        return this.$apis.manage.getServiceList(parameter).then(res => {
           return res.data;
         });
       },
@@ -193,7 +192,6 @@ export default {
   },
   methods: {
     handleChange(value, key, column, record) {
-      console.log(value, key, column);
       record[column.dataIndex] = value;
     },
     edit(row) {
@@ -209,7 +207,6 @@ export default {
         okType: "danger",
         cancelText: "取消",
         onOk() {
-          console.log("OK");
           // 在这里调用删除接口
           return new Promise((resolve, reject) => {
             setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);

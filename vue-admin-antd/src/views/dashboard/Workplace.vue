@@ -128,7 +128,6 @@
 import { timeFix, welcome } from "@/utils";
 import { mapState } from "vuex";
 import { Radar } from "@/components";
-import { dashboard } from "@/apis";
 
 const DataSet = require("@antv/data-set");
 
@@ -140,8 +139,6 @@ export default {
   data() {
     return {
       timeFix: timeFix(),
-      // avatar: "",
-      // user: {},
 
       projects: [],
       loading: true,
@@ -212,16 +209,7 @@ export default {
       return currentUser;
     }
   },
-  created() {
-    // this.user = this.userInfo;
-    // this.avatar = this.userInfo.avatar;
-    // getRoleList().then(res => {
-    //   // console.log('workplace -> call getRoleList()', res)
-    // });
-    // getServiceList().then(res => {
-    //   // console.log('workplace -> call getServiceList()', res)
-    // });
-  },
+  created() {},
   mounted() {
     this.getProjects();
     this.getActivity();
@@ -230,25 +218,24 @@ export default {
   },
   methods: {
     getProjects() {
-      dashboard.searchProjects().then(res => {
+      this.$apis.dashboard.searchProjects().then(res => {
         this.projects = res.data.data;
         this.loading = false;
       });
     },
     getActivity() {
-      dashboard.workplaceActivity().then(res => {
+      this.$apis.dashboard.workplaceActivity().then(res => {
         this.activities = res.data;
       });
     },
     getTeams() {
-      dashboard.workplaceTeams().then(res => {
+      this.$apis.dashboard.workplaceTeams().then(res => {
         this.teams = res.data;
       });
     },
     initRadar() {
       this.radarLoading = true;
-
-      dashboard.workplaceRadar().then(res => {
+      this.$apis.dashboard.workplaceRadar().then(res => {
         const dv = new DataSet.View().source(res.data);
         dv.transform({
           type: "fold",
