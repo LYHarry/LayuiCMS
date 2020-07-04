@@ -5,10 +5,8 @@ export default {
   data() {
     return {
       needTotalList: [],
-
       selectedRows: [],
       selectedRowKeys: [],
-
       localLoading: false,
       localDataSource: [],
       localPagination: Object.assign({}, this.pagination)
@@ -39,12 +37,6 @@ export default {
       type: String,
       default: 'default'
     },
-    /**
-     * alert: {
-     *   show: true,
-     *   clear: Function
-     * }
-     */
     alert: {
       type: [Object, Boolean],
       default: null
@@ -53,7 +45,6 @@ export default {
       type: Object,
       default: null
     },
-    /** @Deprecated */
     showAlertInfo: {
       type: Boolean,
       default: false
@@ -62,15 +53,6 @@ export default {
       type: String | Boolean,
       default: 'auto'
     },
-    /**
-     * enable page URI mode
-     *
-     * e.g:
-     * /users/1
-     * /users/2
-     * /users/3?queryParam=test
-     * ...
-     */
     pageURI: {
       type: Boolean,
       default: false
@@ -154,7 +136,6 @@ export default {
       )
       const result = this.data(parameter)
       // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
-      // eslint-disable-next-line
       if ((typeof result === 'object' || typeof result === 'function') && typeof result.then === 'function') {
         result.then(r => {
           this.localPagination = this.showPagination && Object.assign({}, this.localPagination, {

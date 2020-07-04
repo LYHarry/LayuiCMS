@@ -193,7 +193,7 @@
               <a
                 href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/config/defaultSettings.js"
                 target="_blank"
-              >src/config/defaultSettings.js</a>
+              >src/config/index.js</a>
             </span>
           </a-alert>
         </div>
@@ -208,7 +208,7 @@
 
 <script>
 import SettingItem from "./SettingItem";
-import config from "@/config/defaultSettings";
+import config from "@/config";
 import { updateTheme, updateColorWeak, colorList } from "./settingConfig";
 
 export default {

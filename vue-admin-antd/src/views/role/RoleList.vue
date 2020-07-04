@@ -159,7 +159,7 @@ export default {
       });
     },
     loadPermissions() {
-      manage.permissions().then(res => {
+      this.$apis.manage.permissions().then(res => {
         const result = res.data.data;
         this.permissions = result.map(permission => {
           const options = actionToObject(permission.actionData);

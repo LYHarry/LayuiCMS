@@ -147,7 +147,7 @@
 <script>
 import pick from "lodash.pick";
 import { STable } from "@/components";
-import { PERMISSION_ENUM } from "@/utils/action-permission";
+import { PERMISSION_ENUM } from "@/permission/action";
 
 const STATUS = {
   1: "启用",

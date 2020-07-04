@@ -229,9 +229,7 @@ export default {
       return statusMap[type].status;
     }
   },
-  created() {
-    // manage.getRoleList({ t: new Date() });
-  },
+  created() {},
   computed: {
     rowSelection() {
       return {

@@ -7,7 +7,7 @@
 
 <script>
 import AvatarDropdown from "./AvatarDropdown";
-import SelectLang from "@/components/SelectLang";
+import SelectLang from "../SelectLang";
 
 export default {
   name: "RightContent",

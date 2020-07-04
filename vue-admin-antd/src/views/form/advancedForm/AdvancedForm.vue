@@ -92,7 +92,7 @@
 <script>
 import RepositoryForm from "./RepositoryForm";
 import TaskForm from "./TaskForm";
-import FooterToolBar from "@/components/FooterToolbar";
+import { FooterToolBar } from "@/components";
 import { baseMixin } from "@/store/mixin/app-mixin";
 
 const fieldLabels = {

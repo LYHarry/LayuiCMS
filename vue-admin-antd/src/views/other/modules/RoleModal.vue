@@ -69,9 +69,9 @@ export default {
       }
 
       this.$nextTick(() => {
-        this.form.setFieldsValue(
-          pick(this.mdl, "id", "name", "status", "describe")
-        );
+        // this.form.setFieldsValue(
+        //   pick(this.mdl, "id", "name", "status", "describe")
+        // );
       });
     },
     close() {

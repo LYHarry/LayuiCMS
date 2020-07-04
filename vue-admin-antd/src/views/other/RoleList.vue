@@ -141,7 +141,6 @@ export default {
   methods: {
     handleEdit(record) {
       this.mdl = Object.assign({}, record);
-
       this.mdl.permissions.forEach(permission => {
         permission.actionsOptions = permission.actionEntitySet.map(action => {
           return {

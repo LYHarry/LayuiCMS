@@ -30,7 +30,6 @@ export default {
       default: "ant-editor-quill"
     },
     // 表单校验用字段
-    // eslint-disable-next-line
     value: {
       type: String
     }

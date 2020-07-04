@@ -1,32 +1,34 @@
 // chart
-import Bar from '@/components/Charts/Bar'
-import ChartCard from '@/components/Charts/ChartCard'
-import Liquid from '@/components/Charts/Liquid'
-import MiniArea from '@/components/Charts/MiniArea'
-import MiniSmoothArea from '@/components/Charts/MiniSmoothArea'
-import MiniBar from '@/components/Charts/MiniBar'
-import MiniProgress from '@/components/Charts/MiniProgress'
-import Radar from '@/components/Charts/Radar'
-import RankList from '@/components/Charts/RankList'
-import TransferBar from '@/components/Charts/TransferBar'
-import TagCloud from '@/components/Charts/TagCloud'
+import Bar from './Charts/Bar'
+import ChartCard from './Charts/ChartCard'
+import Liquid from './Charts/Liquid'
+import MiniArea from './Charts/MiniArea'
+import MiniSmoothArea from './Charts/MiniSmoothArea'
+import MiniBar from './Charts/MiniBar'
+import MiniProgress from './Charts/MiniProgress'
+import Radar from './Charts/Radar'
+import RankList from './Charts/RankList'
+import TransferBar from './Charts/TransferBar'
+import TagCloud from './Charts/TagCloud'
 
 // pro components
-import AvatarList from '@/components/AvatarList'
-import Ellipsis from '@/components/Ellipsis'
-import FooterToolbar from '@/components/FooterToolbar'
-import NumberInfo from '@/components/NumberInfo'
-import Tree from '@/components/Tree/Tree'
-import Trend from '@/components/Trend'
-import STable from '@/components/Table'
-import MultiTab from '@/components/MultiTab'
-import IconSelector from '@/components/IconSelector'
-import TagSelect from '@/components/TagSelect'
-import StandardFormRow from '@/components/StandardFormRow'
-import ArticleListContent from '@/components/ArticleListContent'
-import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
-import Dialog from '@/components/Dialog'
-import STree from '@/components//Tree/Tree'
+import AvatarList from './AvatarList'
+import ArticleListContent from './ArticleListContent'
+import Dialog from './Dialog'
+import QuillEditor from './Editor/QuillEditor'
+import Ellipsis from './Ellipsis'
+import FooterToolBar from './FooterToolBar'
+import GlobalFooter from './GlobalFooter'
+import IconSelector from './IconSelector'
+import MultiTab from './MultiTab'
+import NoticeIcon from './NoticeIcon'
+import NumberInfo from './NumberInfo'
+import StandardFormRow from './StandardFormRow'
+import STable from './Table'
+import TagSelect from './TagSelect'
+import TwoStepCaptcha from './tools/TwoStepCaptcha'
+import STree from './Tree'
+import Trend from './Trend'
 
 export {
   AvatarList,
@@ -43,9 +45,8 @@ export {
   TransferBar,
   Trend,
   Ellipsis,
-  FooterToolbar,
+  FooterToolBar,
   NumberInfo,
-  Tree,
   STable,
   MultiTab,
   IconSelector,
@@ -54,5 +55,8 @@ export {
   ArticleListContent,
   Dialog,
   TwoStepCaptcha,
-  STree
+  STree,
+  QuillEditor,
+  GlobalFooter,
+  NoticeIcon,
 }

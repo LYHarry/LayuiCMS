@@ -52,7 +52,8 @@ import Viser from 'viser-vue'
 import VueCropper from 'vue-cropper'
 import { PageHeaderWrapper } from "@ant-design-vue/pro-layout"
 import { Dialog } from '@/components'
-import ActionPermission from '@/utils/action-permission'
+//页面操作按钮权限
+import ActionPermission from '@/permission/action'
 import '@/directives/action'
 import apis from '@/apis'
 
@@ -113,10 +114,10 @@ components.map(component => {
 
 Vue.prototype.$message = message
 Vue.prototype.$notification = notification
+Vue.prototype.$confirm = Modal.confirm
 // Vue.prototype.$info = Modal.info
 // Vue.prototype.$success = Modal.success
 // Vue.prototype.$error = Modal.error
 // Vue.prototype.$warning = Modal.warning
-// Vue.prototype.$confirm = Modal.confirm
 // Vue.prototype.$destroyAll = Modal.destroyAll
 Vue.prototype.$apis = apis

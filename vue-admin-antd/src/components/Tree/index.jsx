@@ -95,7 +95,6 @@ export default {
       if (item.group) {
         return this.renderItemGroup(item)
       }
-      // titleClick={this.handleTitleClick(item)}
       return (
         <SubMenu key={key}>
           {title}
@@ -106,8 +105,6 @@ export default {
   },
   render() {
     const { dataSource, search } = this.$props
-
-    // this.localOpenKeys = openKeys.slice(0)
     const list = dataSource.map(item => {
       return this.renderItem(item)
     })

@@ -11,7 +11,6 @@ const languageLabels = {
   'en-US': 'English',
   'pt-BR': 'Português'
 }
-// eslint-disable-next-line
 const languageIcons = {
   'zh-CN': '🇨🇳',
   'zh-TW': '🇭🇰',
