@@ -1,5 +1,5 @@
-const path = require('path')
 const webpack = require('webpack')
+const envConfig = require('./env')
 
 module.exports = {
     // webpack配置
@@ -8,8 +8,9 @@ module.exports = {
         plugins: [
             // Ignore all locale files of moment.js
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+            //定义全局常量
             new webpack.DefinePlugin({
-
+                'envConfig': JSON.stringify(envConfig)
             })
         ],
 
@@ -36,15 +37,6 @@ module.exports = {
             .options({
                 name: 'assets/[name].[hash:8].[ext]'
             })
-
-        // if prod is on
-        // assets require on cdn
-        // if (isProd) {
-        //     config.plugin('html').tap(args => {
-        //         args[0].cdn = assetsCDN
-        //         return args
-        //     })
-        // }
     },
 
     // css相关配置
@@ -58,16 +50,16 @@ module.exports = {
 
     // webpack-dev-server 相关配置
     devServer: {
-        //代理配置表
-        proxyTable: {
-            '/api': {
-                target: 'http://193.112.58.251:8080/adminPet',
-                changeOrigin: true, // 是否允许跨越
-                secure: false,  // 是否https协议
-                pathRewrite: {
-                    '^/api': '/api',//重写,
-                }
-            }
-        }
+        // //代理配置表
+        // proxyTable: {
+        //     '/api': {
+        //         target: 'http://193.112.58.251:8080/adminPet',
+        //         changeOrigin: true, // 是否允许跨越
+        //         secure: false,  // 是否https协议
+        //         pathRewrite: {
+        //             '^/api': '/api',//重写,
+        //         }
+        //     }
+        // }
     }
 }
