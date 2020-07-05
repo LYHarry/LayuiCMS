@@ -6,13 +6,9 @@ const getters = {
   multiTab: state => state.app.multiTab,
 
   token: state => state.user.token,
-  // avatar: state => state.user.avatar,
-  // nickname: state => state.user.name,
-  // welcome: state => state.user.welcome,
-  // roles: state => state.user.roles,
   userInfo: state => state.user.info,
-
-  asyncRoutes: state => state.asyncRoute.asyncRoutes,
+  userPermissions: state => state.user.permissions,
+  asyncRoutes: state => state.user.asyncRoutes,
 }
 
 export default getters

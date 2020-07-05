@@ -69,10 +69,9 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      // 动态主路由
-      mainMenu: state => state.asyncRoute.asyncRoutes
-    })
+    mainMenu: function() {
+      return this.$store.getters.asyncRoutes;
+    }
   },
   created() {
     const routes = this.mainMenu.find(item => item.path === "/");

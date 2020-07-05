@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { domTitle, setDocumentTitle } from "@/utils/domUtil";
-import { i18nRender } from "@/locales";
 import { Select } from "ant-design-vue";
 
 export default {

@@ -14,7 +14,7 @@ const constantRouterComponents = {
 // 前端未找到页面路由
 const notFoundRouter = {
     path: '*',
-    redirect: '/404',
+    redirect: '/exception/404',
     hidden: true
 }
 
