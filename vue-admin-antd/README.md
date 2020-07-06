@@ -1,4 +1,7 @@
 # vue-admin-antd
+  vue +  antd 后台管理系统
+
+  github: https://github.com/vueComponent/ant-design-vue-pro
 
 ## Project setup
 ```

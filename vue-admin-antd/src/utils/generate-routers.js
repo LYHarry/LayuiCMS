@@ -56,7 +56,7 @@ export const generatorDynamicRouter = (menuData) => {
 /**
  * 格式化树形结构数据 生成 vue-router 层级路由表
  */
-export const generator = (routerMap, parent) => {
+const generator = (routerMap, parent) => {
     return routerMap.map(item => {
         const { title, show, hideChildren, hiddenHeaderContent, target, icon, keepAlive } = item.meta || {}
         const currentRouter = {

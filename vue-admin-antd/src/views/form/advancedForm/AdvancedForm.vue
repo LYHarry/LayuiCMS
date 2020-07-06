@@ -8,7 +8,7 @@
     </a-card>
 
     <!-- table -->
-    <a-card>
+    <a-card class="card">
       <a-table :columns="columns" :dataSource="data" :pagination="false" :loading="memberLoading">
         <template
           v-for="(col, i) in ['name', 'workId', 'department']"
@@ -57,6 +57,10 @@
       >新增成员</a-button>
     </a-card>
 
+    <a-card :bordered="false">
+      <QuillEditor @change="onEditorChange" />
+    </a-card>
+
     <!-- fixed footer toolbar -->
     <footer-tool-bar :is-mobile="isMobile" :collapsed="sideCollapsed">
       <span class="popover-wrapper">
@@ -92,7 +96,7 @@
 <script>
 import RepositoryForm from "./RepositoryForm";
 import TaskForm from "./TaskForm";
-import { FooterToolBar } from "@/components";
+import { FooterToolBar, QuillEditor } from "@/components";
 import { baseMixin } from "@/store/mixin/app-mixin";
 
 const fieldLabels = {
@@ -116,7 +120,8 @@ export default {
   components: {
     FooterToolBar,
     RepositoryForm,
-    TaskForm
+    TaskForm,
+    QuillEditor
   },
   data() {
     return {
@@ -307,6 +312,9 @@ export default {
       if (labelNode) {
         labelNode.scrollIntoView(true);
       }
+    },
+    onEditorChange(html) {
+      console.log("onEditorChange ", html);
     }
   }
 };
