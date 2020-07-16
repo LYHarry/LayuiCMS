@@ -7,7 +7,7 @@ import NProgress from 'nprogress'
 import '@/components/NProgress/nprogress.less'
 import cache from 'store' // Cache
 import notification from 'ant-design-vue/es/notification'
-import { setDocumentTitle } from '@/utils'
+import { setDocumentTitle } from '@/libs/utils'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { i18nRender } from '@/locales'
 import store from '@/store' // Vuex

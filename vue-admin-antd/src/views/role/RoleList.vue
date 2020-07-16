@@ -81,7 +81,7 @@
 
 <script>
 import pick from "lodash.pick";
-import { actionToObject } from "@/utils";
+import { actionToObject } from "@/libs/utils";
 import { baseMixin } from "@/store/mixin/app-mixin";
 
 export default {

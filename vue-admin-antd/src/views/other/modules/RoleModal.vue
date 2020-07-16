@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { actionToObject } from "@/utils";
+import { actionToObject } from "@/libs/utils";
 import pick from "lodash.pick";
 
 export default {

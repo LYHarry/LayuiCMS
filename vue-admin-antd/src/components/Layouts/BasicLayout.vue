@@ -29,7 +29,7 @@ import { mapState } from "vuex";
 import { SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from "@/store/mutation-types";
 import RightContent from "../GlobalHeader/RightContent";
 import { GlobalFooter } from "@/components";
-import { LogoSvg } from "@/utils/icons";
+import { LogoSvg } from "@/libs/icons";
 
 export default {
   name: "BasicLayout",

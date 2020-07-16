@@ -135,7 +135,7 @@
 import md5 from "md5";
 import { TwoStepCaptcha } from "@/components";
 import { mapActions } from "vuex";
-import { timeFix } from "@/utils";
+import { timeFix } from "@/libs/utils";
 
 export default {
   name: "Login",

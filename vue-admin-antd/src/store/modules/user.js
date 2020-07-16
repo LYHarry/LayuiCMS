@@ -1,7 +1,7 @@
 import cache from 'store'
 import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
 import * as apis from '@/apis/modules/baseApi'
-import { generatorDynamicRouter } from '@/utils/generate-routers'
+import { generatorDynamicRouter } from '@/libs/generate-routers'
 
 const user = {
   state: {

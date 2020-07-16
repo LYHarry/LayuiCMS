@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { timeFix, welcome } from "@/utils";
+import { timeFix, welcome } from "@/libs/utils";
 import { mapState } from "vuex";
 import { Radar } from "@/components";
 

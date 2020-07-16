@@ -4,9 +4,9 @@ import router from '@/router'
 import store from '@/store'
 import i18n from '@/locales'
 
-import '@/utils/lazy_use'
+import '@/libs/lazy_use'
 import '@/assets/style/global.less' // global style
-import '@/utils/filter' // global filter
+import '@/libs/filter' // global filter
 
 console.log('envConfig ', envConfig)
 

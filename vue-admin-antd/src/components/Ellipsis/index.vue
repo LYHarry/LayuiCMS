@@ -1,6 +1,6 @@
 <script>
 import Tooltip from "ant-design-vue/es/tooltip";
-import { cutStrByFullLength, getStrFullLength } from "@/utils";
+import { cutStrByFullLength, getStrFullLength } from "@/libs/utils";
 
 export default {
   name: "Ellipsis",

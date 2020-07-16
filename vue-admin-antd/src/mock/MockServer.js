@@ -1,4 +1,4 @@
-import { isIE } from '@/utils'
+import { isIE } from '@/libs/utils'
 import Mock from 'mockjs'
 import MenuRouter from './modules/MenuRouter'
 import baseApi from './modules/baseApi'

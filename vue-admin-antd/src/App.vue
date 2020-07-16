@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { setDocumentTitle } from "@/utils";
+import { setDocumentTitle } from "@/libs/utils";
 import { i18nRender } from "@/locales";
 import config from "@/config";
 

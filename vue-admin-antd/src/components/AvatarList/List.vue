@@ -18,7 +18,7 @@
 <script>
 import Avatar from "ant-design-vue/es/avatar";
 import AvatarItem from "./Item";
-import { filterEmpty } from "@/utils";
+import { filterEmpty } from "@/libs/utils";
 
 export default {
   AvatarItem,
