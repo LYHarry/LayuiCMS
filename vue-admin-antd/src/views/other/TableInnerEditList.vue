@@ -1,5 +1,5 @@
 <template>
-  <a-card :bordered="false">
+  <a-card>
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
@@ -25,7 +25,10 @@
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="更新日期">
-                <a-date-picker style="width: 100%" placeholder="请输入更新日期" />
+                <a-date-picker
+                  style="width: 100%"
+                  placeholder="请输入更新日期"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
@@ -47,15 +50,17 @@
               </a-form-item>
             </a-col>
           </template>
-          <a-col :md="!advanced && 8 || 24" :sm="24">
+          <a-col :md="(!advanced && 8) || 24" :sm="24">
             <span
               class="table-page-search-submitButtons"
-              :style="advanced && { float: 'right', overflow: 'hidden' } || {} "
+              :style="
+                (advanced && { float: 'right', overflow: 'hidden' }) || {}
+              "
             >
               <a-button type="primary">查询</a-button>
               <a-button style="margin-left: 8px">重置</a-button>
               <a @click="toggleAdvanced" style="margin-left: 8px">
-                {{ advanced ? '收起' : '展开' }}
+                {{ advanced ? "收起" : "展开" }}
                 <a-icon :type="advanced ? 'up' : 'down'" />
               </a>
             </span>
@@ -68,13 +73,9 @@
       <a-button type="primary" icon="plus">新建</a-button>
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
-          <a-menu-item key="1">
-            <a-icon type="delete" />删除
-          </a-menu-item>
+          <a-menu-item key="1"> <a-icon type="delete" />删除 </a-menu-item>
           <!-- lock | unlock -->
-          <a-menu-item key="2">
-            <a-icon type="lock" />锁定
-          </a-menu-item>
+          <a-menu-item key="2"> <a-icon type="lock" />锁定 </a-menu-item>
         </a-menu>
         <a-button style="margin-left: 8px">
           批量操作
@@ -90,15 +91,24 @@
       :columns="columns"
       :data="loadData"
       :alert="{ show: true, clear: true }"
-      :rowSelection="{ selectedRowKeys: this.selectedRowKeys, onChange: this.onSelectChange }"
+      :rowSelection="{
+        selectedRowKeys: this.selectedRowKeys,
+        onChange: this.onSelectChange,
+      }"
     >
-      <template v-for="(col, index) in columns" :slot="col.dataIndex" slot-scope="text, record">
+      <template
+        v-for="(col, index) in columns"
+        :slot="col.dataIndex"
+        slot-scope="text, record"
+      >
         <div :key="index" v-if="col.scopedSlots">
           <a-input
             v-if="record.editable"
             style="margin: -5px 0"
             :value="text"
-            @change="e => handleChange(e.target.value, record.key, col, record)"
+            @change="
+              (e) => handleChange(e.target.value, record.key, col, record)
+            "
           />
           <template v-else>{{ text }}</template>
         </div>
@@ -108,7 +118,10 @@
           <span v-if="record.editable">
             <a @click="() => save(record)">保存</a>
             <a-divider type="vertical" />
-            <a-popconfirm title="真的放弃编辑吗?" @confirm="() => cancel(record)">
+            <a-popconfirm
+              title="真的放弃编辑吗?"
+              @confirm="() => cancel(record)"
+            >
               <a>取消</a>
             </a-popconfirm>
           </span>
@@ -129,7 +142,7 @@ import { STable } from "@/components";
 export default {
   name: "TableList",
   components: {
-    STable
+    STable,
   },
   data() {
     return {
@@ -142,12 +155,12 @@ export default {
         {
           title: "规则编号",
           dataIndex: "no",
-          width: 90
+          width: 90,
         },
         {
           title: "描述",
           dataIndex: "description",
-          scopedSlots: { customRender: "description" }
+          scopedSlots: { customRender: "description" },
         },
         {
           title: "服务调用次数",
@@ -155,7 +168,7 @@ export default {
           width: "150px",
           sorter: true,
           needTotal: true,
-          scopedSlots: { customRender: "callNo" }
+          scopedSlots: { customRender: "callNo" },
           // customRender: (text) => text + ' 次'
         },
         {
@@ -163,31 +176,31 @@ export default {
           dataIndex: "status",
           width: "100px",
           needTotal: true,
-          scopedSlots: { customRender: "status" }
+          scopedSlots: { customRender: "status" },
         },
         {
           title: "更新时间",
           dataIndex: "updatedAt",
           width: "200px",
           sorter: true,
-          scopedSlots: { customRender: "updatedAt" }
+          scopedSlots: { customRender: "updatedAt" },
         },
         {
           table: "操作",
           dataIndex: "action",
           width: "120px",
-          scopedSlots: { customRender: "action" }
-        }
+          scopedSlots: { customRender: "action" },
+        },
       ],
       // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
-        return this.$apis.manage.getServiceList(parameter).then(res => {
+      loadData: (parameter) => {
+        return this.$apis.manage.getServiceList(parameter).then((res) => {
           return res.data;
         });
       },
 
       selectedRowKeys: [],
-      selectedRows: []
+      selectedRows: [],
     };
   },
   methods: {
@@ -214,7 +227,7 @@ export default {
         },
         onCancel() {
           console.log("Cancel");
-        }
+        },
       });
     },
     save(row) {
@@ -230,7 +243,7 @@ export default {
     },
     toggleAdvanced() {
       this.advanced = !this.advanced;
-    }
+    },
   },
   watch: {
     /*
@@ -245,7 +258,7 @@ export default {
         })
       }
       */
-  }
+  },
 };
 </script>
 

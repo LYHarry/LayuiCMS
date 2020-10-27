@@ -1,5 +1,5 @@
 <template>
-  <a-card :bordered="false">
+  <a-card>
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
@@ -29,7 +29,9 @@
 
     <s-table rowKey="id" :columns="columns" :data="loadData">
       <span slot="actions" slot-scope="text, record">
-        <a-tag v-for="(action, index) in record.actionList" :key="index">{{ action.describe }}</a-tag>
+        <a-tag v-for="(action, index) in record.actionList" :key="index">{{
+          action.describe
+        }}</a-tag>
       </span>
       <span slot="status" slot-scope="text">{{ text | statusFilter }}</span>
       <span slot="action" slot-scope="text, record">
@@ -64,7 +66,12 @@
           hasFeedback
           validateStatus="success"
         >
-          <a-input placeholder="唯一识别码" v-model="mdl.id" id="no" disabled="disabled" />
+          <a-input
+            placeholder="唯一识别码"
+            v-model="mdl.id"
+            id="no"
+            disabled="disabled"
+          />
         </a-form-item>
 
         <a-form-item
@@ -74,7 +81,11 @@
           hasFeedback
           validateStatus="success"
         >
-          <a-input placeholder="起一个名字" v-model="mdl.name" id="permission_name" />
+          <a-input
+            placeholder="起一个名字"
+            v-model="mdl.name"
+            id="permission_name"
+          />
         </a-form-item>
 
         <a-form-item
@@ -90,19 +101,40 @@
           </a-select>
         </a-form-item>
 
-        <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="描述" hasFeedback>
-          <a-textarea :rows="5" v-model="mdl.describe" placeholder="..." id="describe" />
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="描述"
+          hasFeedback
+        >
+          <a-textarea
+            :rows="5"
+            v-model="mdl.describe"
+            placeholder="..."
+            id="describe"
+          />
         </a-form-item>
 
         <a-divider />
 
-        <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="赋予权限" hasFeedback>
-          <a-select style="width: 100%" mode="multiple" v-model="mdl.actions" :allowClear="true">
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="赋予权限"
+          hasFeedback
+        >
+          <a-select
+            style="width: 100%"
+            mode="multiple"
+            v-model="mdl.actions"
+            :allowClear="true"
+          >
             <a-select-option
               v-for="(action, index) in permissionList"
               :key="index"
               :value="action.value"
-            >{{ action.label }}</a-select-option>
+              >{{ action.label }}</a-select-option
+            >
           </a-select>
         </a-form-item>
       </a-form>
@@ -116,7 +148,7 @@ import { STable } from "@/components";
 export default {
   name: "TableList",
   components: {
-    STable
+    STable,
   },
   data() {
     return {
@@ -126,11 +158,11 @@ export default {
       visible: false,
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 5 }
+        sm: { span: 5 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 }
+        sm: { span: 16 },
       },
       form: this.$form.createForm(this),
       mdl: {},
@@ -143,38 +175,38 @@ export default {
       columns: [
         {
           title: "唯一识别码",
-          dataIndex: "id"
+          dataIndex: "id",
         },
         {
           title: "权限名称",
-          dataIndex: "name"
+          dataIndex: "name",
         },
         {
           title: "可操作权限",
           dataIndex: "actions",
-          scopedSlots: { customRender: "actions" }
+          scopedSlots: { customRender: "actions" },
         },
         {
           title: "状态",
           dataIndex: "status",
-          scopedSlots: { customRender: "status" }
+          scopedSlots: { customRender: "status" },
         },
         {
           title: "操作",
           width: "150px",
           dataIndex: "action",
-          scopedSlots: { customRender: "action" }
-        }
+          scopedSlots: { customRender: "action" },
+        },
       ],
       // 向后端拉取可以用的操作列表
       permissionList: null,
       // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
+      loadData: (parameter) => {
         return this.$apis.manage
           .permissions({ params: Object.assign(parameter, this.queryParam) })
-          .then(res => {
+          .then((res) => {
             const result = res.data;
-            result.data.map(permission => {
+            result.data.map((permission) => {
               permission.actionList = JSON.parse(permission.actionData);
               return permission;
             });
@@ -183,17 +215,17 @@ export default {
       },
 
       selectedRowKeys: [],
-      selectedRows: []
+      selectedRows: [],
     };
   },
   filters: {
     statusFilter(status) {
       const statusMap = {
         1: "正常",
-        2: "禁用"
+        2: "禁用",
       };
       return statusMap[status];
-    }
+    },
   },
   created() {
     this.loadPermissionList();
@@ -201,7 +233,7 @@ export default {
   methods: {
     loadPermissionList() {
       // permissionList
-      new Promise(resolve => {
+      new Promise((resolve) => {
         const data = [
           { label: "新增", value: "add", defaultChecked: false },
           { label: "查询", value: "get", defaultChecked: false },
@@ -209,10 +241,10 @@ export default {
           { label: "列表", value: "query", defaultChecked: false },
           { label: "删除", value: "delete", defaultChecked: false },
           { label: "导入", value: "import", defaultChecked: false },
-          { label: "导出", value: "export", defaultChecked: false }
+          { label: "导出", value: "export", defaultChecked: false },
         ];
         setTimeout(resolve(data), 1500);
-      }).then(res => {
+      }).then((res) => {
         this.permissionList = res;
       });
     },
@@ -227,7 +259,7 @@ export default {
     },
     toggleAdvanced() {
       this.advanced = !this.advanced;
-    }
+    },
   },
   watch: {
     /*
@@ -242,6 +274,6 @@ export default {
         })
       }
       */
-  }
+  },
 };
 </script>

@@ -1,15 +1,21 @@
 <template>
   <page-header-wrapper content="高级表单常见于一次性输入和提交大批量数据的场景">
-    <a-card class="card" title="仓库管理" :bordered="false">
+    <a-card class="card" title="仓库管理">
       <repository-form ref="repository" :showSubmit="false" />
     </a-card>
-    <a-card class="card" title="任务管理" :bordered="false">
+    <a-card class="card" title="任务管理">
       <task-form ref="task" :showSubmit="false" />
     </a-card>
 
     <!-- table -->
     <a-card class="card">
-      <a-table :columns="columns" :dataSource="data" :pagination="false" :loading="memberLoading">
+      <a-table
+        rowKey="key"
+        :columns="columns"
+        :dataSource="data"
+        :pagination="false"
+        :loading="memberLoading"
+      >
         <template
           v-for="(col, i) in ['name', 'workId', 'department']"
           :slot="col"
@@ -21,7 +27,7 @@
             style="margin: -5px 0"
             :value="text"
             :placeholder="columns[i].title"
-            @change="e => handleChange(e.target.value, record.key, col)"
+            @change="(e) => handleChange(e.target.value, record.key, col)"
           />
           <template v-else>{{ text }}</template>
         </template>
@@ -30,7 +36,10 @@
             <span v-if="record.isNew">
               <a @click="saveRow(record)">添加</a>
               <a-divider type="vertical" />
-              <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
+              <a-popconfirm
+                title="是否要删除此行？"
+                @confirm="remove(record.key)"
+              >
                 <a>删除</a>
               </a-popconfirm>
             </span>
@@ -43,7 +52,10 @@
           <span v-else>
             <a @click="toggle(record.key)">编辑</a>
             <a-divider type="vertical" />
-            <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
+            <a-popconfirm
+              title="是否要删除此行？"
+              @confirm="remove(record.key)"
+            >
               <a>删除</a>
             </a-popconfirm>
           </span>
@@ -54,10 +66,11 @@
         type="dashed"
         icon="plus"
         @click="newMember"
-      >新增成员</a-button>
+        >新增成员</a-button
+      >
     </a-card>
 
-    <a-card :bordered="false">
+    <a-card>
       <QuillEditor @change="onEditorChange" />
     </a-card>
 
@@ -68,7 +81,7 @@
           title="表单校验信息"
           overlayClassName="antd-pro-pages-forms-style-errorPopover"
           trigger="click"
-          :getPopupContainer="trigger => trigger.parentNode"
+          :getPopupContainer="(trigger) => trigger.parentNode"
         >
           <template slot="content">
             <li
@@ -77,18 +90,28 @@
               @click="scrollToField(item.key)"
               class="antd-pro-pages-forms-style-errorListItem"
             >
-              <a-icon type="cross-circle-o" class="antd-pro-pages-forms-style-errorIcon" />
+              <a-icon
+                type="cross-circle-o"
+                class="antd-pro-pages-forms-style-errorIcon"
+              />
               <div class>{{ item.message }}</div>
-              <div class="antd-pro-pages-forms-style-errorField">{{ item.fieldLabel }}</div>
+              <div class="antd-pro-pages-forms-style-errorField">
+                {{ item.fieldLabel }}
+              </div>
             </li>
           </template>
-          <span class="antd-pro-pages-forms-style-errorIcon" v-if="errors.length > 0">
+          <span
+            class="antd-pro-pages-forms-style-errorIcon"
+            v-if="errors.length > 0"
+          >
             <a-icon type="exclamation-circle" />
             {{ errors.length }}
           </span>
         </a-popover>
       </span>
-      <a-button type="primary" @click="validate" :loading="loading">提交</a-button>
+      <a-button type="primary" @click="validate" :loading="loading"
+        >提交</a-button
+      >
     </footer-tool-bar>
   </page-header-wrapper>
 </template>
@@ -111,7 +134,7 @@ const fieldLabels = {
   owner2: "执行人",
   approver2: "责任人",
   dateRange2: "生效日期",
-  type2: "任务类型"
+  type2: "任务类型",
 };
 
 export default {
@@ -121,7 +144,7 @@ export default {
     FooterToolBar,
     RepositoryForm,
     TaskForm,
-    QuillEditor
+    QuillEditor,
   },
   data() {
     return {
@@ -135,27 +158,27 @@ export default {
           dataIndex: "name",
           key: "name",
           width: "20%",
-          scopedSlots: { customRender: "name" }
+          scopedSlots: { customRender: "name" },
         },
         {
           title: "工号",
           dataIndex: "workId",
           key: "workId",
           width: "20%",
-          scopedSlots: { customRender: "workId" }
+          scopedSlots: { customRender: "workId" },
         },
         {
           title: "所属部门",
           dataIndex: "department",
           key: "department",
           width: "40%",
-          scopedSlots: { customRender: "department" }
+          scopedSlots: { customRender: "department" },
         },
         {
           title: "操作",
           key: "action",
-          scopedSlots: { customRender: "operation" }
-        }
+          scopedSlots: { customRender: "operation" },
+        },
       ],
       data: [
         {
@@ -163,25 +186,25 @@ export default {
           name: "小明",
           workId: "001",
           editable: false,
-          department: "行政部"
+          department: "行政部",
         },
         {
           key: "2",
           name: "李莉",
           workId: "002",
           editable: false,
-          department: "IT部"
+          department: "IT部",
         },
         {
           key: "3",
           name: "王小帅",
           workId: "003",
           editable: false,
-          department: "财务部"
-        }
+          department: "财务部",
+        },
       ],
 
-      errors: []
+      errors: [],
     };
   },
   methods: {
@@ -199,11 +222,11 @@ export default {
         workId: "",
         department: "",
         editable: true,
-        isNew: true
+        isNew: true,
       });
     },
     remove(key) {
-      const newData = this.data.filter(item => item.key !== key);
+      const newData = this.data.filter((item) => item.key !== key);
       this.data = newData;
     },
     saveRow(record) {
@@ -215,36 +238,36 @@ export default {
         return;
       }
       // 模拟网络请求、卡顿 800ms
-      new Promise(resolve => {
+      new Promise((resolve) => {
         setTimeout(() => {
           resolve({ loop: false });
         }, 800);
       }).then(() => {
-        const target = this.data.find(item => item.key === key);
+        const target = this.data.find((item) => item.key === key);
         target.editable = false;
         target.isNew = false;
         this.memberLoading = false;
       });
     },
     toggle(key) {
-      const target = this.data.find(item => item.key === key);
+      const target = this.data.find((item) => item.key === key);
       target._originalData = { ...target };
       target.editable = !target.editable;
     },
     getRowByKey(key, newData) {
       const data = this.data;
-      return (newData || data).find(item => item.key === key);
+      return (newData || data).find((item) => item.key === key);
     },
     cancel(key) {
-      const target = this.data.find(item => item.key === key);
-      Object.keys(target).forEach(key => {
+      const target = this.data.find((item) => item.key === key);
+      Object.keys(target).forEach((key) => {
         target[key] = target._originalData[key];
       });
       target._originalData = undefined;
     },
     handleChange(value, key, column) {
       const newData = [...this.data];
-      const target = newData.find(item => key === item.key);
+      const target = newData.find((item) => key === item.key);
       if (target) {
         target[column] = value;
         this.data = newData;
@@ -255,7 +278,7 @@ export default {
     validate() {
       const {
         $refs: { repository, task },
-        $notification
+        $notification,
       } = this;
       const repositoryForm = new Promise((resolve, reject) => {
         repository.form.validateFields((err, values) => {
@@ -279,10 +302,10 @@ export default {
       // clean this.errors
       this.errors = [];
       Promise.all([repositoryForm, taskForm])
-        .then(values => {
+        .then((values) => {
           $notification["error"]({
             message: "Received values of form:",
-            description: JSON.stringify(values)
+            description: JSON.stringify(values),
           });
         })
         .catch(() => {
@@ -300,11 +323,11 @@ export default {
         return;
       }
       this.errors = Object.keys(errors)
-        .filter(key => errors[key])
-        .map(key => ({
+        .filter((key) => errors[key])
+        .map((key) => ({
           key: key,
           message: errors[key][0],
-          fieldLabel: fieldLabels[key]
+          fieldLabel: fieldLabels[key],
         }));
     },
     scrollToField(fieldKey) {
@@ -315,8 +338,8 @@ export default {
     },
     onEditorChange(html) {
       console.log("onEditorChange ", html);
-    }
-  }
+    },
+  },
 };
 </script>
 

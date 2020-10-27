@@ -18,29 +18,35 @@ import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 
 import { quillEditor } from "vue-quill-editor";
+import quillConfig from "./quill-config";
 
 export default {
   name: "QuillEditor",
   components: {
-    quillEditor
+    quillEditor,
   },
   props: {
     prefixCls: {
       type: String,
-      default: "ant-editor-quill"
+      default: "ant-editor-quill",
     },
     // 表单校验用字段
     value: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       content: null,
       editorOption: {
         // some quill options
-      }
+        //quillConfig
+      },
     };
+  },
+  mounted() {
+    // this.$refs.myQuillEditor.quill.enable(false);
+    this.$refs.myQuillEditor.quill.focus();
   },
   methods: {
     onEditorBlur(quill) {
@@ -55,13 +61,13 @@ export default {
     onEditorChange({ quill, html, text }) {
       console.log("editor change!", quill, html, text);
       this.$emit("change", html);
-    }
+    },
   },
   watch: {
     value(val) {
       this.content = val;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -75,6 +81,9 @@ export default {
   }
   /deep/ .ql-container.ql-snow {
     border-radius: 0 0 @border-radius-base @border-radius-base;
+  }
+  /deep/ .ql-container .ql-editor {
+    min-height: 400px;
   }
 }
 </style>

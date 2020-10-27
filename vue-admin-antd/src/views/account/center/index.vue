@@ -2,7 +2,7 @@
   <div class="page-header-index-wide page-header-wrapper-grid-content-main">
     <a-row :gutter="24">
       <a-col :md="24" :lg="7">
-        <a-card :bordered="false">
+        <a-card>
           <div class="account-center-avatarHolder">
             <div class="avatar">
               <img :src="userInfo.avatar" />
@@ -11,11 +11,10 @@
             <div class="bio">海纳百川，有容乃大</div>
           </div>
           <div class="account-center-detail">
+            <p><i class="title"></i>交互专家</p>
             <p>
-              <i class="title"></i>交互专家
-            </p>
-            <p>
-              <i class="group"></i>蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED
+              <i class="group"></i
+              >蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED
             </p>
             <p>
               <i class="address"></i>
@@ -34,14 +33,16 @@
                     :key="tag"
                     :closable="index !== 0"
                     :close="() => handleTagClose(tag)"
-                  >{{ `${tag.slice(0, 20)}...` }}</a-tag>
+                    >{{ `${tag.slice(0, 20)}...` }}</a-tag
+                  >
                 </a-tooltip>
                 <a-tag
                   v-else
                   :key="tag"
                   :closable="index !== 0"
                   :close="() => handleTagClose(tag)"
-                >{{ tag }}</a-tag>
+                  >{{ tag }}</a-tag
+                >
               </template>
               <a-input
                 v-if="tagInputVisible"
@@ -54,7 +55,11 @@
                 @blur="handleTagInputConfirm"
                 @keyup.enter="handleTagInputConfirm"
               />
-              <a-tag v-else @click="showTagInput" style="background: #fff; borderStyle: dashed;">
+              <a-tag
+                v-else
+                @click="showTagInput"
+                style="background: #fff; borderstyle: dashed"
+              >
                 <a-icon type="plus" />New Tag
               </a-tag>
             </div>
@@ -80,11 +85,10 @@
       </a-col>
       <a-col :md="24" :lg="17">
         <a-card
-          style="width:100%"
-          :bordered="false"
+          style="width: 100%"
           :tabList="tabListNoTitle"
           :activeTabKey="noTitleKey"
-          @tabChange="key => handleTabChange(key, 'noTitleKey')"
+          @tabChange="(key) => handleTabChange(key, 'noTitleKey')"
         >
           <article-page v-if="noTitleKey === 'article'"></article-page>
           <app-page v-else-if="noTitleKey === 'app'"></app-page>
@@ -106,7 +110,7 @@ export default {
     PageView,
     AppPage,
     ArticlePage,
-    ProjectPage
+    ProjectPage,
   },
   data() {
     return {
@@ -121,18 +125,18 @@ export default {
       tabListNoTitle: [
         {
           key: "article",
-          tab: "文章(8)"
+          tab: "文章(8)",
         },
         {
           key: "app",
-          tab: "应用(8)"
+          tab: "应用(8)",
         },
         {
           key: "project",
-          tab: "项目(8)"
-        }
+          tab: "项目(8)",
+        },
       ],
-      noTitleKey: "app"
+      noTitleKey: "app",
     };
   },
   computed: {
@@ -144,14 +148,14 @@ export default {
         currentUser.avatar ||
         "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png";
       return currentUser;
-    }
+    },
   },
   mounted() {
     this.getTeams();
   },
   methods: {
     getTeams() {
-      this.$apis.dashboard.workplaceTeams().then(res => {
+      this.$apis.dashboard.workplaceTeams().then((res) => {
         this.teams = res.data;
         this.teamSpinning = false;
       });
@@ -162,7 +166,7 @@ export default {
     },
 
     handleTagClose(removeTag) {
-      const tags = this.tags.filter(tag => tag !== removeTag);
+      const tags = this.tags.filter((tag) => tag !== removeTag);
       this.tags = tags;
     },
 
@@ -187,10 +191,10 @@ export default {
       Object.assign(this, {
         tags,
         tagInputVisible: false,
-        tagInputValue: ""
+        tagInputValue: "",
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

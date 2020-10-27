@@ -70,10 +70,7 @@ router.beforeEach((to, from, next) => {
       // 跳转到目的路由
       next({ path: redirect })
     }).catch(() => {
-      notification.error({
-        message: '错误',
-        description: '请求用户权限失败，请重试'
-      })
+      notification.error({ message: '错误', description: '请求用户权限失败，请重试' })
       // 失败时，获取用户信息失败时，调用登出，来清空历史保留信息
       store.dispatch('Logout').then(() => {
         next({ path: loginRoutePath, query: { redirect: to.fullPath } })

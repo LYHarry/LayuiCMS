@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 import apiUrl from '@/apis/urls/baseApi'
 
-//登陆
+//登录
 const login = {
     url: apiUrl.Login,
     response: function (req) {
@@ -38,7 +38,7 @@ const login = {
     }
 }
 
-//退出登陆
+//退出登录
 const logout = {
     url: apiUrl.Logout,
     response: true,

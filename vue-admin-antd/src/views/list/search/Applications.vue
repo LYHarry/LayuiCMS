@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-card :bordered="false" class="ant-pro-components-tag-select">
+    <a-card class="ant-pro-components-tag-select">
       <a-form :form="form" layout="inline">
-        <standard-form-row title="所属类目" block style="padding-bottom: 11px;">
+        <standard-form-row title="所属类目" block style="padding-bottom: 11px">
           <a-form-item>
             <tag-select>
               <tag-select-option value="Category1">类目一</tag-select-option>
@@ -22,9 +22,12 @@
         <standard-form-row title="其它选项" grid last>
           <a-row>
             <a-col :lg="8" :md="10" :sm="10" :xs="24">
-              <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="作者">
+              <a-form-item
+                :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }"
+                label="作者"
+              >
                 <a-select
-                  style="max-width: 200px; width: 100%;"
+                  style="max-width: 200px; width: 100%"
                   mode="multiple"
                   placeholder="不限"
                   v-decorator="['author']"
@@ -35,9 +38,12 @@
               </a-form-item>
             </a-col>
             <a-col :lg="8" :md="10" :sm="10" :xs="24">
-              <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="好评度">
+              <a-form-item
+                :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }"
+                label="好评度"
+              >
                 <a-select
-                  style="max-width: 200px; width: 100%;"
+                  style="max-width: 200px; width: 100%"
                   placeholder="不限"
                   v-decorator="['rate']"
                 >
@@ -56,7 +62,7 @@
         :loading="loading"
         :data-source="data"
         :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }"
-        style="margin-top: 24px;"
+        style="margin-top: 24px"
       >
         <a-list-item slot="renderItem" slot-scope="item">
           <a-card :body-style="{ paddingBottom: 20 }" hoverable>
@@ -117,19 +123,19 @@ export default {
     TagSelect,
     TagSelectOption,
     StandardFormRow,
-    CardInfo
+    CardInfo,
   },
   data() {
     return {
       data: [],
       form: this.$form.createForm(this),
-      loading: true
+      loading: true,
     };
   },
   filters: {
     fromNow(date) {
       return moment(date).fromNow();
-    }
+    },
   },
   mounted() {
     this.getList();
@@ -139,12 +145,12 @@ export default {
       console.log(`selected ${value}`);
     },
     getList() {
-      this.$apis.article.getArticleList().then(res => {
+      this.$apis.article.getArticleList().then((res) => {
         this.data = res.data;
         this.loading = false;
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

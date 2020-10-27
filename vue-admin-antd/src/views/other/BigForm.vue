@@ -1,5 +1,5 @@
 <template>
-  <a-card :bordered="false">
+  <a-card>
     <a-form :form="form1" :self-update="true" @submit="handleForm1Submit">
       <a-row class="form-row" :gutter="16">
         <a-col :lg="6" :md="12" :sm="24">
@@ -8,12 +8,25 @@
               placeholder="请输入仓库名称"
               v-decorator="[
                 'name',
-                {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库名称',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="仓库域名">
             <a-input
               addonBefore="http://"
@@ -21,16 +34,32 @@
               placeholder="请输入"
               v-decorator="[
                 'url',
-                {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库域名',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库管理员">
             <a-select
               placeholder="请选择管理员"
-              v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]"
+              v-decorator="[
+                'owner',
+                { rules: [{ required: true, message: '请选择管理员' }] },
+              ]"
             >
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
@@ -44,31 +73,44 @@
           <a-form-item label="审批人">
             <a-select
               placeholder="请选择审批员"
-              v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]"
+              v-decorator="[
+                'approver',
+                { rules: [{ required: true, message: '请选择审批员' }] },
+              ]"
             >
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="生效日期">
             <a-range-picker
               style="width: 100%"
               v-decorator="[
                 'dateRange',
-                {rules: [{ required: true, message: '请选择生效日期'}]}
+                { rules: [{ required: true, message: '请选择生效日期' }] },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库类型">
             <a-select
               placeholder="请选择仓库类型"
               v-decorator="[
                 'type',
-                {rules: [{ required: true, message: '请选择仓库类型'}]}
+                { rules: [{ required: true, message: '请选择仓库类型' }] },
               ]"
             >
               <a-select-option value="公开">公开</a-select-option>
@@ -90,12 +132,25 @@
               placeholder="请输入仓库名称"
               v-decorator="[
                 'name',
-                {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库名称',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="仓库域名">
             <a-input
               addonBefore="http://"
@@ -103,16 +158,32 @@
               placeholder="请输入"
               v-decorator="[
                 'url',
-                {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库域名',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库管理员">
             <a-select
               placeholder="请选择管理员"
-              v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]"
+              v-decorator="[
+                'owner',
+                { rules: [{ required: true, message: '请选择管理员' }] },
+              ]"
             >
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
@@ -126,31 +197,44 @@
           <a-form-item label="审批人">
             <a-select
               placeholder="请选择审批员"
-              v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]"
+              v-decorator="[
+                'approver',
+                { rules: [{ required: true, message: '请选择审批员' }] },
+              ]"
             >
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="生效日期">
             <a-range-picker
               style="width: 100%"
               v-decorator="[
                 'dateRange',
-                {rules: [{ required: true, message: '请选择生效日期'}]}
+                { rules: [{ required: true, message: '请选择生效日期' }] },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库类型">
             <a-select
               placeholder="请选择仓库类型"
               v-decorator="[
                 'type',
-                {rules: [{ required: true, message: '请选择仓库类型'}]}
+                { rules: [{ required: true, message: '请选择仓库类型' }] },
               ]"
             >
               <a-select-option value="公开">公开</a-select-option>
@@ -172,12 +256,25 @@
               placeholder="请输入仓库名称"
               v-decorator="[
                 'name',
-                {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库名称',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="仓库域名">
             <a-input
               addonBefore="http://"
@@ -185,16 +282,32 @@
               placeholder="请输入"
               v-decorator="[
                 'url',
-                {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库域名',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库管理员">
             <a-select
               placeholder="请选择管理员"
-              v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]"
+              v-decorator="[
+                'owner',
+                { rules: [{ required: true, message: '请选择管理员' }] },
+              ]"
             >
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
@@ -208,31 +321,44 @@
           <a-form-item label="审批人">
             <a-select
               placeholder="请选择审批员"
-              v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]"
+              v-decorator="[
+                'approver',
+                { rules: [{ required: true, message: '请选择审批员' }] },
+              ]"
             >
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="生效日期">
             <a-range-picker
               style="width: 100%"
               v-decorator="[
                 'dateRange',
-                {rules: [{ required: true, message: '请选择生效日期'}]}
+                { rules: [{ required: true, message: '请选择生效日期' }] },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库类型">
             <a-select
               placeholder="请选择仓库类型"
               v-decorator="[
                 'type',
-                {rules: [{ required: true, message: '请选择仓库类型'}]}
+                { rules: [{ required: true, message: '请选择仓库类型' }] },
               ]"
             >
               <a-select-option value="公开">公开</a-select-option>
@@ -254,12 +380,25 @@
               placeholder="请输入仓库名称"
               v-decorator="[
                 'name',
-                {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库名称',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="仓库域名">
             <a-input
               addonBefore="http://"
@@ -267,16 +406,32 @@
               placeholder="请输入"
               v-decorator="[
                 'url',
-                {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库域名',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库管理员">
             <a-select
               placeholder="请选择管理员"
-              v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]"
+              v-decorator="[
+                'owner',
+                { rules: [{ required: true, message: '请选择管理员' }] },
+              ]"
             >
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
@@ -290,31 +445,44 @@
           <a-form-item label="审批人">
             <a-select
               placeholder="请选择审批员"
-              v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]"
+              v-decorator="[
+                'approver',
+                { rules: [{ required: true, message: '请选择审批员' }] },
+              ]"
             >
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="生效日期">
             <a-range-picker
               style="width: 100%"
               v-decorator="[
                 'dateRange',
-                {rules: [{ required: true, message: '请选择生效日期'}]}
+                { rules: [{ required: true, message: '请选择生效日期' }] },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库类型">
             <a-select
               placeholder="请选择仓库类型"
               v-decorator="[
                 'type',
-                {rules: [{ required: true, message: '请选择仓库类型'}]}
+                { rules: [{ required: true, message: '请选择仓库类型' }] },
               ]"
             >
               <a-select-option value="公开">公开</a-select-option>
@@ -336,12 +504,25 @@
               placeholder="请输入仓库名称"
               v-decorator="[
                 'name',
-                {rules: [{ required: true, message: '请输入仓库名称', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库名称',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="仓库域名">
             <a-input
               addonBefore="http://"
@@ -349,16 +530,32 @@
               placeholder="请输入"
               v-decorator="[
                 'url',
-                {rules: [{ required: true, message: '请输入仓库域名', whitespace: true}]}
+                {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入仓库域名',
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库管理员">
             <a-select
               placeholder="请选择管理员"
-              v-decorator="[ 'owner', {rules: [{ required: true, message: '请选择管理员'}]} ]"
+              v-decorator="[
+                'owner',
+                { rules: [{ required: true, message: '请选择管理员' }] },
+              ]"
             >
               <a-select-option value="王同学">王同学</a-select-option>
               <a-select-option value="李同学">李同学</a-select-option>
@@ -372,31 +569,44 @@
           <a-form-item label="审批人">
             <a-select
               placeholder="请选择审批员"
-              v-decorator="[ 'approver', {rules: [{ required: true, message: '请选择审批员'}]} ]"
+              v-decorator="[
+                'approver',
+                { rules: [{ required: true, message: '请选择审批员' }] },
+              ]"
             >
               <a-select-option value="王晓丽">王晓丽</a-select-option>
               <a-select-option value="李军">李军</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">
+        <a-col
+          :xl="{ span: 7, offset: 1 }"
+          :lg="{ span: 8 }"
+          :md="{ span: 12 }"
+          :sm="24"
+        >
           <a-form-item label="生效日期">
             <a-range-picker
               style="width: 100%"
               v-decorator="[
                 'dateRange',
-                {rules: [{ required: true, message: '请选择生效日期'}]}
+                { rules: [{ required: true, message: '请选择生效日期' }] },
               ]"
             />
           </a-form-item>
         </a-col>
-        <a-col :xl="{span: 9, offset: 1}" :lg="{span: 10}" :md="{span: 24}" :sm="24">
+        <a-col
+          :xl="{ span: 9, offset: 1 }"
+          :lg="{ span: 10 }"
+          :md="{ span: 24 }"
+          :sm="24"
+        >
           <a-form-item label="仓库类型">
             <a-select
               placeholder="请选择仓库类型"
               v-decorator="[
                 'type',
-                {rules: [{ required: true, message: '请选择仓库类型'}]}
+                { rules: [{ required: true, message: '请选择仓库类型' }] },
               ]"
             >
               <a-select-option value="公开">公开</a-select-option>
@@ -412,7 +622,12 @@
 
     <a-divider />
 
-    <a-table :columns="columns" :dataSource="data" :pagination="false" :loading="tableLoading">
+    <a-table
+      :columns="columns"
+      :dataSource="data"
+      :pagination="false"
+      :loading="tableLoading"
+    >
       <template
         v-for="(col, i) in ['name', 'workId', 'department']"
         :slot="col"
@@ -424,7 +639,7 @@
           style="margin: -5px 0"
           :value="text"
           :placeholder="columns[i].title"
-          @change="e => handleChange(e.target.value, record.key, col)"
+          @change="(e) => handleChange(e.target.value, record.key, col)"
         />
         <template v-else>{{ text }}</template>
       </template>
@@ -433,7 +648,10 @@
           <span v-if="record.isNew">
             <a @click="saveRow(record)">添加</a>
             <a-divider type="vertical" />
-            <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
+            <a-popconfirm
+              title="是否要删除此行？"
+              @confirm="remove(record.key)"
+            >
               <a>删除</a>
             </a-popconfirm>
           </span>
@@ -457,7 +675,8 @@
       type="dashed"
       icon="plus"
       @click="newMember"
-    >新增成员</a-button>
+      >新增成员</a-button
+    >
   </a-card>
 </template>
 
@@ -468,27 +687,27 @@ const columns = [
     dataIndex: "name",
     key: "name",
     width: "20%",
-    scopedSlots: { customRender: "name" }
+    scopedSlots: { customRender: "name" },
   },
   {
     title: "工号",
     dataIndex: "workId",
     key: "workId",
     width: "20%",
-    scopedSlots: { customRender: "workId" }
+    scopedSlots: { customRender: "workId" },
   },
   {
     title: "所属部门",
     dataIndex: "department",
     key: "department",
     width: "40%",
-    scopedSlots: { customRender: "department" }
+    scopedSlots: { customRender: "department" },
   },
   {
     title: "操作",
     key: "action",
-    scopedSlots: { customRender: "operation" }
-  }
+    scopedSlots: { customRender: "operation" },
+  },
 ];
 
 export default {
@@ -509,23 +728,23 @@ export default {
           name: "小明",
           workId: "001",
           editable: false,
-          department: "行政部"
+          department: "行政部",
         },
         {
           key: "2",
           name: "李莉",
           workId: "002",
           editable: false,
-          department: "IT部"
+          department: "IT部",
         },
         {
           key: "3",
           name: "王小帅",
           workId: "003",
           editable: false,
-          department: "财务部"
-        }
-      ]
+          department: "财务部",
+        },
+      ],
     };
   },
   mounted() {
@@ -545,7 +764,7 @@ export default {
     },
 
     handleChange(value, key, column) {
-      const target = this.data.find(item => key === item.key);
+      const target = this.data.find((item) => key === item.key);
       if (target) {
         target[column] = value;
       }
@@ -555,7 +774,7 @@ export default {
     saveRow(record) {},
     cancel(key) {},
     remove(key) {
-      this.data = this.data.filter(item => item.key !== key);
+      this.data = this.data.filter((item) => item.key !== key);
     },
 
     newMember() {
@@ -569,10 +788,10 @@ export default {
         workId: "",
         department: "",
         editable: true,
-        isNew: true
+        isNew: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

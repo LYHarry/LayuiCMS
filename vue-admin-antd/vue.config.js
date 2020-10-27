@@ -50,16 +50,26 @@ module.exports = {
 
     // webpack-dev-server 相关配置
     devServer: {
+        port: 8888,
+        // 让浏览器 overlay 同时显示警告和错误
+        overlay: {
+            warnings: true,
+            errors: true
+        },
         // //代理配置表
-        // proxyTable: {
+        // proxy: {
         //     '/api': {
-        //         target: 'http://193.112.58.251:8080/adminPet',
+        //         target: 'http://193.112.58.251:8080/cloudPet', //envConfig.BASE_URL,
         //         changeOrigin: true, // 是否允许跨越
-        //         secure: false,  // 是否https协议
+        //         secure: false,  // 是否 https
+        //         ws: false,  // 代理 websockets
         //         pathRewrite: {
-        //             '^/api': '/api',//重写,
+        //             '^/api': '/apis',//重写,
         //         }
         //     }
-        // }
+        // },
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
     }
 }

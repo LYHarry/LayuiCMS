@@ -41,9 +41,10 @@ const builder = (respond, message = '', code = 200) => {
             return Mock.mock(result)
         }
         const responseBody = {
-            message: message,
+            msg: message,
             data: result,
-            code: code
+            code: code,
+            success: true
         };
         return Mock.mock(responseBody);
     }

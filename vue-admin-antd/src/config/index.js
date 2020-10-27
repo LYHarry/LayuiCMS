@@ -8,11 +8,12 @@ export default {
 
     themeColor: '#1890FF', // 主题颜色
 
-    NoticeCallInterval: 10, // 获取公告未读条数的间隔时间(单位：秒) 默认：5秒
+    //文件充许上传的最大字节数
+    uploadFileMaxSize: 1024 * 1024 * 2,
+    //充许上传的文件类型
+    uploadFileType: ["image/jpg", "image/jpeg", "image/png"],
 
-
-    // 自定义 iconfont 样式
-    // eg：//at.alicdn.com/t/font_1039637_btcrd5co4w.js
-    iconfontUrl: ''
+    //分页每页数据条数
+    pageSize: 10,
 
 }

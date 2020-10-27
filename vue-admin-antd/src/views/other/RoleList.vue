@@ -1,5 +1,5 @@
 <template>
-  <a-card :bordered="false">
+  <a-card>
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
@@ -27,7 +27,13 @@
       </a-form>
     </div>
 
-    <s-table ref="table" size="default" rowKey="id" :columns="columns" :data="loadData">
+    <s-table
+      ref="table"
+      size="default"
+      rowKey="id"
+      :columns="columns"
+      :data="loadData"
+    >
       <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
         <a-row :gutter="24" :style="{ marginBottom: '12px' }">
           <a-col
@@ -44,7 +50,8 @@
                 color="cyan"
                 v-for="(action, k) in role.actionEntitySet"
                 :key="k"
-              >{{ action.describe }}</a-tag>
+                >{{ action.describe }}</a-tag
+              >
             </a-col>
             <a-col :span="20" v-else>-</a-col>
           </a-col>
@@ -85,7 +92,7 @@ export default {
   name: "TableList",
   components: {
     STable,
-    RoleModal
+    RoleModal,
   },
   data() {
     return {
@@ -103,50 +110,50 @@ export default {
       columns: [
         {
           title: "唯一识别码",
-          dataIndex: "id"
+          dataIndex: "id",
         },
         {
           title: "角色名称",
-          dataIndex: "name"
+          dataIndex: "name",
         },
         {
           title: "状态",
-          dataIndex: "status"
+          dataIndex: "status",
         },
         {
           title: "创建时间",
           dataIndex: "createTime",
-          sorter: true
+          sorter: true,
         },
         {
           title: "操作",
           width: "150px",
           dataIndex: "action",
-          scopedSlots: { customRender: "action" }
-        }
+          scopedSlots: { customRender: "action" },
+        },
       ],
       // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
+      loadData: (parameter) => {
         return this.$apis.manage
           .getRoleList({ params: Object.assign(parameter, this.queryParam) })
-          .then(res => {
+          .then((res) => {
             return res.data;
           });
       },
 
       selectedRowKeys: [],
-      selectedRows: []
+      selectedRows: [],
     };
   },
   methods: {
     handleEdit(record) {
       this.mdl = Object.assign({}, record);
-      this.mdl.permissions.forEach(permission => {
-        permission.actionsOptions = permission.actionEntitySet.map(action => {
+      this.mdl.permissions.forEach((permission) => {
+        permission.actionsOptions = permission.actionEntitySet.map((action) => {
           return {
             label: action.describe,
             value: action.action,
-            defaultCheck: action.defaultCheck
+            defaultCheck: action.defaultCheck,
           };
         });
       });
@@ -162,7 +169,7 @@ export default {
     },
     toggleAdvanced() {
       this.advanced = !this.advanced;
-    }
+    },
   },
   watch: {
     /*
@@ -177,6 +184,6 @@ export default {
         })
       }
       */
-  }
+  },
 };
 </script>

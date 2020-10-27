@@ -45,6 +45,8 @@ import {
     Descriptions,
     message,
     notification,
+    Cascader,
+    AutoComplete,
 } from 'ant-design-vue'
 
 // ext library
@@ -52,10 +54,12 @@ import Viser from 'viser-vue'
 import VueCropper from 'vue-cropper'
 import { PageHeaderWrapper } from "@ant-design-vue/pro-layout"
 import { Dialog } from '@/components'
+
 //页面操作按钮权限
 import ActionPermission from '@/permission/action'
 import '@/directives/action'
 import apis from '@/apis'
+import config from "@/config";
 
 const components = [
     ConfigProvider,
@@ -102,10 +106,21 @@ const components = [
     Viser,
     Dialog,
     ActionPermission,
-    VueCropper
+    VueCropper,
+    Cascader,
+    AutoComplete,
 ];
 
 Vue.component('page-header-wrapper', PageHeaderWrapper)
+
+//设置组件默认属性
+Card.props.bordered.default = false
+Modal.props.destroyOnClose.default = true
+// Modal.props.keyboard.default = false
+// Modal.props.maskClosable.default = false
+Table.props.bordered.default = true
+Table.props.rowKey.default = "id"
+
 
 //注册组件
 components.map(component => {
@@ -121,3 +136,4 @@ Vue.prototype.$confirm = Modal.confirm
 // Vue.prototype.$warning = Modal.warning
 // Vue.prototype.$destroyAll = Modal.destroyAll
 Vue.prototype.$apis = apis
+Vue.prototype.$Conf = config

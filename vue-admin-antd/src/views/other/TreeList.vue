@@ -1,5 +1,5 @@
 <template>
-  <a-card :bordered="false">
+  <a-card>
     <a-row :gutter="8">
       <a-col :span="5">
         <s-tree
@@ -19,7 +19,10 @@
           :columns="columns"
           :data="loadData"
           :alert="false"
-          :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+          :rowSelection="{
+            selectedRowKeys: selectedRowKeys,
+            onChange: onSelectChange,
+          }"
         >
           <span slot="action" slot-scope="text, record">
             <template v-if="$auth('table.update')">
@@ -61,7 +64,7 @@ export default {
   components: {
     STable,
     STree,
-    OrgModal
+    OrgModal,
   },
   data() {
     return {
@@ -73,58 +76,58 @@ export default {
       columns: [
         {
           title: "#",
-          dataIndex: "no"
+          dataIndex: "no",
         },
         {
           title: "成员名称",
-          dataIndex: "description"
+          dataIndex: "description",
         },
         {
           title: "登录次数",
           dataIndex: "callNo",
           sorter: true,
           needTotal: true,
-          customRender: text => text + " 次"
+          customRender: (text) => text + " 次",
         },
         {
           title: "状态",
           dataIndex: "status",
-          needTotal: true
+          needTotal: true,
         },
         {
           title: "更新时间",
           dataIndex: "updatedAt",
-          sorter: true
+          sorter: true,
         },
         {
           title: "操作",
           dataIndex: "action",
           width: "150px",
-          scopedSlots: { customRender: "action" }
-        }
+          scopedSlots: { customRender: "action" },
+        },
       ],
       // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
+      loadData: (parameter) => {
         return this.$apis.manage
           .getServiceList(Object.assign(parameter, this.queryParam))
-          .then(res => {
+          .then((res) => {
             return res.data;
           });
       },
       orgTree: [],
       selectedRowKeys: [],
-      selectedRows: []
+      selectedRows: [],
     };
   },
   created() {
-    this.$apis.manage.getOrgTree().then(res => {
+    this.$apis.manage.getOrgTree().then((res) => {
       this.orgTree = res.data;
     });
   },
   methods: {
     handleClick(e) {
       this.queryParam = {
-        key: e.key
+        key: e.key,
       };
       this.$refs.table.refresh(true);
     },
@@ -144,8 +147,8 @@ export default {
     onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys;
       this.selectedRows = selectedRows;
-    }
-  }
+    },
+  },
 };
 </script>
 

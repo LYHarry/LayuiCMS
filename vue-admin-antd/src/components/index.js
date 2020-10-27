@@ -29,6 +29,7 @@ import TagSelect from './TagSelect'
 import TwoStepCaptcha from './tools/TwoStepCaptcha'
 import STree from './Tree'
 import Trend from './Trend'
+import FormFooterBar from './GlobalFooter/FormFooterBar'
 
 export {
   AvatarList,
@@ -59,4 +60,5 @@ export {
   QuillEditor,
   GlobalFooter,
   NoticeIcon,
+  FormFooterBar
 }

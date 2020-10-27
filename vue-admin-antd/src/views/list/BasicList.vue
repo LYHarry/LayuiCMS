@@ -1,6 +1,6 @@
 <template>
   <page-header-wrapper>
-    <a-card :bordered="false">
+    <a-card>
       <a-row>
         <a-col :sm="8" :xs="24">
           <info title="我的待办" value="8个任务" :bordered="true" />
@@ -14,27 +14,39 @@
       </a-row>
     </a-card>
 
-    <a-card style="margin-top: 24px" :bordered="false" title="标准列表">
+    <a-card style="margin-top: 24px" title="标准列表">
       <div slot="extra">
         <a-radio-group v-model="status">
           <a-radio-button value="all">全部</a-radio-button>
           <a-radio-button value="processing">进行中</a-radio-button>
           <a-radio-button value="waiting">等待中</a-radio-button>
         </a-radio-group>
-        <a-input-search style="margin-left: 16px; width: 272px;" />
+        <a-input-search style="margin-left: 16px; width: 272px" />
       </div>
 
       <div class="operate">
-        <a-button type="dashed" style="width: 100%" icon="plus" @click="add">添加</a-button>
+        <a-button type="dashed" style="width: 100%" icon="plus" @click="add"
+          >添加</a-button
+        >
       </div>
 
       <a-list
         size="large"
-        :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 5, total: 50}"
+        :pagination="{
+          showSizeChanger: true,
+          showQuickJumper: true,
+          pageSize: 5,
+          total: 50,
+        }"
       >
         <a-list-item :key="index" v-for="(item, index) in data">
           <a-list-item-meta :description="item.description">
-            <a-avatar slot="avatar" size="large" shape="square" :src="item.avatar" />
+            <a-avatar
+              slot="avatar"
+              size="large"
+              shape="square"
+              :src="item.avatar"
+            />
             <a slot="title">{{ item.title }}</a>
           </a-list-item-meta>
           <div slot="actions">
@@ -92,8 +104,8 @@ data.push({
   owner: "付晓晓",
   startAt: "2018-07-26 22:44",
   progress: {
-    value: 90
-  }
+    value: 90,
+  },
 });
 data.push({
   title: "Angular",
@@ -102,8 +114,8 @@ data.push({
   owner: "曲丽丽",
   startAt: "2018-07-26 22:44",
   progress: {
-    value: 54
-  }
+    value: 54,
+  },
 });
 data.push({
   title: "Ant Design",
@@ -112,8 +124,8 @@ data.push({
   owner: "林东东",
   startAt: "2018-07-26 22:44",
   progress: {
-    value: 66
-  }
+    value: 66,
+  },
 });
 data.push({
   title: "Ant Design Pro",
@@ -122,8 +134,8 @@ data.push({
   owner: "周星星",
   startAt: "2018-07-26 22:44",
   progress: {
-    value: 30
-  }
+    value: 30,
+  },
 });
 data.push({
   title: "Bootstrap",
@@ -133,20 +145,20 @@ data.push({
   startAt: "2018-07-26 22:44",
   progress: {
     status: "exception",
-    value: 100
-  }
+    value: 100,
+  },
 });
 
 export default {
   name: "StandardList",
   components: {
     TaskForm,
-    Info
+    Info,
   },
   data() {
     return {
       data,
-      status: "all"
+      status: "all",
     };
   },
   methods: {
@@ -165,15 +177,15 @@ export default {
             },
             close() {
               console.log("modal close 回调");
-            }
-          }
+            },
+          },
         },
         // modal props
         {
           title: "新增",
           width: 700,
           centered: true,
-          maskClosable: false
+          maskClosable: false,
         }
       );
     },
@@ -193,19 +205,19 @@ export default {
             },
             close() {
               console.log("modal close 回调");
-            }
-          }
+            },
+          },
         },
         // modal props
         {
           title: "操作",
           width: 700,
           centered: true,
-          maskClosable: false
+          maskClosable: false,
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

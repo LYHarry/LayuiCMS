@@ -148,3 +148,44 @@ export const setDocumentTitle = function (title) {
         document.body.appendChild(i)
     }
 }
+
+//生成guid
+export const generateUUID = function () {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    })
+    return uuid
+}
+
+
+/***
+ *  判断数组是否有重复值
+ *  key 为字符串类型 和 undefined
+ */
+export const isRepeatArrayObj = function (array, key) {
+    let flag = {};
+    if (key && typeof (key) !== 'string')
+        throw new Error("key 必须为字符串类型 和 undefined")
+    const res = (array || []).every(element => {
+        if (typeof (element) === 'object' && element[key]) {
+            return flag[element[key]] ? false : flag[element[key]] = true
+        }
+        return flag[element] ? false : flag[element] = true
+    });
+    return !res
+}
+
+//对象转换为数组
+export const objConvertArray = function (obj) {
+    obj = obj || {};
+    if (typeof (obj) !== 'object') return [];
+    if (Object.keys(obj).length < 1) return [];
+    let res = [];
+    for (let key in obj) {
+        res.push({ key: key, value: obj[key] });
+    }
+    return res;
+}

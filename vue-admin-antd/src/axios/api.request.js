@@ -1,4 +1,7 @@
 import axios from "axios"
+import notification from 'ant-design-vue/es/notification'
+import cache from 'store' // Cache
+import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
 
 //axios http 请求工具类
 class AxiosHttpRequest {
@@ -42,8 +45,20 @@ class AxiosHttpRequest {
             if (this.RequestConfig.showLoading === true) {
                 // TODO loading 提示
             }
+            const reqType = config.method.toUpperCase();
+            if (reqType === 'POST') {
+                config.data = config.data || config.params || {}
+                delete config.params
+            }
+            if (reqType === 'GET') {
+                config.params = config.params || config.data || {}
+                delete config.data
+            }
+            //TODO 添加接口访问 token
+            // config.headers['_token'] = cache.get(ACCESS_TOKEN);
             return config;
         }, error => {
+            console.log('request error ', error)
             return Promise.reject(error);
         });
 
@@ -53,12 +68,13 @@ class AxiosHttpRequest {
             if (this.RequestConfig.showLoading === true) {
                 // TODO loading 提示
             }
-            if (response.status !== 200) {
-                throw new Error('网络异常，请稍后重试！');
+            const resData = response.data || {};
+            if (response.status === 200 && resData.code === 200 && resData.success) {
+                return resData;
             }
-            //TODO 其他状态判断 比如 401、500、404
-            return response.data;
+            return this.parseErrorResult(response);
         }, error => {
+            console.log('response error ', error)
             return this.timeOutRetry(error);
         });
     };
@@ -70,25 +86,27 @@ class AxiosHttpRequest {
 
     //axios请求超时重试配置
     async timeOutRetry(error) {
-        var config = error.config;
+        let config = Object.assign(error.config, this.RequestConfig);
         if (!(config && config.retry)) {
-            return Promise.reject(error);
+            return this.parseErrorResult(error.response);
         }
         config.retry = parseInt(config.retry);
         if (isNaN(config.retry) || config.retry < 1) {
-            return Promise.reject(error);
+            return this.parseErrorResult(error.response);
         }
+        //不满足重试条件
         if (!this.shouldRetry(error)) {
-            return Promise.reject(error);
+            return this.parseErrorResult(error.response);
         }
         config.retryCount = config.retryCount || 0;
+        //已达到最大的重试次数
         if (config.retryCount >= config.retry) {
-            return Promise.reject(error);
+            return this.parseErrorResult(error.response);
         }
-        console.log(`${config.url} time out retry count: ${config.retryCount}`);
         config.retryCount += 1;
+        console.log(`${config.url} time out retry count: ${config.retryCount}`);
         //创建新的Promise来处理重新请求的间隙
-        var backoff = new Promise(resolve => {
+        const backoff = new Promise(resolve => {
             setTimeout(() => resolve(), config.retryDelay || 2000);
         });
         await backoff;
@@ -101,6 +119,32 @@ class AxiosHttpRequest {
         this.interceptors(instance);
         return instance(options);
     };
+
+    //解析错误的响应结果
+    parseErrorResult(response) {
+        if (!response) {
+            notification.error({ message: '错误', description: '未返回响应结果' });
+            return Promise.reject('未返回响应结果');
+        }
+        const resData = response.data || {};
+        //只解析错误的响应结果，成功则返回
+        if (response.status === 200 && resData.status === 200)
+            return Promise.resolve(response);
+        //401 未登录/登录失效
+        if (response.status === 401 || resData.code === 401) {
+            notification.error({ message: '提示', description: '登录失效,请先登录！' });
+            Promise.resolve().then(res => {
+                cache.remove(ACCESS_TOKEN)
+                cache.remove(LOGIN_USER_INFO)
+                top.location.reload()
+            });
+            return false;
+        }
+        //TODO 其他状态判断 比如 500、404
+        let msg = resData.msg || resData.message || '网络异常，请稍后重试！';
+        notification.error({ message: '错误', description: msg });
+        return Promise.reject(msg);
+    }
 
 }
 
