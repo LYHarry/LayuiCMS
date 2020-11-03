@@ -37,15 +37,17 @@ const builder = (respond, message = '', code = 200) => {
         if (result instanceof Function) {
             return Mock.mock(result)
         }
-        if (result.code && result.message && result.data) {
-            return Mock.mock(result)
-        }
         const responseBody = {
             msg: message,
             data: result,
             code: code,
             success: true
         };
+        if (result.code && result.message && result.data) {
+            responseBody.Message = result.message
+            responseBody.Data = result.data
+            responseBody.ServeStatus = result.code
+        }   
         return Mock.mock(responseBody);
     }
 }

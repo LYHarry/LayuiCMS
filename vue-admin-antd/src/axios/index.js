@@ -1,4 +1,5 @@
 import AxiosHttpRequest from './api.request'
+import config from '@/config'
 
 var httpRequest = new AxiosHttpRequest({
     baseURL: envConfig.BASE_URL
