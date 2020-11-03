@@ -44,10 +44,10 @@ const builder = (respond, message = '', code = 200) => {
             success: true
         };
         if (result.code && result.message && result.data) {
-            responseBody.Message = result.message
-            responseBody.Data = result.data
-            responseBody.ServeStatus = result.code
-        }   
+            responseBody.msg = result.message
+            responseBody.data = result.data
+            responseBody.code = result.code
+        }
         return Mock.mock(responseBody);
     }
 }

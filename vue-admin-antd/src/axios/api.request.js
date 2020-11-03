@@ -128,8 +128,8 @@ class AxiosHttpRequest {
         }
         const resData = response.data || {};
         //只解析错误的响应结果，成功则返回
-        if (response.status === 200 && resData.status === 200)
-            return Promise.resolve(response);
+        if (response.status === 200 && resData.code === 200 && resData.success)
+            return Promise.resolve(resData);
         //401 未登录/登录失效
         if (response.status === 401 || resData.code === 401) {
             notification.error({ message: '提示', description: '登录失效,请先登录！' });
