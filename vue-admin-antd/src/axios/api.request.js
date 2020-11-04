@@ -140,6 +140,20 @@ class AxiosHttpRequest {
             });
             return false;
         }
+        //400 Bad Request
+        if (response.status === 400) {
+        resData.msg = resData.msg || '';
+        //系统框架返回的错误对象模型
+        if (resData.status === 400 && resData.traceId && resData.type) {
+            const errors = resData.errors || {}
+            for (let key in errors) {
+                resData.msg += errors[key].join('');
+            }
+        }
+        }
+        if (response.status === 405) {
+            resData.msg = '接口请求类型错误'
+        }
         //TODO 其他状态判断 比如 500、404
         let msg = resData.msg || resData.message || '网络异常，请稍后重试！';
         notification.error({ message: '错误', description: msg });
