@@ -70,6 +70,7 @@ const generator = (routerMap, parent) => {
             name: item.name || item.key || '',
             // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
             meta: {
+                ...item.meta,
                 title: title || item.title || '',
                 icon: icon || item.icon,
                 hiddenHeaderContent: hiddenHeaderContent || item.hiddenHeaderContent,

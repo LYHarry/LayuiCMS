@@ -139,15 +139,15 @@ class AxiosHttpRequest {
                 top.location.reload()
             });
             return false;
-        } 
+        }
         //405 MethodNotAllowed
         if (response.status === 405) {
             resData.msg = '接口请求类型错误'
         }
-          //417 参数校验错误
-          if (response.status === 417 || resData.ServeStatus === 417) {
+        //417 参数校验错误
+        if (response.status === 417 || resData.ServeStatus === 417) {
             var oneError = (resData.Data || []).shift();
-            resData.msg = `${oneError.Field}字段发生${oneError.Messages.join('')}错误`
+            resData.msg = `${oneError.Field}字段${oneError.Messages.join('')}`
         }
         //TODO 其他状态判断 比如 500、404、400
         let msg = resData.msg || resData.message || '网络异常，请稍后重试！';
