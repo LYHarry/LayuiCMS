@@ -120,11 +120,7 @@ Modal.props.destroyOnClose.default = true
 // Modal.props.maskClosable.default = false
 Table.props.bordered.default = true
 Table.props.rowKey.default = "id"
-Cascader.props.fieldNames.default = {
-    label: 'CName',
-    value: 'ID',
-    children: 'children'
-}
+Cascader.props.fieldNames.default = { label: 'label', value: 'value', children: 'children' }
 
 
 //注册组件
