@@ -12,7 +12,7 @@ const login = {
         if (req.loginType !== 2) {
             if (!(username.includes(req.username) && password.includes(req.password))) {
                 return {
-                    code: 401,
+                    code: 500,
                     message: '账户或密码错误',
                     data: { isLogin: true },
                 }

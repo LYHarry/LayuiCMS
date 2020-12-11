@@ -17,7 +17,7 @@
             v-if="isLoginError"
             type="error"
             showIcon
-            style="margin-bottom: 24px;"
+            style="margin-bottom: 24px"
             message="账户或密码错误（admin/ant.design )"
           />
           <a-form-item>
@@ -27,10 +27,20 @@
               placeholder="账户: admin"
               v-decorator="[
                 'username',
-                {rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
+                {
+                  rules: [
+                    { required: true, message: '请输入帐户名或邮箱地址' },
+                    { validator: handleUsernameOrEmail },
+                  ],
+                  validateTrigger: 'change',
+                },
               ]"
             >
-              <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
+              <a-icon
+                slot="prefix"
+                type="user"
+                :style="{ color: 'rgba(0,0,0,.25)' }"
+              />
             </a-input>
           </a-form-item>
 
@@ -42,10 +52,17 @@
               placeholder="密码: admin or ant.design"
               v-decorator="[
                 'password',
-                {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
+                {
+                  rules: [{ required: true, message: '请输入密码' }],
+                  validateTrigger: 'blur',
+                },
               ]"
             >
-              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
+              <a-icon
+                slot="prefix"
+                type="lock"
+                :style="{ color: 'rgba(0,0,0,.25)' }"
+              />
             </a-input>
           </a-form-item>
         </a-tab-pane>
@@ -55,9 +72,25 @@
               size="large"
               type="text"
               placeholder="手机号"
-              v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]"
+              v-decorator="[
+                'mobile',
+                {
+                  rules: [
+                    {
+                      required: true,
+                      pattern: /^1[3456789]\d{9}$/,
+                      message: '请输入正确的手机号',
+                    },
+                  ],
+                  validateTrigger: 'change',
+                },
+              ]"
             >
-              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }" />
+              <a-icon
+                slot="prefix"
+                type="mobile"
+                :style="{ color: 'rgba(0,0,0,.25)' }"
+              />
             </a-input>
           </a-form-item>
 
@@ -68,9 +101,19 @@
                   size="large"
                   type="text"
                   placeholder="验证码"
-                  v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]"
+                  v-decorator="[
+                    'captcha',
+                    {
+                      rules: [{ required: true, message: '请输入验证码' }],
+                      validateTrigger: 'blur',
+                    },
+                  ]"
                 >
-                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }" />
+                  <a-icon
+                    slot="prefix"
+                    type="mail"
+                    :style="{ color: 'rgba(0,0,0,.25)' }"
+                  />
                 </a-input>
               </a-form-item>
             </a-col>
@@ -80,7 +123,9 @@
                 tabindex="-1"
                 :disabled="state.smsSendBtn"
                 @click.stop.prevent="getCaptcha"
-                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"
+                v-text="
+                  (!state.smsSendBtn && '获取验证码') || state.time + ' s'
+                "
               ></a-button>
             </a-col>
           </a-row>
@@ -88,15 +133,19 @@
       </a-tabs>
 
       <a-form-item>
-        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">自动登录</a-checkbox>
+        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">
+          自动登录
+        </a-checkbox>
         <router-link
           :to="{ name: 'recoverPassword' }"
           class="forge-password"
-          style="float: right;"
-        >忘记密码</router-link>
+          style="float: right"
+        >
+          忘记密码
+        </router-link>
       </a-form-item>
 
-      <a-form-item style="margin-top:24px">
+      <a-form-item style="margin-top: 24px">
         <a-button
           size="large"
           type="primary"
@@ -104,7 +153,8 @@
           class="login-button"
           :loading="state.loginBtn"
           :disabled="state.loginBtn"
-        >确定</a-button>
+          >确定
+        </a-button>
       </a-form-item>
 
       <div class="user-login-other">
@@ -118,7 +168,9 @@
         <a>
           <a-icon class="item-icon" type="weibo-circle"></a-icon>
         </a>
-        <router-link class="register" :to="{ name: 'register' }">注册账户</router-link>
+        <router-link class="register" :to="{ name: 'register' }">
+          注册账户
+        </router-link>
       </div>
     </a-form>
 
@@ -140,7 +192,7 @@ import { timeFix } from "@/libs/utils";
 export default {
   name: "Login",
   components: {
-    TwoStepCaptcha
+    TwoStepCaptcha,
   },
   data() {
     return {
@@ -157,14 +209,14 @@ export default {
         loginBtn: false,
         // login type: 0 email, 1 username, 2 telephone
         loginType: 0,
-        smsSendBtn: false
-      }
+        smsSendBtn: false,
+      },
     };
   },
   created() {
     this.$apis.baseApi
       .get2step()
-      .then(res => {
+      .then((res) => {
         this.requiredTwoStepCaptcha = res.data.stepCode;
       })
       .catch(() => {
@@ -197,7 +249,7 @@ export default {
         form: { validateFields },
         state,
         customActiveKey,
-        Login
+        Login,
       } = this;
 
       state.loginBtn = true;
@@ -217,8 +269,8 @@ export default {
             loginParams.password = md5(values.password);
           }
           this.Login(loginParams)
-            .then(res => this.loginSuccess(res))
-            .catch(err => this.requestFailed(err))
+            .then((res) => this.loginSuccess(res))
+            // .catch((err) => this.requestFailed(err))
             .finally(() => (state.loginBtn = false));
         } else {
           setTimeout(() => (state.loginBtn = false), 600);
@@ -229,7 +281,7 @@ export default {
       e.preventDefault();
       const {
         form: { validateFields },
-        state
+        state,
       } = this;
 
       validateFields(["mobile"], { force: true }, (err, values) => {
@@ -247,16 +299,16 @@ export default {
           const hide = this.$message.loading("验证码发送中..", 0);
           this.$apis.baseApi
             .getSmsCaptcha({ mobile: values.mobile })
-            .then(res => {
+            .then((res) => {
               setTimeout(hide, 2500);
               this.$notification["success"]({
                 message: "提示",
                 description:
                   "验证码获取成功，您的验证码为：" + res.data.captcha,
-                duration: 8
+                duration: 8,
               });
             })
-            .catch(err => {
+            .catch((err) => {
               setTimeout(hide, 1);
               clearInterval(interval);
               state.time = 60;
@@ -281,7 +333,7 @@ export default {
       setTimeout(() => {
         this.$notification.success({
           message: "欢迎",
-          description: `${timeFix()}，欢迎回来`
+          description: `${timeFix()}，欢迎回来`,
         });
       }, 1000);
       this.isLoginError = false;
@@ -293,10 +345,10 @@ export default {
         description:
           ((err.response || {}).data || {}).message ||
           "请求出现错误，请稍后再试",
-        duration: 4
+        duration: 4,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

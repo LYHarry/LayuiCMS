@@ -66,12 +66,16 @@
         type="dashed"
         icon="plus"
         @click="newMember"
-        >新增成员</a-button
-      >
+        >新增成员
+      </a-button>
     </a-card>
 
-    <a-card>
+    <a-card class="card" title="QuillEditor">
       <QuillEditor @change="onEditorChange" />
+    </a-card>
+
+    <a-card class="card" title="TinymceEditor">
+      <TinymceEditor />
     </a-card>
 
     <!-- fixed footer toolbar -->
@@ -109,9 +113,9 @@
           </span>
         </a-popover>
       </span>
-      <a-button type="primary" @click="validate" :loading="loading"
-        >提交</a-button
-      >
+      <a-button type="primary" @click="validate" :loading="loading">
+        提交
+      </a-button>
     </footer-tool-bar>
   </page-header-wrapper>
 </template>
@@ -119,7 +123,7 @@
 <script>
 import RepositoryForm from "./RepositoryForm";
 import TaskForm from "./TaskForm";
-import { FooterToolBar, QuillEditor } from "@/components";
+import { FooterToolBar, QuillEditor, TinymceEditor } from "@/components";
 import { baseMixin } from "@/store/mixin/app-mixin";
 
 const fieldLabels = {
@@ -145,6 +149,7 @@ export default {
     RepositoryForm,
     TaskForm,
     QuillEditor,
+    TinymceEditor,
   },
   data() {
     return {

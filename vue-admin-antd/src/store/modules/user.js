@@ -31,7 +31,6 @@ const user = {
     Login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         apis.login(userInfo).then(response => {
-          debugger
           if (!(response.code === 200 && response.success)) {
             return reject(response);
           }

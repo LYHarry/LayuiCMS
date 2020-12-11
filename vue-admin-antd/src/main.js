@@ -8,7 +8,7 @@ import './libs/lazy_use'
 import './assets/style/global.less' // global style
 import './libs/filter' // global filter
 
-console.log('envConfig ', this.envConfig)
+console.log('envConfig ', envConfig)
 
 //开发环境并且允许 mock 数据是开启 MockServer
 if (process.env.NODE_ENV === 'development') {
