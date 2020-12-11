@@ -15,7 +15,7 @@ import TagCloud from './Charts/TagCloud'
 import AvatarList from './AvatarList'
 import ArticleListContent from './ArticleListContent'
 import Dialog from './Dialog'
-import QuillEditor from './Editor/QuillEditor'
+import QuillEditor from './Editor/Quill/QuillEditor'
 import Ellipsis from './Ellipsis'
 import FooterToolBar from './FooterToolBar'
 import GlobalFooter from './GlobalFooter'
@@ -30,6 +30,8 @@ import TwoStepCaptcha from './tools/TwoStepCaptcha'
 import STree from './Tree'
 import Trend from './Trend'
 import FormFooterBar from './GlobalFooter/FormFooterBar'
+import AntdFileUpload from './Upload'
+import TinymceEditor from './Editor/Tinymce/TinymceEditor'
 
 export {
   AvatarList,
@@ -60,5 +62,7 @@ export {
   QuillEditor,
   GlobalFooter,
   NoticeIcon,
-  FormFooterBar
+  FormFooterBar,
+  AntdFileUpload,
+  TinymceEditor
 }

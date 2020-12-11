@@ -1,6 +1,10 @@
 <template>
   <div :class="wrpCls">
-    <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
+    <avatar-dropdown
+      :menu="showMenu"
+      :current-user="currentUser"
+      :class="prefixCls"
+    />
     <select-lang :class="prefixCls" />
   </div>
 </template>
@@ -13,49 +17,52 @@ export default {
   name: "RightContent",
   components: {
     AvatarDropdown,
-    SelectLang
+    SelectLang,
   },
   props: {
     prefixCls: {
       type: String,
-      default: "ant-pro-global-header-index-action"
+      default: "ant-pro-global-header-index-action",
     },
     isMobile: {
       type: Boolean,
-      default: () => false
+      default: () => false,
     },
     topMenu: {
       type: Boolean,
-      required: true
+      required: true,
     },
     theme: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       showMenu: true,
-      currentUser: {}
+      currentUser: {},
     };
   },
   computed: {
     wrpCls() {
       return {
         "ant-pro-global-header-index-right": true,
-        [`ant-pro-global-header-index-${(this.topMenu &&
-          this.isMobile &&
-          this.theme) ||
-          "light"}`]: true
+        [`ant-pro-global-header-index-${
+          (this.topMenu && this.isMobile && this.theme) || "light"
+        }`]: true,
       };
-    }
+    },
   },
   mounted() {
     setTimeout(() => {
+      const curUser = this.$store.getters.userInfo || {};
       this.currentUser = {
-        name: "Serati Ma"
+        name: curUser.userName || "Serati Ma",
+        avatar:
+          curUser.headPhoto ||
+          "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
       };
     }, 1500);
-  }
+  },
 };
 </script>

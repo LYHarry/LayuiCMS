@@ -3,7 +3,7 @@
     <span class="ant-pro-account-avatar">
       <a-avatar
         size="small"
-        src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+        :src="currentUser.avatar"
         class="antd-pro-global-header-index-avatar"
       />
       <span>{{ currentUser.name }}</span>
@@ -30,20 +30,22 @@
 
 <script>
 import { Modal } from "ant-design-vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "AvatarDropdown",
   props: {
     currentUser: {
       type: Object,
-      default: () => null
+      default: () => null,
     },
     menu: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   methods: {
+    ...mapActions(["Logout"]),
     handleToCenter() {
       this.$router.push({ path: "/account/center" });
     },
@@ -55,14 +57,17 @@ export default {
         title: this.$t("layouts.usermenu.dialog.title"),
         content: this.$t("layouts.usermenu.dialog.content"),
         onOk: () => {
-          return new Promise((resolve, reject) => {
-            setTimeout(Math.random() > 0.5 ? resolve : reject, 1500);
-          }).catch(() => console.log("Oops errors!"));
+          this.Logout().then(() => {
+            this.$nextTick(() => {
+              //不能清除路由表,会报存在相同路由名称的警告
+              this.$router.push({ path: "/user/login" });
+              // top.location.reload();
+            });
+          });
         },
-        onCancel() {}
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

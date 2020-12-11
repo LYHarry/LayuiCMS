@@ -140,14 +140,14 @@ export default {
     };
   },
   computed: {
-    // ...mapGetters(["userInfo"]),
     userInfo() {
-      let currentUser = this.$store.getters.userInfo;
-      currentUser.name = currentUser.name || "Serati Ma";
-      currentUser.avatar =
-        currentUser.avatar ||
-        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png";
-      return currentUser;
+      const curUser = this.$store.getters.userInfo || {};
+      return {
+        name: curUser.userName || "Serati Ma",
+        avatar:
+          curUser.headPhoto ||
+          "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+      };
     },
   },
   mounted() {

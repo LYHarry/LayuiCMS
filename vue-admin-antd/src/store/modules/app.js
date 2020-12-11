@@ -1,4 +1,4 @@
-import cache from 'store'
+import cache from '@/libs/cache'
 import {
   SIDEBAR_TYPE,
   TOGGLE_MOBILE_TYPE,
@@ -13,7 +13,7 @@ import {
   TOGGLE_MULTI_TAB,
   // i18n
   APP_LANGUAGE
-} from '@/store/mutation-types'
+} from '../mutation-types'
 import { loadLanguageAsync } from '@/locales'
 
 const app = {
@@ -29,7 +29,7 @@ const app = {
     color: '',
     weak: false,
     multiTab: true,
-    lang: 'en-US',
+    lang: 'zh-CN',
     _antLocale: {}
   },
   mutations: {

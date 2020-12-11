@@ -1,6 +1,6 @@
 import axios from "axios"
 import notification from 'ant-design-vue/es/notification'
-import cache from 'store' // Cache
+import cache from '@/libs/cache'
 import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
 
 //axios http 请求工具类
@@ -81,7 +81,7 @@ class AxiosHttpRequest {
 
     //超时重试条件，默认只要是错误都重试
     shouldRetry(error) {
-        return true;
+        return false;
     };
 
     //axios请求超时重试配置

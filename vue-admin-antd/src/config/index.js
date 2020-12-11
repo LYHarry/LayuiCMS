@@ -8,6 +8,8 @@ export default {
 
     themeColor: '#1890FF', // 主题颜色
 
+    //文件上传接口
+    fileUploadUrl: '/api/File/UploadAnnex',
     //文件充许上传的最大字节数
     uploadFileMaxSize: 1024 * 1024 * 2,
     //充许上传的文件类型

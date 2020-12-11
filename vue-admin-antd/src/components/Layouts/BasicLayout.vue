@@ -13,7 +13,10 @@
   >
     <setting-drawer :settings="settings" @change="handleSettingChange" />
     <template v-slot:rightContentRender>
-      <right-content :top-menu="settings.layout === 'topmenu'" :theme="settings.theme" />
+      <right-content
+        :top-menu="settings.layout === 'topmenu'"
+        :theme="settings.theme"
+      />
     </template>
     <template v-slot:footerRender>
       <global-footer />
@@ -37,7 +40,7 @@ export default {
     SettingDrawer,
     RightContent,
     GlobalFooter,
-    ProLayout
+    ProLayout,
   },
   data() {
     return {
@@ -59,22 +62,22 @@ export default {
         colorWeak: false,
 
         hideHintAlert: false,
-        hideCopyButton: false
+        hideCopyButton: false,
       },
       // 媒体查询
       query: {},
 
       // 是否手机模式
-      isMobile: false
+      isMobile: false,
     };
   },
   computed: {
-    mainMenu: function() {
+    mainMenu: function () {
       return this.$store.getters.asyncRoutes;
-    }
+    },
   },
   created() {
-    const routes = this.mainMenu.find(item => item.path === "/");
+    const routes = this.mainMenu.find((item) => item.path === "/");
     this.menus = (routes && routes.children) || [];
     // 处理侧栏收起状态
     this.$watch("collapsed", () => {
@@ -131,8 +134,8 @@ export default {
     },
     logoRender() {
       return <LogoSvg />;
-    }
-  }
+    },
+  },
 };
 </script>
 

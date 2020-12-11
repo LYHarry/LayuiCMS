@@ -36,7 +36,11 @@ module.exports = {
             .loader('file-loader')
             .options({
                 name: 'assets/[name].[hash:8].[ext]'
-            })
+            });
+
+        config.plugin('provide').use(webpack.ProvidePlugin, [{
+            'window.Quill': 'quill'
+        }]);
     },
 
     // css相关配置
@@ -50,7 +54,7 @@ module.exports = {
 
     // webpack-dev-server 相关配置
     devServer: {
-        port: 8888,
+        port: 8800,
         // 让浏览器 overlay 同时显示警告和错误
         overlay: {
             warnings: true,
@@ -59,7 +63,7 @@ module.exports = {
         // //代理配置表
         // proxy: {
         //     '/api': {
-        //         target: 'http://193.112.58.251:8080/cloudPet', //envConfig.BASE_URL,
+        //         target: envConfig.BASE_URL,
         //         changeOrigin: true, // 是否允许跨越
         //         secure: false,  // 是否 https
         //         ws: false,  // 代理 websockets

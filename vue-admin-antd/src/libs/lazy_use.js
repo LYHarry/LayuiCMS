@@ -120,6 +120,7 @@ Modal.props.destroyOnClose.default = true
 // Modal.props.maskClosable.default = false
 Table.props.bordered.default = true
 Table.props.rowKey.default = "id"
+// children 只能为数组类型(没有子节点时需要在序列化时去掉该字段)
 Cascader.props.fieldNames.default = () => {
     return {
         label: 'label',
@@ -127,6 +128,8 @@ Cascader.props.fieldNames.default = () => {
         children: 'children'
     }
 }
+Input.props.allowClear.default = true
+Select.props.allowClear.default = true
 
 
 //注册组件

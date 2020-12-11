@@ -180,8 +180,14 @@ export const isRepeatArrayObj = function (array, key) {
 
 //对象转换为数组
 export const objConvertArray = function (obj) {
-    obj = obj || {};
-    if (typeof (obj) !== 'object') return [];
+    if (!obj) return []
+    if (typeof (obj) !== 'object') {
+        try {
+            obj = JSON.parse(obj)
+        } catch (error) {
+            return [];
+        }
+    }
     if (Object.keys(obj).length < 1) return [];
     let res = [];
     for (let key in obj) {

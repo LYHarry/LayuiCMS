@@ -1,4 +1,4 @@
-import cache from 'store'
+import cache from '@/libs/cache'
 import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
 import * as apis from '@/apis/modules/baseApi'
 import { generatorDynamicRouter } from '@/libs/generate-routers'
@@ -31,12 +31,13 @@ const user = {
     Login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         apis.login(userInfo).then(response => {
-          const result = response.data
-          if (response.code !== 200) {
-            return reject(result);
+          debugger
+          if (!(response.code === 200 && response.success)) {
+            return reject(response);
           }
-          cache.set(ACCESS_TOKEN, result.token, 2 * 60 * 60 * 1000)
-          cache.set(LOGIN_USER_INFO, result, 2 * 60 * 60 * 1000)
+          const result = response.data
+          cache.set(ACCESS_TOKEN, result.token, 2 * 60 * 60)
+          cache.set(LOGIN_USER_INFO, result, 2 * 60 * 60)
           commit('SET_TOKEN', result.token)
           commit('SET_INFO', result)
           resolve(result)
@@ -56,6 +57,7 @@ const user = {
           commit('SET_TOKEN', '')
           commit('SET_INFO', '')
           commit('SET_PERMISSIONS', [])
+          commit('SET_ROUTERS', [])
           cache.remove(ACCESS_TOKEN)
           cache.remove(LOGIN_USER_INFO)
         })
@@ -72,7 +74,7 @@ const user = {
           }).catch(error => reject(error))
         }).catch(error => reject(error))
       })
-    }
+    },
 
 
 

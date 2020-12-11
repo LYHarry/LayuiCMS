@@ -5,7 +5,7 @@ import RouteRules from './modules/route-rules'
 import NProgress from 'nprogress'
 // progress bar custom style
 import '@/components/NProgress/nprogress.less'
-import cache from 'store' // Cache
+import cache from '@/libs/cache'
 import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle } from '@/libs/utils'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
@@ -24,7 +24,7 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'history', // history/hash
   base: process.env.BASE_URL,
   scrollBehavior: () => ({ y: 0 }),
   routes: RouteRules

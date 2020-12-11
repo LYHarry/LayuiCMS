@@ -4,8 +4,8 @@ export default {
   props: {
     keepAlive: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {};
@@ -13,7 +13,7 @@ export default {
   render() {
     const {
       $route: { meta },
-      $store: { getters }
+      $store: { getters },
     } = this;
     const inKeep = (
       <keep-alive>
@@ -30,6 +30,6 @@ export default {
     return this.keepAlive || getters.multiTab || meta.keepAlive
       ? inKeep
       : notKeep;
-  }
+  },
 };
 </script>

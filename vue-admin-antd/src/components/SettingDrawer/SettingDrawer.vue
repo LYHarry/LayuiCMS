@@ -16,12 +16,18 @@
           <div class="setting-drawer-index-blockChecbox">
             <a-tooltip>
               <template slot="title">暗色菜单风格</template>
-              <div class="setting-drawer-index-item" @click="handleMenuTheme('dark')">
+              <div
+                class="setting-drawer-index-item"
+                @click="handleMenuTheme('dark')"
+              >
                 <img
                   src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg"
                   alt="dark"
                 />
-                <div class="setting-drawer-index-selectIcon" v-if="navTheme === 'dark'">
+                <div
+                  class="setting-drawer-index-selectIcon"
+                  v-if="navTheme === 'dark'"
+                >
                   <a-icon type="check" />
                 </div>
               </div>
@@ -29,12 +35,18 @@
 
             <a-tooltip>
               <template slot="title">亮色菜单风格</template>
-              <div class="setting-drawer-index-item" @click="handleMenuTheme('light')">
+              <div
+                class="setting-drawer-index-item"
+                @click="handleMenuTheme('light')"
+              >
                 <img
                   src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg"
                   alt="light"
                 />
-                <div class="setting-drawer-index-selectIcon" v-if="navTheme !== 'dark'">
+                <div
+                  class="setting-drawer-index-selectIcon"
+                  v-if="navTheme !== 'dark'"
+                >
                   <a-icon type="check" />
                 </div>
               </div>
@@ -53,7 +65,10 @@
             >
               <template slot="title">{{ item.key }}</template>
               <a-tag :color="item.color" @click="changeColor(item.color)">
-                <a-icon type="check" v-if="item.color === primaryColor"></a-icon>
+                <a-icon
+                  type="check"
+                  v-if="item.color === primaryColor"
+                ></a-icon>
               </a-tag>
             </a-tooltip>
           </div>
@@ -66,12 +81,18 @@
           <div class="setting-drawer-index-blockChecbox">
             <a-tooltip>
               <template slot="title">侧边栏导航</template>
-              <div class="setting-drawer-index-item" @click="handleLayout('sidemenu')">
+              <div
+                class="setting-drawer-index-item"
+                @click="handleLayout('sidemenu')"
+              >
                 <img
                   src="https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg"
                   alt="sidemenu"
                 />
-                <div class="setting-drawer-index-selectIcon" v-if="layoutMode === 'sidemenu'">
+                <div
+                  class="setting-drawer-index-selectIcon"
+                  v-if="layoutMode === 'sidemenu'"
+                >
                   <a-icon type="check" />
                 </div>
               </div>
@@ -79,12 +100,18 @@
 
             <a-tooltip>
               <template slot="title">顶部栏导航</template>
-              <div class="setting-drawer-index-item" @click="handleLayout('topmenu')">
+              <div
+                class="setting-drawer-index-item"
+                @click="handleLayout('topmenu')"
+              >
                 <img
                   src="https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg"
                   alt="topmenu"
                 />
-                <div class="setting-drawer-index-selectIcon" v-if="layoutMode !== 'sidemenu'">
+                <div
+                  class="setting-drawer-index-selectIcon"
+                  v-if="layoutMode !== 'sidemenu'"
+                >
                   <a-icon type="check" />
                 </div>
               </div>
@@ -97,12 +124,16 @@
                   <template slot="title">该设定仅 [顶部栏导航] 时有效</template>
                   <a-select
                     size="small"
-                    style="width: 80px;"
+                    style="width: 80px"
                     :defaultValue="contentWidth"
                     @change="handleContentWidthChange"
                   >
                     <a-select-option value="Fixed">固定</a-select-option>
-                    <a-select-option value="Fluid" v-if="layoutMode !== 'sidemenu'">流式</a-select-option>
+                    <a-select-option
+                      value="Fluid"
+                      v-if="layoutMode !== 'sidemenu'"
+                      >流式</a-select-option
+                    >
                   </a-select>
                 </a-tooltip>
                 <a-list-item-meta>
@@ -131,7 +162,9 @@
                 <a-list-item-meta>
                   <a-tooltip slot="title" placement="left">
                     <template slot="title">固定 Header 时可配置</template>
-                    <div :style="{ opacity: !fixedHeader ? '0.5' : '1' }">下滑时隐藏 Header</div>
+                    <div :style="{ opacity: !fixedHeader ? '0.5' : '1' }">
+                      下滑时隐藏 Header
+                    </div>
                   </a-tooltip>
                 </a-list-item-meta>
               </a-list-item>
@@ -139,15 +172,20 @@
                 <a-switch
                   slot="actions"
                   size="small"
-                  :disabled="(layoutMode === 'topmenu')"
+                  :disabled="layoutMode === 'topmenu'"
                   :defaultChecked="fixSiderbar"
                   @change="handleFixSiderbar"
                 />
                 <a-list-item-meta>
                   <div
                     slot="title"
-                    :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }"
-                  >固定侧边菜单</div>
+                    :style="{
+                      textDecoration:
+                        layoutMode === 'topmenu' ? 'line-through' : 'unset',
+                    }"
+                  >
+                    固定侧边菜单
+                  </div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
@@ -193,7 +231,8 @@
               <a
                 href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/config/defaultSettings.js"
                 target="_blank"
-              >src/config/index.js</a>
+                >src/config/index.js</a
+              >
             </span>
           </a-alert>
         </div>
@@ -213,13 +252,13 @@ import { updateTheme, updateColorWeak, colorList } from "./settingConfig";
 
 export default {
   components: {
-    SettingItem
+    SettingItem,
   },
   mixins: [],
   data() {
     return {
       visible: false,
-      colorList
+      colorList,
     };
   },
   watch: {},
@@ -264,10 +303,10 @@ export default {
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }`;
       this.$copyText(text)
-        .then(message => {
+        .then((message) => {
           this.$message.success("复制完毕");
         })
-        .catch(err => {
+        .catch((err) => {
           this.$message.error("复制失败");
         });
     },
@@ -297,8 +336,8 @@ export default {
         return;
       }
       this.$store.dispatch("ToggleFixSiderbar", fixed);
-    }
-  }
+    },
+  },
 };
 </script>
 
