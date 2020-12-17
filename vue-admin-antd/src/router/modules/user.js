@@ -18,12 +18,18 @@ export default {
     {
         path: 'register-result',
         name: 'registerResult',
-        component: () => import('@/views/user/RegisterResult')
+        component: () => import('@/views/user/RegisterResult'),
+        meta: {
+            AllowAnonymous: true
+        }
     },
     {
         path: 'recover',
         name: 'recoverPassword',
-        component: () => import('@/views/user/RecoverPassword')
+        component: () => import('@/views/user/RecoverPassword'),
+        meta: {
+            AllowAnonymous: true
+        }
     }
     ]
 }

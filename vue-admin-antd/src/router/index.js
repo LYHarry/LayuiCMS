@@ -34,7 +34,7 @@ const router = new VueRouter({
 NProgress.configure({ showSpinner: false })
 
 // no redirect whitelist
-const whiteList = ['login', 'register', 'registerResult', 'recoverPassword']
+const whiteList = ['login', 'register']
 const loginRoutePath = '/user/login'
 const defaultRoutePath = '/dashboard/workplace'
 
@@ -79,8 +79,8 @@ router.beforeEach((to, from, next) => {
     return true;
   }
 
-  // 未登录,但在免登录白名单，直接进入
-  if (whiteList.includes(to.name)) {
+  // 未登录,但在免登录白名单或该页面允许匿名访问,则直接进入
+  if (whiteList.includes(to.name) || to.meta.AllowAnonymous) {
     next()
     return true;
   }
