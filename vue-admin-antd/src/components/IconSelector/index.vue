@@ -6,7 +6,7 @@
           <li
             v-for="(icon, key) in v.icons"
             :key="`${v.key}-${key}`"
-            :class="{ 'active': selectedIcon==icon }"
+            :class="{ active: selectedIcon == icon }"
             @click="handleSelectedIcon(icon)"
           >
             <a-icon :type="icon" :style="{ fontSize: '36px' }" />
@@ -21,28 +21,28 @@
 import icons from "./icons";
 
 export default {
-  name: "IconSelect",
+  name: "IconSelectTab",
   props: {
     prefixCls: {
       type: String,
-      default: "ant-pro-icon-selector"
+      default: "ant-pro-icon-selector",
     },
     value: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       selectedIcon: this.value || "",
       currentTab: "directional",
-      icons
+      icons,
     };
   },
   watch: {
     value(val) {
       this.selectedIcon = val;
       this.autoSwitchTab();
-    }
+    },
   },
   created() {
     if (this.value) {
@@ -59,12 +59,12 @@ export default {
     },
     autoSwitchTab() {
       icons.some(
-        item =>
-          item.icons.some(icon => icon === this.value) &&
+        (item) =>
+          item.icons.some((icon) => icon === this.value) &&
           (this.currentTab = item.key)
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
