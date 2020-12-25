@@ -63,14 +63,20 @@ export default {
   props: {
     // 表单校验用字段
     value: [String, Array, Object],
+    //是否允许上传多个文件
     multiple: { type: Boolean, default: false },
+    //多选时最多上传的文件数量
     maxnum: { type: Number, default: -1 },
     listType: { type: String, default: "text" },
-    //验证文件格式
+    //是否验证上传文件格式
     verifyFile: { type: Boolean, default: true },
+    //允许上传的文件最大大小
     allowMaxSize: { type: Number, default: 0 },
+    //允许上传的文件扩展名
     allowType: { type: Array },
     showText: { type: String, default: "Upload" },
+    //允许上传的文件宽高(用于上传图片时限制图片宽高)
+    //{width:width,height:height}
     size: { type: Object },
   },
   data() {
