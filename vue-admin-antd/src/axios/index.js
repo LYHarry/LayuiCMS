@@ -18,7 +18,7 @@ httpRequest.getPagingData = (params) => {
                     total: resData.totalCount || 0,
                     current: resData.webPage || 1,
                     showTotal: total => `共 ${total} 条记录`,
-                    pageSize: config.pageSize
+                    pageSize: params.data.pageSize
                 }
             };
             resolve(pagingRest)
