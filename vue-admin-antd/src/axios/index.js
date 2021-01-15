@@ -26,4 +26,45 @@ httpRequest.getPagingData = (params) => {
     })
 };
 
+//导出数据
+httpRequest.exportData = (params) => {
+    return new Promise((resolve, reject) => {
+        //处理默认参数
+        params = Object.assign({ method: 'POST', responseType: 'blob' }, params);
+        httpRequest.request(params).then(res => {
+            //得到文件名称
+            const getFileName = (res) => {
+                if (params.fileName) return params.fileName;
+                try {
+                    let contentDis = (res.headers['content-disposition'] || '').split(';');
+                    let fileName = contentDis.find(item => item.indexOf('filename=') > 0);
+                    fileName = (fileName || '').split('=')[1].split('.')[0];
+                    if (fileName) return fileName;
+                } catch (error) {
+                    console.error('exportData.fileName.error ', error)
+                }
+                return new Date().getTime();
+            };
+            //下载后文件名
+            const fileName = getFileName(res) + '.xlsx';
+            // 不支持a标签download的浏览器
+            if (!('download' in document.createElement('a'))) {
+                navigator.msSaveBlob(new Blob([res.data]), fileName)
+                return resolve(true);
+            }
+            //创建下载 a dom
+            let link = document.createElement("a");
+            link.href = window.URL.createObjectURL(new Blob([res.data])); //创建下载链接
+            link.download = fileName
+            link.style.display = 'none'
+            document.body.appendChild(link); //添加创建的节点
+            link.click(); //点击下载
+            //下载完成移除元素
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(link.href); //释放掉blob对象
+            resolve(true)
+        }).catch(e => reject(e))
+    })
+}
+
 export default httpRequest;

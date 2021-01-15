@@ -130,6 +130,9 @@ class AxiosHttpRequest {
         //只解析错误的响应结果，成功则返回
         if (response.status === 200 && resData.code === 200 && resData.success)
             return Promise.resolve(resData);
+        //返回的二进制流数据
+        if (response.config.responseType === 'blob')
+            return Promise.resolve(response);
         //401 未登录/登录失效
         if (response.status === 401 || resData.code === 401) {
             notification.error({ message: '提示', description: '登录失效,请先登录！' });
