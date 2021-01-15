@@ -47,13 +47,13 @@ httpRequest.exportData = (params) => {
             };
             //下载后文件名
             const fileName = getFileName(res) + '.xlsx';
-            // 不支持a标签download的浏览器
-            if (!('download' in document.createElement('a'))) {
-                navigator.msSaveBlob(new Blob([res.data]), fileName)
-                return resolve(true);
-            }
             //创建下载 a dom
             let link = document.createElement("a");
+            // 不支持a标签download的浏览器
+            if (!('download' in link) || 'msSaveOrOpenBlob' in navigator) {
+                navigator.msSaveOrOpenBlob(new Blob([res.data]), fileName)
+                return resolve(true);
+            }
             link.href = window.URL.createObjectURL(new Blob([res.data])); //创建下载链接
             link.download = fileName
             link.style.display = 'none'
