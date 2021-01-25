@@ -8,6 +8,8 @@ var httpRequest = new AxiosHttpRequest({
 //得到分页列表数据
 httpRequest.getPagingData = (params) => {
     return new Promise((resolve, reject) => {
+        //处理默认参数
+        params = Object.assign({ method: 'POST' }, params);
         let defaultPaged = { page: 1, pageSize: config.pageSize };
         params.data = Object.assign(defaultPaged, params.data);
         httpRequest.request(params).then(res => {
@@ -30,7 +32,7 @@ httpRequest.getPagingData = (params) => {
 httpRequest.exportData = (params) => {
     return new Promise((resolve, reject) => {
         //处理默认参数
-        params = Object.assign({ method: 'POST', responseType: 'blob' }, params);
+        params = Object.assign({ method: 'POST', responseType: 'blob', showLoading: true }, params);
         httpRequest.request(params).then(res => {
             //得到文件名称
             const getFileName = (res) => {

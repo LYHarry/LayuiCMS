@@ -11,7 +11,7 @@ class AxiosHttpRequest {
         const config = {
             //接口基础地址
             baseURL: '',
-            //请求头
+            //默认请求头
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
             },
@@ -21,38 +21,31 @@ class AxiosHttpRequest {
             timeout: 5000,
             //允许的响应内容的最大长度
             maxContentLength: 5000,
-            //是否显示请求loading
-            showLoading: false,
             //超时重试次数
             retry: 3,
             //超时重试间隔时间(毫秒)
             retryDelay: 2000,
         };
-        // 请求头单独处理
-        if (options && options.headers && Object.keys(options.headers).length > 0) {
-            for (let key in config.headers) {
-                options.headers[key] = config.headers[key];
-            }
-        }
-        this.RequestConfig = Object.assign(config, options);
+        this.AxiosConfig = Object.assign(config, options);
     };
 
     //拦截器
     interceptors(instance) {
         // 请求拦截器(处理请求配置)
         instance.interceptors.request.use(config => {
+            config.method = config.method.toUpperCase();
             // 添加全局的 loading 提示
-            if (this.RequestConfig.showLoading === true) {
+            if (config.showLoading === true) {
                 // TODO loading 提示
             }
-            const reqType = config.method.toUpperCase();
-            if (reqType === 'POST') {
-                config.data = config.data || config.params || {}
-                delete config.params
+            //请求参数处理
+            if (config.method === 'POST') {
+                config.data = config.data || config.params || undefined;
+                if (config.params) delete config.params;
             }
-            if (reqType === 'GET') {
-                config.params = config.params || config.data || {}
-                delete config.data
+            if (config.method === 'GET') {
+                config.params = config.params || config.data || undefined;
+                if (config.data) delete config.data;
             }
             //TODO 添加接口访问 token
             // config.headers['_token'] = cache.get(ACCESS_TOKEN);
@@ -65,7 +58,7 @@ class AxiosHttpRequest {
         // 响应拦截器(处理响应数据)
         instance.interceptors.response.use(response => {
             // 移除全局的 loading 提示
-            if (this.RequestConfig.showLoading === true) {
+            if (response.config.showLoading === true) {
                 // TODO loading 提示
             }
             const resData = response.data || {};
@@ -86,7 +79,7 @@ class AxiosHttpRequest {
 
     //axios请求超时重试配置
     async timeOutRetry(error) {
-        let config = Object.assign(error.config, this.RequestConfig);
+        let config = Object.assign(this.AxiosConfig, error.config);
         if (!(config && config.retry)) {
             return this.parseErrorResult(error.response);
         }
@@ -115,7 +108,7 @@ class AxiosHttpRequest {
 
     // http 请求方法
     request(options) {
-        const instance = axios.create(this.RequestConfig);
+        const instance = axios.create(this.AxiosConfig);
         this.interceptors(instance);
         return instance(options);
     };
@@ -130,12 +123,15 @@ class AxiosHttpRequest {
         //只解析错误的响应结果，成功则返回
         if (response.status === 200 && resData.code === 200 && resData.success)
             return Promise.resolve(resData);
-        //返回的二进制流数据
-        if (response.config.responseType === 'blob')
-            return Promise.resolve(response);
+        //返回 blob 数据
+        if (response.status === 200 && response.config.responseType === 'blob') {
+            if (!(resData.type && resData.type === 'application/json')) {
+                return Promise.resolve(response);
+            }
+        }
         //401 未登录/登录失效
         if (response.status === 401 || resData.code === 401) {
-            notification.error({ message: '提示', description: '登录失效,请先登录！' });
+            notification.error({ message: '提示', description: '登录失效,请重新登录！' });
             Promise.resolve().then(res => {
                 cache.remove(ACCESS_TOKEN)
                 cache.remove(LOGIN_USER_INFO)
