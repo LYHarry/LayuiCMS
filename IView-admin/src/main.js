@@ -4,9 +4,17 @@ import router from './router'
 import store from './store'
 import i18n from './locale'
 
-import ViewUI from 'view-design';
-import 'view-design/dist/styles/iview.css';
-Vue.use(ViewUI);
+import './libs/lazy_use'
+import './assets/style/global.less' // global style
+
+import 'view-design/dist/styles/iview.css'
+
+console.log('envConfig ', envConfig)
+
+//开发环境并且允许 mock 数据是开启 MockServer
+if (process.env.NODE_ENV === 'development') {
+  require('./mock/mock-server')
+}
 
 Vue.config.productionTip = false
 

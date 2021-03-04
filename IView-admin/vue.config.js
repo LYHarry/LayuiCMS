@@ -1,5 +1,10 @@
 const webpack = require('webpack')
 const envConfig = require('./env')
+const path = require('path')
+
+const resolve = dir => {
+    return path.join(__dirname, dir)
+}
 
 module.exports = {
     // webpack配置
@@ -16,8 +21,9 @@ module.exports = {
     productionSourceMap: false,
     chainWebpack: (config) => {
         //别名
-        // config.resolve.alias
-        //     .set('@$', resolve('src'))
+        config.resolve.alias
+            // .set('@$', resolve('src'))
+            .set('_c', resolve('src/components'))
     },
 
     // // css相关配置

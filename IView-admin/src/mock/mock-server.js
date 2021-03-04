@@ -49,10 +49,10 @@ const builder = (respond, message = '', code = 200) => {
 
 const MockData = [
     // MenuRouter,
-    ...baseApi,
-    ...Manage,
-    ...Dashboard,
-    ...Article
+    // ...baseApi,
+    // ...Manage,
+    // ...Dashboard,
+    // ...Article
 ];
 
 console.log('MockData ', MockData)

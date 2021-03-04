@@ -1,8 +1,11 @@
 import axios from "axios"
-import notification from 'ant-design-vue/es/notification'
-import message from 'ant-design-vue/es/message'
+// import notification from 'ant-design-vue/es/notification'
+// import message from 'ant-design-vue/es/message'
 import cache from '@/libs/cache'
-import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
+// import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
+
+const ACCESS_TOKEN = 'Access-Token'
+const LOGIN_USER_INFO = 'login_user_info'
 
 //axios http 请求工具类
 class AxiosHttpRequest {
