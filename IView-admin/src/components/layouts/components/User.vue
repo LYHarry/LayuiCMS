@@ -65,9 +65,7 @@ export default {
   &-avatar-dropdown {
     cursor: pointer;
     display: inline-block;
-    // height: 64px;
     vertical-align: middle;
-    // line-height: 64px;
     .ivu-badge-dot {
       top: 16px;
     }

@@ -3,8 +3,9 @@
     @click="handleChange"
     type="text"
     :class="['sider-trigger-a', collapsed ? 'collapsed' : '']"
-    ><Icon :type="icon" :size="size"
-  /></a>
+  >
+    <Icon :type="icon" :size="size" />
+  </a>
 </template>
 
 <script>

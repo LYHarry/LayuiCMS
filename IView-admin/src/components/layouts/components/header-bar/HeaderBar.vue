@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import siderTrigger from "./sider-trigger";
-import customBreadCrumb from "./custom-bread-crumb";
+import siderTrigger from "./SiderTrigger";
+import customBreadCrumb from "./CustomBreadCrumb";
 
 export default {
   name: "HeaderBar",

@@ -2,10 +2,10 @@
   <div class="count-to-wrapper">
     <slot name="left" />
     <p class="content-outer">
-      <span :class="['count-to-count-text', countClass]" :id="counterId">{{
-        init
-      }}</span
-      ><i :class="['count-to-unit-text', unitClass]">{{ unitText }}</i>
+      <span :class="['count-to-count-text', countClass]" :id="counterId">
+        {{ init }}
+      </span>
+      <i :class="['count-to-unit-text', unitClass]">{{ unitText }}</i>
     </p>
     <slot name="right" />
   </div>
@@ -193,7 +193,6 @@ export default {
 };
 </script>
 
-
 <style lang="less">
 @prefix: ~"count-to";
 
@@ -205,5 +204,4 @@ export default {
     }
   }
 }
-
 </style>

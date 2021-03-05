@@ -22,10 +22,9 @@
             v-else
             :name="getNameOrHref(item, true)"
             :key="`menu-${item.children[0].name}`"
-            ><common-icon :type="item.children[0].icon || ''" /><span>{{
-              showTitle(item.children[0])
-            }}</span></menu-item
-          >
+            ><common-icon :type="item.children[0].icon || ''" />
+            <span>{{ showTitle(item.children[0]) }}</span>
+          </menu-item>
         </template>
         <template v-else>
           <side-menu-item
@@ -37,10 +36,9 @@
             v-else
             :name="getNameOrHref(item)"
             :key="`menu-${item.name}`"
-            ><common-icon :type="item.icon || ''" /><span>{{
-              showTitle(item)
-            }}</span></menu-item
-          >
+            ><common-icon :type="item.icon || ''" />
+            <span>{{ showTitle(item) }}</span>
+          </menu-item>
         </template>
       </template>
     </Menu>
@@ -83,8 +81,8 @@
 </template>
 
 <script>
-import SideMenuItem from "./side-menu-item.vue";
-import CollapsedMenu from "./collapsed-menu.vue";
+import SideMenuItem from "./SideMenuItem";
+import CollapsedMenu from "./CollapsedMenu";
 import { getUnion } from "@/libs/tools";
 import mixin from "./mixin";
 

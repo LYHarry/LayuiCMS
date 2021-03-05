@@ -1,4 +1,4 @@
-import Main from '@/components/main'
+import BasicLayout from '@/components/layouts/BasicLayout'
 
 export default [
     {
@@ -14,7 +14,7 @@ export default [
         path: '/',
         name: '_home',
         redirect: '/home',
-        component: Main,
+        component: BasicLayout,
         meta: {
             hideInMenu: true,
             notCache: true
@@ -29,7 +29,7 @@ export default [
                     notCache: true,
                     icon: 'md-home'
                 },
-                component: () => import('@/views/main/Home.vue')
+                component: () => import('@/views/dashboard/Home.vue')
             }
         ]
     },
