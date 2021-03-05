@@ -1,5 +1,6 @@
 import { isIE } from '@/libs/utils'
 import Mock from 'mockjs'
+import base from './modules/base'
 
 if (isIE()) {
     console.error('[antd-pro] ERROR: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.')
@@ -48,11 +49,7 @@ const builder = (respond, message = '', code = 200) => {
 }
 
 const MockData = [
-    // MenuRouter,
-    // ...baseApi,
-    // ...Manage,
-    // ...Dashboard,
-    // ...Article
+    ...base
 ];
 
 console.log('MockData ', MockData)

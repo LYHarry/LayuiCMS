@@ -1,16 +1,7 @@
-import {
-  login,
-  logout,
-  getUserInfo,
-  getMessage,
-  getContentByMsgId,
-  hasRead,
-  removeReaded,
-  restoreTrash,
-  getUnreadCount
-} from '@/apis/user'
+// import { login, logout, getUserInfo, getMessage, getContentByMsgId, hasRead, removeReaded, restoreTrash, getUnreadCount } from '@/apis/user'
 import cache from '@/libs/cache'
 import config from '@/config'
+import apis from '@/apis/modules/base'
 
 
 export default {
@@ -25,21 +16,22 @@ export default {
     messageUnreadList: [],
     messageReadedList: [],
     messageTrashList: [],
-    messageContentStore: {}
+    messageContentStore: {},
+    userInfo: {}
   },
   mutations: {
-    setAvatar(state, avatarPath) {
-      state.avatarImgPath = avatarPath
-    },
-    setUserId(state, id) {
-      state.userId = id
-    },
-    setUserName(state, name) {
-      state.userName = name
-    },
-    setAccess(state, access) {
-      state.access = access
-    },
+    // setAvatar(state, avatarPath) {
+    //   state.avatarImgPath = avatarPath
+    // },
+    // setUserId(state, id) {
+    //   state.userId = id
+    // },
+    // setUserName(state, name) {
+    //   state.userName = name
+    // },
+    // setAccess(state, access) {
+    //   state.access = access
+    // },
     setToken(state, token) {
       state.token = token
       cache.set('token', token, config.cookieExpires || 1)
@@ -67,7 +59,13 @@ export default {
       const msgItem = state[from].splice(index, 1)[0]
       msgItem.loading = false
       state[to].unshift(msgItem)
+    },
+    setInfo(state, info) {
+      state.userInfo = info;
+      cache.set('user_info', info, config.cookieExpires || 1)
     }
+
+
   },
   getters: {
     messageUnreadCount: state => state.messageUnreadList.length,
@@ -76,16 +74,13 @@ export default {
   },
   actions: {
     // 登录
-    handleLogin({ commit }, { userName, password }) {
-      userName = userName.trim()
+    handleLogin({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        login({
-          userName,
-          password
-        }).then(res => {
-          const data = res.data
+        apis.login(userInfo).then(res => {
+          const data = res.data || {}
           commit('setToken', data.token)
-          resolve()
+          commit('setInfo', data)
+          resolve(data)
         }).catch(err => {
           reject(err)
         })
@@ -94,9 +89,10 @@ export default {
     // 退出登录
     handleLogOut({ state, commit }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        apis.logout(state.token).then(() => {
           commit('setToken', '')
           commit('setAccess', [])
+          commit('setInfo', '')
           resolve()
         }).catch(err => {
           reject(err)
@@ -107,26 +103,28 @@ export default {
         // resolve()
       })
     },
-    // 获取用户相关信息
-    getUserInfo({ state, commit }) {
-      return new Promise((resolve, reject) => {
-        try {
-          getUserInfo(state.token).then(res => {
-            const data = res.data
-            commit('setAvatar', data.avatar)
-            commit('setUserName', data.name)
-            commit('setUserId', data.user_id)
-            commit('setAccess', data.access)
-            commit('setHasGetInfo', true)
-            resolve(data)
-          }).catch(err => {
-            reject(err)
-          })
-        } catch (error) {
-          reject(error)
-        }
-      })
-    },
+
+    // // 获取用户相关信息
+    // getUserInfo({ state, commit }) {
+    //   return new Promise((resolve, reject) => {
+    //     try {
+    //       getUserInfo(state.token).then(res => {
+    //         const data = res.data
+    //         commit('setAvatar', data.avatar)
+    //         commit('setUserName', data.name)
+    //         commit('setUserId', data.user_id)
+    //         commit('setAccess', data.access)
+    //         commit('setHasGetInfo', true)
+    //         resolve(data)
+    //       }).catch(err => {
+    //         reject(err)
+    //       })
+    //     } catch (error) {
+    //       reject(error)
+    //     }
+    //   })
+    // },
+
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount({ state, commit }) {
       getUnreadCount().then(res => {

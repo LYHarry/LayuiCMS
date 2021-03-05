@@ -1,8 +1,7 @@
 import axios from "axios"
-// import notification from 'ant-design-vue/es/notification'
-// import message from 'ant-design-vue/es/message'
 import cache from '@/libs/cache'
 // import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
+import { Notice, Message } from 'view-design'
 
 const ACCESS_TOKEN = 'Access-Token'
 const LOGIN_USER_INFO = 'login_user_info'
@@ -40,7 +39,7 @@ class AxiosHttpRequest {
             config.method = config.method.toUpperCase();
             // 添加全局的 loading 提示
             if (config.showLoading === true) {
-                message.loading('loading...', 0);
+                Message.loading({ content: 'loading...', duration: 0 });
             }
             //请求参数处理
             if (config.method === 'POST') {
@@ -66,7 +65,7 @@ class AxiosHttpRequest {
         instance.interceptors.response.use(response => {
             // 移除全局的 loading 提示
             if (response.config.showLoading === true) {
-                message.destroy()
+                Message.destroy()
             }
             const resData = response.data || {};
             if (response.status === 200 && resData.serveStatus === 200 && resData.status === 1) {
@@ -123,7 +122,7 @@ class AxiosHttpRequest {
     //解析错误的响应结果
     parseErrorResult(response) {
         if (!response) {
-            notification.error({ message: '错误', description: '响应结果为空' });
+            Notice.error({ title: '错误', desc: '响应结果为空' });
             return Promise.reject('响应结果为空');
         }
         const resData = response.data || {};
@@ -138,7 +137,7 @@ class AxiosHttpRequest {
         }
         //401 未登录/登录失效
         if (response.status === 401 || resData.serveStatus === 401) {
-            notification.error({ message: '提示', description: '登录失效,请重新登录！' });
+            Notice.error({ title: '提示', desc: '登录失效,请重新登录！' });
             Promise.resolve().then(res => {
                 cache.remove(ACCESS_TOKEN)
                 cache.remove(LOGIN_USER_INFO)
@@ -157,7 +156,7 @@ class AxiosHttpRequest {
         }
         //TODO 其他状态判断 比如 500、404
         let msg = resData.msg || resData.message || '网络异常，请稍后重试！';
-        notification.error({ message: '错误', description: msg });
+        Notice.error({ title: '错误', desc: msg });
         return Promise.reject(msg);
     }
 

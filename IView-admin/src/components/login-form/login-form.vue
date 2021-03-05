@@ -1,22 +1,22 @@
 <template>
   <Form
     ref="loginForm"
-    :model="form"
-    :rules="rules"
+    :model="formInfo"
+    :rules="formRules"
     @keydown.enter.native="handleSubmit"
   >
     <FormItem prop="userName">
-      <Input v-model="form.userName" placeholder="请输入用户名">
-        <span slot="prepend">
-          <Icon :size="16" type="ios-person"></Icon>
-        </span>
+      <Input v-model="formInfo.userName" placeholder="请输入用户名">
+        <Icon :size="16" type="ios-person" slot="prepend"></Icon>
       </Input>
     </FormItem>
     <FormItem prop="password">
-      <Input type="password" v-model="form.password" placeholder="请输入密码">
-        <span slot="prepend">
-          <Icon :size="14" type="md-lock"></Icon>
-        </span>
+      <Input
+        type="password"
+        v-model="formInfo.password"
+        placeholder="请输入密码"
+      >
+        <Icon :size="14" type="md-lock" slot="prepend"></Icon>
       </Input>
     </FormItem>
     <FormItem>
@@ -44,14 +44,14 @@ export default {
   },
   data() {
     return {
-      form: {
-        userName: "super_admin",
-        password: "",
+      formInfo: {
+        userName: "super",
+        password: undefined,
       },
     };
   },
   computed: {
-    rules() {
+    formRules() {
       return {
         userName: this.userNameRules,
         password: this.passwordRules,
@@ -61,10 +61,11 @@ export default {
   methods: {
     handleSubmit() {
       this.$refs.loginForm.validate((valid) => {
+        //TODO 表单验证未生效
         if (valid) {
           this.$emit("on-success-valid", {
-            userName: this.form.userName,
-            password: this.form.password,
+            userName: this.formInfo.userName,
+            password: this.formInfo.password,
           });
         }
       });

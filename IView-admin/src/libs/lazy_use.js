@@ -1,10 +1,8 @@
 import Vue from 'vue'
 // base library
 import {
-
-    // Form, FormItem, Card, Input, Icon, Button
-
     Form, FormItem, Input, Radio, Checkbox, Switch, Select, InputNumber, Button,
+
     Icon, Row, Col, Layout, Card, Divider, Table, Tabs, Menu,
     Cascader, Upload, Avatar, Tag, Tooltip, Modal
 } from 'view-design'
@@ -16,29 +14,18 @@ import config from "@/config"
 // DatePicker  TimePicker
 
 const components = [
-
-
-    // Form, FormItem, Card, Input, Icon, Button
-
     Form, FormItem, Input, Radio, Checkbox, Switch, Select, InputNumber, Button,
+
     Icon, Row, Col, Layout, Card, Divider, Table, Tabs, Menu,
     Cascader, Upload, Avatar, Tag, Tooltip, Modal
 ]
 
-// Vue.component('Form', Form)
-// Vue.component('FormItem', FormItem)
-// Vue.component('Input', Input)
-// Vue.component('Button', Button)
-// Vue.component('Card', Card)
-// Vue.component('Icon', Icon)
-
 //注册组件
 components.map(component => {
-    if (component.name && component.name.startsWith('i')) {
-        component.name = component.name.substr(1);
-    }
+    if (component.name === 'iForm') component.name = 'Form';
     Vue.component(component.name, component)
 });
 
+//挂载全局变量
 Vue.prototype.$apis = apis
 Vue.prototype.$Conf = config

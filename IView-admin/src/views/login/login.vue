@@ -20,12 +20,10 @@ export default {
   },
   methods: {
     ...mapActions(["handleLogin", "getUserInfo"]),
-    handleSubmit({ userName, password }) {
-      this.handleLogin({ userName, password }).then((res) => {
-        this.getUserInfo().then((res) => {
-          this.$router.push({
-            name: this.$config.homeName,
-          });
+    handleSubmit(userinfo) {
+      this.handleLogin(userinfo).then((res) => {
+        this.$router.push({
+          name: this.$Conf.homeName,
         });
       });
     },
