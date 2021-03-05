@@ -1,4 +1,7 @@
 'use strict'
+import { forEach, hasOneOf, objEqual } from '@/libs/tools'
+import conf from '@/config'
+
 
 export function isIE() {
     const bw = window.navigator.userAgent
@@ -157,4 +160,131 @@ export const routeHasExist = (tagNavList, routeItem) => {
  */
 export const setTagNavListInLocalstorage = list => {
     localStorage.tagNaveList = JSON.stringify(list)
+}
+
+/**
+ * 权鉴
+ * @param {*} name 即将跳转的路由name
+ * @param {*} access 用户权限数组
+ * @param {*} routes 路由列表
+ * @description 用户是否可跳转到该页
+ */
+export const canTurnTo = (name, access, routes) => {
+    const routePermissionJudge = (list) => {
+        return list.some(item => {
+            if (item.children && item.children.length) {
+                return routePermissionJudge(item.children)
+            } else if (item.name === name) {
+                return hasAccess(access, item)
+            }
+        })
+    }
+
+    return routePermissionJudge(routes)
+}
+
+
+/**
+ * @param {*} access 用户权限数组，如 ['super_admin', 'admin']
+ * @param {*} route 路由列表
+ */
+const hasAccess = (access, route) => {
+    if (route.meta && route.meta.access) return hasOneOf(access, route.meta.access)
+    else return true
+}
+
+/**
+ * @param {*} list 现有标签导航列表
+ * @param {*} newRoute 新添加的路由原信息对象
+ * @description 如果该newRoute已经存在则不再添加
+ */
+export const getNewTagList = (list, newRoute) => {
+    const { name, path, meta } = newRoute
+    let newList = [...list]
+    if (newList.findIndex(item => item.name === name) >= 0) return newList
+    else newList.push({ name, path, meta })
+    return newList
+}
+
+
+// scrollTop animation
+export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = (
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                return window.setTimeout(callback, 1000 / 60)
+            }
+        )
+    }
+    const difference = Math.abs(from - to)
+    const step = Math.ceil(difference / duration * 50)
+
+    const scroll = (start, end, step) => {
+        if (start === end) {
+            endCallback && endCallback()
+            return
+        }
+
+        let d = (start + step > end) ? end : start + step
+        if (start > end) {
+            d = (start - step < end) ? end : start - step
+        }
+
+        if (el === window) {
+            window.scrollTo(d, d)
+        } else {
+            el.scrollTop = d
+        }
+        window.requestAnimationFrame(() => scroll(d, end, step))
+    }
+    scroll(from, to, step)
+}
+
+/**
+ * @description 根据当前跳转的路由设置显示在浏览器标签的title
+ * @param {Object} routeItem 路由对象
+ * @param {Object} vm Vue实例
+ */
+export const setTitle = (routeItem, vm) => {
+    const handledRoute = getRouteTitleHandled(routeItem)
+    const pageTitle = showTitle(handledRoute, vm)
+    const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
+    window.document.title = resTitle
+}
+
+export const showTitle = (item, vm) => {
+    let { title, __titleIsFunction__ } = item.meta
+    if (!title) return
+    if (conf.useI18n) {
+        if (title.includes('{{') && title.includes('}}') && conf.useI18n) title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
+        else if (__titleIsFunction__) title = item.meta.title
+        else title = vm.$t(item.name)
+    } else title = (item.meta && item.meta.title) || item.name
+    return title
+}
+
+export const findNodeUpperByClasses = (ele, classes) => {
+    let parentNode = ele.parentNode
+    if (parentNode) {
+        let classList = parentNode.classList
+        if (classList && classes.every(className => classList.contains(className))) {
+            return parentNode
+        } else {
+            return findNodeUpperByClasses(parentNode, classes)
+        }
+    }
+}
+
+/**
+ * @param {Number} times 回调函数需要执行的次数
+ * @param {Function} callback 回调函数
+ */
+export const doCustomTimes = (times, callback) => {
+    let i = -1
+    while (++i < times) {
+        callback(i)
+    }
 }

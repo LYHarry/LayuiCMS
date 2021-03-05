@@ -1,9 +1,14 @@
 import Vue from 'vue'
 // base library
 import {
-    Form, FormItem, Input, Radio, Checkbox, Switch, Select, InputNumber, Button,
+    // 表单
+    Form, FormItem, Input, Radio, Checkbox, Switch, Select, InputNumber, Button, AutoComplete,
+    // 布局
+    Layout, Row, Col, Card, Sider, Header, Content,
+    // 菜单
+    Menu, Submenu, MenuItem, Dropdown, DropdownMenu, DropdownItem,
 
-    Icon, Row, Col, Layout, Card, Divider, Table, Tabs, Menu,
+    Icon, Divider, Table, Tabs, Badge, Breadcrumb, BreadcrumbItem,
     Cascader, Upload, Avatar, Tag, Tooltip, Modal
 } from 'view-design'
 //apis
@@ -14,9 +19,11 @@ import config from "@/config"
 // DatePicker  TimePicker
 
 const components = [
-    Form, FormItem, Input, Radio, Checkbox, Switch, Select, InputNumber, Button,
+    Form, FormItem, Input, Radio, Checkbox, Switch, Select, InputNumber, Button, AutoComplete,
+    Layout, Row, Col, Card, Sider, Header, Content,
+    Menu, Submenu, MenuItem, Dropdown, DropdownMenu, DropdownItem,
 
-    Icon, Row, Col, Layout, Card, Divider, Table, Tabs, Menu,
+    Icon, Divider, Table, Tabs, Badge, Breadcrumb, BreadcrumbItem,
     Cascader, Upload, Avatar, Tag, Tooltip, Modal
 ]
 

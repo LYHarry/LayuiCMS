@@ -26,6 +26,7 @@ Mock.setup({
 //构造 mock 请求的返回结果模型
 const builder = (respond, message = '', code = 200) => {
     return function (req) {
+        debugger
         let result = respond;
         if (respond instanceof Function) {
             result = respond(JSON.parse(req.body))

@@ -24,8 +24,23 @@ const login = {
     }
 }
 
+const logout = {
+    type: 'get',
+    url: apiUrl.Logout,
+    response: true,
+}
+
+const messageCount = {
+    type: 'get',
+    url: apiUrl.MessageCount,
+    response: 3
+}
+
+
 
 export default [
     login,
+    logout,
+    messageCount
 
 ]
