@@ -22,5 +22,11 @@ export default {
             method: 'get'
         })
     },
+    getSystemMenu: () => {
+        return axios.request({
+            url: apiUrl.systemMenu,
+            method: 'get'
+        })
+    },
 
 }

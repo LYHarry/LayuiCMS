@@ -6,12 +6,12 @@ import apis from '@/apis/modules/base'
 
 export default {
   state: {
-    userName: '',
-    userId: '',
-    avatarImgPath: '',
+    // userName: '',
+    // userId: '',
+    // avatarImgPath: '',
     token: cache.get('token'),
-    access: '',
-    hasGetInfo: false,
+    // access: '',
+    // hasGetInfo: false,
     unreadCount: 0,
     messageUnreadList: [],
     messageReadedList: [],

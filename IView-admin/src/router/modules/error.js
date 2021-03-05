@@ -1,34 +1,25 @@
-import { PageView } from '@/components/Layouts'
-
-export default
-    {
-        path: '/exception',
-        component: PageView,
-        redirect: '/exception/404',
-        children: [
-            {
-                path: '403',
-                name: 'Exception403',
-                component: () => import('@/views/exception/403'),
-                meta: {
-                    AllowAnonymous: true
-                }
-            },
-            {
-                path: '404',
-                name: 'Exception404',
-                component: () => import('@/views/exception/404'),
-                meta: {
-                    AllowAnonymous: true
-                }
-            },
-            {
-                path: '500',
-                name: 'Exception500',
-                component: () => import('@/views/exception/500'),
-                meta: {
-                    AllowAnonymous: true
-                }
-            }
-        ]
-    }
+export default [{
+    path: '/401',
+    name: 'Error401',
+    meta: {
+        hideInMenu: true
+    },
+    component: () => import('@/views/error/401.vue')
+},
+{
+    path: '/500',
+    name: 'Error500',
+    meta: {
+        hideInMenu: true
+    },
+    component: () => import('@/views/error/500.vue')
+},
+{
+    path: '*',
+    name: 'Error404',
+    meta: {
+        hideInMenu: true
+    },
+    component: () => import('@/views/error/404.vue')
+}
+]
