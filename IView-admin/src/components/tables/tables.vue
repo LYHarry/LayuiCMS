@@ -89,7 +89,6 @@
 <script>
 import TablesEdit from "./edit.vue";
 import handleBtns from "./handle-btns";
-import "./index.less";
 
 export default {
   name: "Tables",

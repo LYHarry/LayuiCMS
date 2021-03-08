@@ -73,84 +73,84 @@ export default {
             name: 'tree_select_page',
             icon: 'md-arrow-dropdown-circle',
             title: '树状下拉选择器',
-            component: '/components/tree-select/index'
+            component: '/components/TreeSelect'
         },
         {
             path: 'count_to_page',
             name: 'count_to_page',
             icon: 'md-trending-up',
             title: '数字渐变',
-            component: '/components/count-to/count-to'
+            component: '/components/CountTo'
         },
         {
             path: 'drag_list_page',
             name: 'drag_list_page',
             icon: 'ios-infinite',
             title: '拖拽列表',
-            component: '/components/drag-list/drag-list'
+            component: '/components/DragList'
         },
         {
             path: 'drag_drawer_page',
             name: 'drag_drawer_page',
             icon: 'md-list',
             title: '可拖拽抽屉',
-            component: '/components/drag-drawer'
+            component: '/components/DragDrawer'
         },
         {
             path: 'org_tree_page',
             name: 'org_tree_page',
             icon: 'ios-people',
             title: '组织结构树',
-            component: '/components/org-tree'
+            component: '/components/org-tree/index'
         },
         {
             path: 'tree_table_page',
             name: 'tree_table_page',
             icon: 'md-git-branch',
             title: '树状表格',
-            component: '/components/tree-table/index'
+            component: '/components/TreeTable'
         },
         {
             path: 'cropper_page',
             name: 'cropper_page',
             icon: 'md-crop',
             title: '图片裁剪',
-            component: '/components/cropper/cropper'
+            component: '/components/Cropper'
         },
         {
             path: 'tables_page',
             name: 'tables_page',
             icon: 'md-grid',
             title: '多功能表格',
-            component: '/components/tables/tables'
+            component: '/components/Tables'
         },
         {
             path: 'split_pane_page',
             name: 'split_pane_page',
             icon: 'md-pause',
             title: '分割窗口',
-            component: '/components/split-pane/split-pane'
+            component: '/components/SplitPane'
         },
         {
             path: 'markdown_page',
             name: 'markdown_page',
             icon: 'logo-markdown',
             title: 'Markdown编辑器',
-            component: '/components/markdown/markdown'
+            component: '/components/MarkDown'
         },
         {
             path: 'editor_page',
             name: 'editor_page',
             icon: 'ios-create',
             title: '富文本编辑器',
-            component: '/components/editor/editor'
+            component: '/components/Editor'
         },
         {
             path: 'icons_page',
             name: 'icons_page',
             icon: '_bear',
             title: '自定义图标',
-            component: '/components/icons/icons'
+            component: '/components/Icons'
         }
         ]
     },
@@ -164,14 +164,14 @@ export default {
             name: 'update_table_page',
             icon: 'ios-document',
             title: '上传Csv',
-            component: '/update/update-table'
+            component: '/update/UpdateTable'
         },
         {
             path: 'update_paste_page',
             name: 'update_paste_page',
             icon: 'md-clipboard',
             title: '粘贴表格数据',
-            component: '/update/update-paste'
+            component: '/update/UpdatePaste'
         }
         ]
     },
@@ -185,14 +185,14 @@ export default {
             name: 'upload-excel',
             icon: 'md-add',
             title: '导入EXCEL',
-            component: '/excel/upload-excel'
+            component: '/excel/UploadExcel'
         },
         {
             path: 'export-excel',
             name: 'export-excel',
             icon: 'md-download',
             title: '导出EXCEL',
-            component: '/excel/export-excel'
+            component: '/excel/ExportExcel'
         }
         ]
     },
@@ -210,7 +210,7 @@ export default {
             meta: {
                 beforeCloseName: 'before_close_normal'
             },
-            component: '/tools-methods/tools-methods'
+            component: '/ToolsMethods'
         }
         ]
     },
@@ -225,7 +225,7 @@ export default {
             name: 'i18n_page',
             icon: 'md-planet',
             title: 'i18n - {{ i18n_page }}',
-            component: '/i18n/i18n-page'
+            component: '/I18nPage'
         }
         ]
     },
@@ -240,7 +240,7 @@ export default {
             name: 'error_store_page',
             icon: 'ios-bug',
             title: '错误收集',
-            component: '/error-store/error-store'
+            component: '/error/error-store'
         }
         ]
     },
@@ -256,7 +256,7 @@ export default {
             name: 'error_logger_page',
             icon: 'ios-bug',
             title: '错误收集',
-            component: '/single-page/error-logger'
+            component: '/error/error-logger'
         }
         ]
     },
@@ -271,7 +271,7 @@ export default {
             name: 'directive_page',
             icon: 'ios-navigate',
             title: '指令',
-            component: '/directive/directive'
+            component: '/Directive'
         }
         ]
     },
@@ -292,11 +292,7 @@ export default {
             name: 'level_2_2',
             icon: 'md-funnel',
             title: '二级-2',
-            meta: {
-                access: ['super_admin'],
-                showAlways: true,
-            },
-            component: 'parentView',
+            component: 'ParentView',
             children: [{
                 path: 'level_2_2_1',
                 name: 'level_2_2_1',

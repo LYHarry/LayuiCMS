@@ -27,7 +27,7 @@
 
 <script>
 import PasteEditor from "_c/paste-editor";
-import { getTableDataFromArray } from "@/libs/util";
+import { getTableDataFromArray } from "@/libs/utils";
 export default {
   name: "update_paste_page",
   components: {

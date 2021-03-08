@@ -7,10 +7,11 @@ export default {
     systemMenu: '/api/menulist',
     saveErrorLogger: '/api/sys/saveErrorLogger',
     error_url: '/api/error_url',
-    get_org_data: '/api/get_org_data',
+    getOrgData: '/api/get_org_data',
     uploadImg: '/api/image/upload',
     getTableData: '/api/get_table_data',
     getTreeSelectData: '/api/get_tree_select_data',
+    getDragList: '/api/get_drag_list',
 
 
 }

@@ -61,7 +61,7 @@ export default {
       );
     },
     handleClear() {
-      this.$refs.select.reset();
+      // this.$refs.select.reset();
     },
   },
 };

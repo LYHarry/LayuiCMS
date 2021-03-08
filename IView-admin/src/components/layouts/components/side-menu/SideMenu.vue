@@ -140,7 +140,7 @@ export default {
         .filter((item) => item !== name);
     },
     updateOpenName(name) {
-      if (name === this.$conf.homeName) this.openedNames = [];
+      if (name === this.$Conf.homeName) this.openedNames = [];
       else this.openedNames = this.getOpenedNamesByActiveName(name);
     },
   },

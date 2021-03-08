@@ -1,5 +1,7 @@
 import Mock from 'mockjs'
 import apiUrl from '@/apis/urls/base'
+import { OrgData, treeData } from './data'
+import { doCustomTimes } from '@/libs/utils'
 
 const login = {
     url: apiUrl.Login,
@@ -36,11 +38,63 @@ const messageCount = {
     response: 3
 }
 
+const getOrgData = {
+    type: 'get',
+    url: apiUrl.getOrgData,
+    response: OrgData
+}
 
+const uploadImage = {
+    url: apiUrl.uploadImg,
+    response: true,
+}
+
+const getTableData = {
+    type: 'get',
+    url: apiUrl.getTableData,
+    response: function (req) {
+        let tableData = []
+        doCustomTimes(5, () => {
+            tableData.push(Mock.mock({
+                name: '@name',
+                email: '@email',
+                createTime: '@date'
+            }))
+        })
+        return tableData
+    }
+}
+
+const getTreeSelectData = {
+    type: 'get',
+    url: apiUrl.getTreeSelectData,
+    response: treeData
+}
+
+
+const getDragList = {
+    type: 'get',
+    url: apiUrl.getDragList,
+    response: function () {
+        let dragList = []
+        doCustomTimes(5, () => {
+            dragList.push(Mock.mock({
+                name: Mock.Random.csentence(10, 13),
+                id: Mock.Random.increment(10)
+            }))
+        })
+        return dragList
+    }
+}
 
 export default [
     login,
     logout,
-    messageCount
+    messageCount,
+    getOrgData,
+    uploadImage,
+    getTableData,
+    getTreeSelectData,
+    getDragList
 
 ]

@@ -43,12 +43,13 @@ export default {
     },
     getOrgData: () => {
         return axios.request({
-            url: apiUrl.get_org_data,
+            url: apiUrl.getOrgData,
             method: 'get'
         })
     },
     uploadImg: formData => {
         return axios.request({
+            method: 'post',
             url: apiUrl.uploadImg,
             data: formData
         })
@@ -62,6 +63,12 @@ export default {
     getTreeSelectData: () => {
         return axios.request({
             url: apiUrl.getTreeSelectData,
+            method: 'get'
+        })
+    },
+    getDragList: () => {
+        return axios.request({
+            url: apiUrl.getDragList,
             method: 'get'
         })
     }

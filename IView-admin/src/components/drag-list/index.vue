@@ -5,7 +5,7 @@
       <draggable
         class="drop-box1"
         :class="dropConClass.left"
-        :options="options"
+        v-bind="options"
         :value="list1"
         @input="handleListChange($event, 'left')"
         @end="handleEnd($event, 'left')"
@@ -24,7 +24,7 @@
       <draggable
         class="drop-box2"
         :class="dropConClass.right"
-        :options="options"
+        v-bind="options"
         :value="list2"
         @input="handleListChange($event, 'right')"
         @end="handleEnd($event, 'right')"

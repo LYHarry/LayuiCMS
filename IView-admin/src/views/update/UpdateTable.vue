@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { getArrayFromFile, getTableDataFromArray } from "@/libs/util";
+import { getArrayFromFile, getTableDataFromArray } from "@/libs/utils";
 export default {
   name: "update_table_page",
   data() {

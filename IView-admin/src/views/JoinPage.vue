@@ -22,7 +22,7 @@
               size="large"
             >
               <img
-                src="../assets/images/icon-social-zhihu.svg"
+                src="../assets/svg/icon-social-zhihu.svg"
                 class="join-page-other-icon"
               />
               iView 知乎专栏
@@ -33,7 +33,7 @@
               size="large"
             >
               <img
-                src="../assets/images/icon-social-juejin.svg"
+                src="../assets/svg/icon-social-juejin.svg"
                 class="join-page-other-icon"
               />
               掘金
@@ -44,7 +44,7 @@
               size="large"
             >
               <img
-                src="../assets/images/icon-social-bilibili.svg"
+                src="../assets/svg/icon-social-bilibili.svg"
                 class="join-page-other-icon"
               />
               活动直播间
@@ -55,7 +55,7 @@
               size="large"
             >
               <img
-                src="../assets/images/icon-social-twitter.svg"
+                src="../assets/svg/icon-social-twitter.svg"
                 class="join-page-other-icon"
               />
               Twitter

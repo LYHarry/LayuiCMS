@@ -19,7 +19,8 @@
 
 <script>
 import TreeSelect from "_c/tree-select";
-import { newTreeData } from "@/mock/data/tree-select";
+import { newTreeData } from "@/mock/modules/data";
+
 export default {
   name: "tree_select_page",
   components: {
