@@ -43,7 +43,7 @@ export default {
             name: 'join_page',
             icon: '_qq',
             title: 'QQ群',
-            component: '/join-page'
+            component: '/JoinPage'
         }
         ]
     },
@@ -59,7 +59,7 @@ export default {
             name: 'message_page',
             icon: 'md-notifications',
             title: '消息中心',
-            component: '/single-page/message/index'
+            component: '/dashboard/Message'
         }
         ]
     },

@@ -28,5 +28,12 @@ export default {
             method: 'get'
         })
     },
+    saveErrorLogger: (info) => {
+        return axios.request({
+            url: apiUrl.saveErrorLogger,
+            data: info,
+            method: 'post'
+        })
+    },
 
 }

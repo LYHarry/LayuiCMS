@@ -8,7 +8,7 @@ import {
     // 菜单
     Menu, Submenu, MenuItem, Dropdown, DropdownMenu, DropdownItem,
 
-    Icon, Divider, Table, Tabs, Badge, Breadcrumb, BreadcrumbItem,
+    Icon, Divider, Table, Tabs, Badge, Breadcrumb, BreadcrumbItem, Spin,
     Cascader, Upload, Avatar, Tag, Tooltip, Modal
 } from 'view-design'
 //apis
@@ -23,7 +23,7 @@ const components = [
     Layout, Row, Col, Card, Sider, Header, Content,
     Menu, Submenu, MenuItem, Dropdown, DropdownMenu, DropdownItem,
 
-    Icon, Divider, Table, Tabs, Badge, Breadcrumb, BreadcrumbItem,
+    Icon, Divider, Table, Tabs, Badge, Breadcrumb, BreadcrumbItem, Spin,
     Cascader, Upload, Avatar, Tag, Tooltip, Modal
 ]
 

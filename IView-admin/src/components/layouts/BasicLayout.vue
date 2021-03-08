@@ -86,8 +86,6 @@ import Language from "./components/Language";
 import ErrorStore from "./components/ErrorStore";
 import { mapMutations, mapActions, mapGetters } from "vuex";
 import { getNewTagList, routeEqual } from "@/libs/utils";
-//TODO 动态得到路由列表
-import routers from "@/router/modules/route-rules";
 import minLogo from "@/assets/imgs/logo-min.jpg";
 import maxLogo from "@/assets/imgs/logo.jpg";
 
@@ -144,6 +142,9 @@ export default {
     },
     unreadCount() {
       return this.$store.state.user.unreadCount;
+    },
+    mainMenu() {
+      return this.$store.getters.asyncRoutes;
     },
   },
   methods: {
@@ -210,7 +211,7 @@ export default {
      * @description 初始化设置面包屑导航和标签导航
      */
     this.setTagNavList();
-    this.setHomeRoute(routers);
+    this.setHomeRoute(this.mainMenu);
     const { name, params, query, meta } = this.$route;
     this.addTag({
       route: { name, params, query, meta },

@@ -35,10 +35,6 @@ const loginRoute = 'login' //登录页面
 
 router.beforeEach((to, from, next) => {
   ViewUI.LoadingBar.start() //加载进度条
-
-  debugger
-  const token = cache.get('token');
-  console.log('token ', token)
   //未登录
   if (!cache.get('token')) {
     // 未登录,但在免登录白名单或该页面允许匿名访问,则直接进入
@@ -52,13 +48,11 @@ router.beforeEach((to, from, next) => {
   if (to.name === loginRoute) {
     return next({ name: conf.homeName })  // 跳转到homeName页
   }
-  console.log('store.getters.asyncRoutes ', store.getters.asyncRoutes)
   if (store.getters.asyncRoutes.length !== 0) {
     return next();
   }
   // generate dynamic router
   store.dispatch('generateRoutes').then(() => {
-    debugger
     // 动态添加可访问路由表
     router.addRoutes(store.getters.asyncRoutes)
     // 请求带有 redirect 重定向时，登录自动重定向到该地址

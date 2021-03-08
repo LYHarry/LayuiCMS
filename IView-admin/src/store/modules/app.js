@@ -1,8 +1,9 @@
 import { getBreadCrumbList, setTagNavListInLocalstorage, getMenuByRouter, getTagNavListFromLocalstorage, getHomeRoute, getNextRoute, routeHasExist, routeEqual, getRouteTitleHandled, localSave, localRead } from '@/libs/utils'
-import { saveErrorLogger } from '@/apis/data'
+import apis from '@/apis/modules/base'
 import router from '@/router'
-// import routers from '@/router/routers'
 import conf from '@/config'
+import { generatorDynamicRouter } from '@/router/generate-routers'
+import cache from '@/libs/cache'
 
 const closePage = (state, route) => {
   const nextRoute = getNextRoute(state.tagNavList, route)
@@ -12,20 +13,20 @@ const closePage = (state, route) => {
   router.push(nextRoute)
 }
 
-const routers = []
-
 export default {
   state: {
     breadCrumbList: [],
     tagNavList: [],
     homeRoute: {},
-    local: localRead('local'),
+    local: cache.get('local') || '',
     errorList: [],
-    hasReadErrorPage: false
+    hasReadErrorPage: false,
+    asyncRoutes: [],
   },
   getters: {
-    menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access),
-    errorCount: state => state.errorList.length
+    menuList: state => getMenuByRouter(state.asyncRoutes),
+    errorCount: state => state.errorList.length,
+    asyncRoutes: state => state.asyncRoutes,
   },
   mutations: {
     setBreadCrumb(state, route) {
@@ -66,7 +67,7 @@ export default {
       }
     },
     setLocal(state, lang) {
-      localSave('local', lang)
+      cache.set('local', lang)
       state.local = lang
     },
     addError(state, error) {
@@ -74,6 +75,9 @@ export default {
     },
     setHasReadErrorLoggerStatus(state, status = true) {
       state.hasReadErrorPage = status
+    },
+    setRouters(state, routers) {
+      state.asyncRoutes = routers
     }
   },
   actions: {
@@ -87,9 +91,21 @@ export default {
         userId,
         userName
       }
-      saveErrorLogger(info).then(() => {
+      apis.saveErrorLogger(info).then(() => {
         commit('addError', data)
       })
-    }
+    },
+    //调用后台接口得到可访问菜单列表,生成路由
+    generateRoutes({ commit }) {
+      return new Promise((resolve, reject) => {
+        apis.getSystemMenu().then(res => {
+          generatorDynamicRouter(res.data).then(routers => {
+            commit('setRouters', routers)
+            resolve()
+          }).catch(error => reject(error))
+        }).catch(error => reject(error))
+      })
+    },
+
   }
 }

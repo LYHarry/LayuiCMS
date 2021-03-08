@@ -2,8 +2,6 @@
 import cache from '@/libs/cache'
 import conf from '@/config'
 import apis from '@/apis/modules/base'
-import { generatorDynamicRouter } from '@/router/generate-routers'
-
 
 export default {
   state: {
@@ -19,7 +17,6 @@ export default {
     messageTrashList: [],
     messageContentStore: {},
     userInfo: {},
-    asyncRoutes: [],
   },
   mutations: {
     // setAvatar(state, avatarPath) {
@@ -66,16 +63,13 @@ export default {
       state.userInfo = info;
       cache.set('user_info', info, conf.cookieExpires || 1)
     },
-    setRouters(state, routers) {
-      state.asyncRoutes = routers
-    }
+
 
   },
   getters: {
     messageUnreadCount: state => state.messageUnreadList.length,
     messageReadedCount: state => state.messageReadedList.length,
     messageTrashCount: state => state.messageTrashList.length,
-    asyncRoutes: state => state.asyncRoutes,
   },
   actions: {
     // 登录
@@ -114,20 +108,6 @@ export default {
         resolve(data)
       })
     },
-    //调用后台接口得到可访问菜单列表,生成路由
-    generateRoutes({ commit }) {
-      return new Promise((resolve, reject) => {
-        apis.getSystemMenu().then(res => {
-          generatorDynamicRouter(res.data).then(routers => {
-            debugger
-            commit('setRouters', routers)
-            resolve()
-          }).catch(error => reject(error))
-        }).catch(error => reject(error))
-      })
-    },
-
-
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount({ state, commit }) {
       apis.getUnreadCount().then(res => {

@@ -5,6 +5,7 @@ export default {
     Logout: '/api/Logout',
     MessageCount: '/api/message/count',
     systemMenu: '/api/menulist',
+    saveErrorLogger: '/api/sys/saveErrorLogger',
 
 
 }
