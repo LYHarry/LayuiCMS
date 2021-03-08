@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import "./error.less";
+import "@/assets/style/error.less";
 export default {
   name: "backBtnGroup",
   data() {
@@ -20,7 +20,7 @@ export default {
   methods: {
     backHome() {
       this.$router.replace({
-        name: this.$config.homeName,
+        name: this.$Conf.homeName,
       });
     },
     backPrev() {

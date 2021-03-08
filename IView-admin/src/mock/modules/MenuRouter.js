@@ -1,4 +1,4 @@
-import apiUrl from '@/apis/urls/baseApi'
+import apiUrl from '@/apis/urls/base'
 
 export default {
     type: 'get',
@@ -20,9 +20,8 @@ export default {
                 hideInMenu: true,
                 notCache: true,
             },
-            component: '/single-page/home'
-        }
-        ]
+            component: '/dashboard/Home'
+        }]
     },
     {
         path: '',
@@ -333,7 +332,7 @@ export default {
             path: 'params/:id',
             name: 'params',
             icon: 'md-flower',
-            title: route => `{{ params }}-${route.params.id}`,
+            title: route => `{{ params }}-${route.params && route.params.id}`,
             meta: {
                 notCache: true,
                 beforeCloseName: 'before_close_normal'
@@ -344,7 +343,7 @@ export default {
             path: 'query',
             name: 'query',
             icon: 'md-flower',
-            title: route => `{{ query }}-${route.query.id}`,
+            title: route => `{{ query }}-${route.query && route.query.id}`,
             meta: {
                 notCache: true
             },

@@ -15,7 +15,7 @@ export default [{
     component: () => import('@/views/error/500.vue')
 },
 {
-    path: '*',
+    path: '/404',
     name: 'Error404',
     meta: {
         hideInMenu: true

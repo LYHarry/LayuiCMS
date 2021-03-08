@@ -1,6 +1,7 @@
 import { isIE } from '@/libs/utils'
 import Mock from 'mockjs'
 import base from './modules/base'
+import MenuRouter from './modules/MenuRouter'
 
 if (isIE()) {
     console.error('[antd-pro] ERROR: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.')
@@ -49,7 +50,9 @@ const builder = (respond, message = '', code = 200) => {
 }
 
 const MockData = [
-    ...base
+    ...base,
+    MenuRouter
+
 ];
 
 console.log('MockData ', MockData)

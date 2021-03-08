@@ -6,7 +6,7 @@
 import error404 from "@/assets/svg/error-500.svg";
 import errorContent from "./error-content.vue";
 export default {
-  name: "error_500",
+  name: "Error500",
   components: {
     errorContent,
   },

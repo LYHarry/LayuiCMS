@@ -1,7 +1,8 @@
 // import { login, logout, getUserInfo, getMessage, getContentByMsgId, hasRead, removeReaded, restoreTrash, getUnreadCount } from '@/apis/user'
 import cache from '@/libs/cache'
-import config from '@/config'
+import conf from '@/config'
 import apis from '@/apis/modules/base'
+import { generatorDynamicRouter } from '@/router/generate-routers'
 
 
 export default {
@@ -17,7 +18,8 @@ export default {
     messageReadedList: [],
     messageTrashList: [],
     messageContentStore: {},
-    userInfo: {}
+    userInfo: {},
+    asyncRoutes: [],
   },
   mutations: {
     // setAvatar(state, avatarPath) {
@@ -34,7 +36,7 @@ export default {
     // },
     setToken(state, token) {
       state.token = token
-      cache.set('token', token, config.cookieExpires || 1)
+      cache.set('token', token, conf.cookieExpires || 1)
     },
     // setHasGetInfo(state, status) {
     //   state.hasGetInfo = status
@@ -62,15 +64,18 @@ export default {
     },
     setInfo(state, info) {
       state.userInfo = info;
-      cache.set('user_info', info, config.cookieExpires || 1)
+      cache.set('user_info', info, conf.cookieExpires || 1)
+    },
+    setRouters(state, routers) {
+      state.asyncRoutes = routers
     }
-
 
   },
   getters: {
     messageUnreadCount: state => state.messageUnreadList.length,
     messageReadedCount: state => state.messageReadedList.length,
-    messageTrashCount: state => state.messageTrashList.length
+    messageTrashCount: state => state.messageTrashList.length,
+    asyncRoutes: state => state.asyncRoutes,
   },
   actions: {
     // 登录
@@ -91,7 +96,6 @@ export default {
       return new Promise((resolve, reject) => {
         apis.logout(state.token).then(() => {
           commit('setToken', '')
-          commit('setAccess', [])
           commit('setInfo', '')
           resolve()
         }).catch(err => {
@@ -108,24 +112,22 @@ export default {
       return new Promise((resolve, reject) => {
         let data = cache.get('user_info') || {}
         resolve(data)
-        // try {
-        //   getUserInfo(state.token).then(res => {
-        //     const data = res.data
-        //     commit('setAvatar', data.avatar)
-        //     commit('setUserName', data.name)
-        //     commit('setUserId', data.user_id)
-        //     commit('setAccess', data.access)
-        //     commit('setHasGetInfo', true)
-        //     resolve(data)
-        //   }).catch(err => {
-        //     reject(err)
-        //   })
-        // } catch (error) {
-        //   reject(error)
-        // }
-
       })
     },
+    //调用后台接口得到可访问菜单列表,生成路由
+    generateRoutes({ commit }) {
+      return new Promise((resolve, reject) => {
+        apis.getSystemMenu().then(res => {
+          generatorDynamicRouter(res.data).then(routers => {
+            debugger
+            commit('setRouters', routers)
+            resolve()
+          }).catch(error => reject(error))
+        }).catch(error => reject(error))
+      })
+    },
+
+
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount({ state, commit }) {
       apis.getUnreadCount().then(res => {

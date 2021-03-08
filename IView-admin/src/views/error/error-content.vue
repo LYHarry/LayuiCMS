@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import "./error.less";
+import "@/assets/style/error.less";
 import backBtnGroup from "./back-btn-group.vue";
 export default {
   name: "ErrorContent",
