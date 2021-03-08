@@ -51,6 +51,7 @@
     </Row>
   </div>
 </template>
+
 <script>
 import excel from "@/libs/excel";
 export default {
@@ -134,5 +135,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "./common.less";
+@import "./excel.less";
 </style>

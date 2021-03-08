@@ -16,6 +16,11 @@ import apis from '@/apis'
 //全局配置
 import config from "@/config"
 
+//三方组件
+import VOrgTree from 'v-org-tree'
+import 'v-org-tree/dist/v-org-tree.css'
+Vue.use(VOrgTree)
+
 // DatePicker  TimePicker
 
 const components = [
@@ -32,6 +37,11 @@ components.map(component => {
     if (component.name === 'iForm') component.name = 'Form';
     Vue.component(component.name, component)
 });
+
+
+
+
+
 
 //挂载全局变量
 Vue.prototype.$apis = apis

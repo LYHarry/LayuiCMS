@@ -31,8 +31,7 @@
 <script>
 import OrgView from "./components/OrgView";
 import ZoomController from "./components/ZoomController";
-import { getOrgData } from "@/api/data";
-import "./index.less";
+import "./org-tree.less";
 const menuDic = {
   edit: "编辑部门",
   detail: "查看部门",
@@ -68,9 +67,8 @@ export default {
       });
     },
     getDepartmentData() {
-      getOrgData().then((res) => {
-        const { data } = res;
-        this.data = data;
+      this.$apis.base.getOrgData().then((res) => {
+        this.data = res.data;
       });
     },
   },

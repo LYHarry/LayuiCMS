@@ -35,5 +35,35 @@ export default {
             method: 'post'
         })
     },
+    errorReq: () => {
+        return axios.request({
+            url: apiUrl.error_url,
+            method: 'post'
+        })
+    },
+    getOrgData: () => {
+        return axios.request({
+            url: apiUrl.get_org_data,
+            method: 'get'
+        })
+    },
+    uploadImg: formData => {
+        return axios.request({
+            url: apiUrl.uploadImg,
+            data: formData
+        })
+    },
+    getTableData: () => {
+        return axios.request({
+            url: apiUrl.getTableData,
+            method: 'get'
+        })
+    },
+    getTreeSelectData: () => {
+        return axios.request({
+            url: apiUrl.getTreeSelectData,
+            method: 'get'
+        })
+    }
 
 }

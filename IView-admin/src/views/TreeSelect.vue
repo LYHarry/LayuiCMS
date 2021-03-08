@@ -20,7 +20,6 @@
 <script>
 import TreeSelect from "_c/tree-select";
 import { newTreeData } from "@/mock/data/tree-select";
-import { getTreeSelectData } from "@/api/data";
 export default {
   name: "tree_select_page",
   components: {
@@ -33,7 +32,7 @@ export default {
     };
   },
   mounted() {
-    getTreeSelectData().then((res) => {
+    this.$apis.base.getTreeSelectData().then((res) => {
       const { data } = res;
       this.treeData = data;
     });
