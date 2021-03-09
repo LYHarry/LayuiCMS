@@ -7,8 +7,6 @@ import i18n from './locale'
 import './libs/lazy_use'
 import './assets/style/global.less' // global style
 
-import 'view-design/dist/styles/iview.css'
-
 console.log('envConfig ', envConfig)
 
 //开发环境并且允许 mock 数据是开启 MockServer

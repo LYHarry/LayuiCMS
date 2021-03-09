@@ -60,13 +60,6 @@ export const export_table_to_excel = (id, filename) => {
     const table = document.getElementById(id);
     const wb = XLSX.utils.table_to_book(table);
     XLSX.writeFile(wb, filename);
-
-    /* the second way */
-    // const table = document.getElementById(id);
-    // const wb = XLSX.utils.book_new();
-    // const ws = XLSX.utils.table_to_sheet(table);
-    // XLSX.utils.book_append_sheet(wb, ws, filename);
-    // XLSX.writeFile(wb, filename);
 }
 
 export const export_json_to_excel = ({ data, key, title, filename, autoWidth }) => {
@@ -94,9 +87,6 @@ export const export_array_to_excel = ({ key, data, title, filename, autoWidth })
 }
 
 export const read = (data, type) => {
-    /* if type == 'base64' must fix data first */
-    // const fixedData = fixdata(data)
-    // const workbook = XLSX.read(btoa(fixedData), { type: 'base64' })
     const workbook = XLSX.read(data, { type: type });
     const firstSheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[firstSheetName];

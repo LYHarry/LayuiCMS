@@ -11,7 +11,7 @@
         </Button>
       </Row>
     </Card>
-    <Row class="margin-top-10">
+    <Row class="margin-top-10" style="display: block">
       <Table :columns="tableTitle" :data="tableData"></Table>
     </Row>
   </div>

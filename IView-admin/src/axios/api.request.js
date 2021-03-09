@@ -1,10 +1,6 @@
 import axios from "axios"
 import cache from '@/libs/cache'
-// import { ACCESS_TOKEN, LOGIN_USER_INFO } from '@/store/mutation-types'
 import { Notice, Message } from 'view-design'
-
-const ACCESS_TOKEN = 'Access-Token'
-const LOGIN_USER_INFO = 'login_user_info'
 
 //axios http 请求工具类
 class AxiosHttpRequest {
@@ -51,7 +47,7 @@ class AxiosHttpRequest {
                 if (config.data) delete config.data;
             }
             //添加接口访问权限 token
-            const token = cache.get(ACCESS_TOKEN);
+            const token = cache.get('token');
             if (token) {
                 config.headers['Authorization'] = `Bearer ${token}`;
             }
@@ -139,8 +135,8 @@ class AxiosHttpRequest {
         if (response.status === 401 || resData.serveStatus === 401) {
             Notice.error({ title: '提示', desc: '登录失效,请重新登录！' });
             Promise.resolve().then(res => {
-                cache.remove(ACCESS_TOKEN)
-                cache.remove(LOGIN_USER_INFO)
+                cache.remove('token')
+                cache.remove('user_info')
                 top.location.reload()
             });
             return false;

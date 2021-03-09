@@ -195,7 +195,7 @@
         </Card>
       </i-col>
     </Row>
-    <Row :gutter="14" style="margin-top: 14px">
+    <Row :gutter="14" style="margin-top: 14px; display: block">
       <i-col>
         <Card>
           <p slot="title">
@@ -217,9 +217,9 @@
                 count-class="count-text"
                 unit-class="unit-class"
               >
-                <span class="slot-text" slot="left"
-                  >原始数据:&nbsp;{{ integratedEndVal }}&nbsp;=>&nbsp;</span
-                >
+                <span class="slot-text" slot="left">
+                  原始数据:&nbsp;{{ integratedEndVal }}&nbsp;=>&nbsp;
+                </span>
                 <span class="slot-text" slot="right">&nbsp;times</span>
               </count-to>
             </div>

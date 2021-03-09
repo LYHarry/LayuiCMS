@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Row>
+    <Row style="display: block">
       <i-col>
         <Card>
           <Row>
@@ -30,7 +30,7 @@
         拖动这里即可拖动整个弹窗
       </Modal>
     </Row>
-    <Row style="margin-top: 10px">
+    <Row style="margin-top: 10px; display: block">
       <i-col>
         <Card>
           <Row>
@@ -110,7 +110,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 .intro-con {
   min-height: 140px;
 }

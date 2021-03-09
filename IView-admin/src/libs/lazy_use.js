@@ -24,6 +24,7 @@ import config from "@/config"
 import VOrgTree from 'v-org-tree'
 import 'v-org-tree/dist/v-org-tree.css'
 import TreeTable from 'tree-table-vue'
+import '@/assets/icons/iconfont.css'
 
 //指令
 import importDirective from '@/directive'

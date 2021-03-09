@@ -22,7 +22,6 @@ module.exports = {
     chainWebpack: (config) => {
         //别名
         config.resolve.alias
-            // .set('@$', resolve('src'))
             .set('_c', resolve('src/components'))
     },
 

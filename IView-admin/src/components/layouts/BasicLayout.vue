@@ -118,7 +118,7 @@ export default {
       return this.$store.state.app.tagRouter;
     },
     userAvatar() {
-      return this.$store.state.user.userInfo.avatar;
+      return this.$store.getters.userInfo.avatar;
     },
     cacheList() {
       const list = [

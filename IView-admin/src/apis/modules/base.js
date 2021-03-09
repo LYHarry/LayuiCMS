@@ -71,6 +71,48 @@ export default {
             url: apiUrl.getDragList,
             method: 'get'
         })
+    },
+    getMessage: () => {
+        return axios.request({
+            url: apiUrl.getMessage,
+            method: 'get'
+        })
+    },
+    removeReaded: (msg_id) => {
+        return axios.request({
+            url: apiUrl.removeReaded,
+            method: 'post',
+            data: {
+                msg_id
+            }
+        })
+    },
+    restoreTrash: (msg_id) => {
+        return axios.request({
+            url: apiUrl.restoreTrash,
+            method: 'post',
+            data: {
+                msg_id
+            }
+        })
+    },
+    getContentByMsgId: (msg_id) => {
+        return axios.request({
+            url: apiUrl.getContentByMsgId,
+            method: 'get',
+            params: {
+                msg_id
+            }
+        })
+    },
+    hasRead: (msg_id) => {
+        return axios.request({
+            url: apiUrl.hasRead,
+            method: 'post',
+            data: {
+                msg_id
+            }
+        })
     }
 
 }

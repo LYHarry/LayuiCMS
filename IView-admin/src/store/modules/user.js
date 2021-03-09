@@ -1,4 +1,3 @@
-// import { login, logout, getUserInfo, getMessage, getContentByMsgId, hasRead, removeReaded, restoreTrash, getUnreadCount } from '@/apis/user'
 import cache from '@/libs/cache'
 import conf from '@/config'
 import apis from '@/apis/modules/base'
@@ -70,12 +69,19 @@ export default {
     messageUnreadCount: state => state.messageUnreadList.length,
     messageReadedCount: state => state.messageReadedList.length,
     messageTrashCount: state => state.messageTrashList.length,
+    userInfo: (state) => {
+      let info = state.userInfo;
+      if (info && Object.keys(info).length < 1) {
+        info = cache.get('user_info') || {}
+      }
+      return info;
+    }
   },
   actions: {
     // 登录
-    handleLogin({ commit }, userInfo) {
+    handleLogin({ commit }, ajaxData) {
       return new Promise((resolve, reject) => {
-        apis.login(userInfo).then(res => {
+        apis.login(ajaxData).then(res => {
           const data = res.data || {}
           commit('setToken', data.token)
           commit('setInfo', data)
@@ -117,7 +123,7 @@ export default {
     // 获取消息列表，其中包含未读、已读、回收站三个列表
     getMessageList({ state, commit }) {
       return new Promise((resolve, reject) => {
-        getMessage().then(res => {
+        apis.getMessage().then(res => {
           const { unread, readed, trash } = res.data
           commit('setMessageUnreadList', unread.sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
           commit('setMessageReadedList', readed.map(_ => {
@@ -141,7 +147,7 @@ export default {
         if (contentItem) {
           resolve(contentItem)
         } else {
-          getContentByMsgId(msg_id).then(res => {
+          apis.getContentByMsgId(msg_id).then(res => {
             const content = res.data
             commit('updateMessageContentStore', { msg_id, content })
             resolve(content)
@@ -152,7 +158,7 @@ export default {
     // 把一个未读消息标记为已读
     hasRead({ state, commit }, { msg_id }) {
       return new Promise((resolve, reject) => {
-        hasRead(msg_id).then(() => {
+        apis.hasRead(msg_id).then(() => {
           commit('moveMsg', {
             from: 'messageUnreadList',
             to: 'messageReadedList',
@@ -168,7 +174,7 @@ export default {
     // 删除一个已读消息到回收站
     removeReaded({ commit }, { msg_id }) {
       return new Promise((resolve, reject) => {
-        removeReaded(msg_id).then(() => {
+        apis.removeReaded(msg_id).then(() => {
           commit('moveMsg', {
             from: 'messageReadedList',
             to: 'messageTrashList',
@@ -183,7 +189,7 @@ export default {
     // 还原一个已删除消息到已读消息
     restoreTrash({ commit }, { msg_id }) {
       return new Promise((resolve, reject) => {
-        restoreTrash(msg_id).then(() => {
+        apis.restoreTrash(msg_id).then(() => {
           commit('moveMsg', {
             from: 'messageTrashList',
             to: 'messageReadedList',

@@ -40,7 +40,7 @@
         </Card>
       </i-col>
     </Row>
-    <Row>
+    <Row style="display: block">
       <Card shadow>
         <example style="height: 310px" />
       </Card>

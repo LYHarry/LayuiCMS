@@ -20,8 +20,8 @@ export default {
   },
   methods: {
     ...mapActions(["handleLogin", "getUserInfo"]),
-    handleSubmit(userinfo) {
-      this.handleLogin(userinfo).then((res) => {
+    handleSubmit(ajaxData) {
+      this.handleLogin(ajaxData).then((res) => {
         this.$router.push({
           name: this.$Conf.homeName,
         });

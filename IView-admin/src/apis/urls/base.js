@@ -12,6 +12,11 @@ export default {
     getTableData: '/api/get_table_data',
     getTreeSelectData: '/api/get_tree_select_data',
     getDragList: '/api/get_drag_list',
+    getMessage: "/api/message/init",
+    removeReaded: '/api/message/remove_readed',
+    restoreTrash: '/api/message/restore',
+    getContentByMsgId: '/api/message/content',
+    hasRead: '/api/message/has_read',
 
 
 }
